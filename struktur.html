@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Struktur & Fungsi Sel</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg1:#D0F0C0;
+    --bg2:#F1F8E9;
+    --accent:#66BB6A;
+    --blue:#81D4FA;
+    --pink:#F48FB1;
+    --yellow:#FFF176;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Baloo 2', sans-serif;
+    background:linear-gradient(to bottom,var(--bg1),var(--bg2));
+    min-height:100vh;
+    padding:30px;
+    color:#2E7D32;
+  }
+  h1{
+    text-align:center;
+    font-size:32px;
+    color:#1B5E20;
+    margin-bottom:12px;
+  }
+  h3{
+    background:var(--accent);
+    color:white;
+    display:inline-block;
+    padding:8px 16px;
+    border-radius:10px;
+    margin-top:24px;
+    cursor:pointer;
+    font-size:18px;
+    transition:background 0.3s, transform 0.2s;
+  }
+  h3:hover{
+    background:#43A047;
+    transform:scale(1.05);
+  }
+  p{margin-top:8px;font-size:16px;line-height:1.5;}
+  ul{margin-top:6px;text-align:left;margin-left:30px;}
+  .content{margin-top:20px;text-align:center;}
+  .example{
+    background:white;
+    border-radius:10px;
+    padding:16px;
+    margin:16px auto;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    max-width:700px;
+    text-align:left;
+    overflow:hidden;
+    opacity:0;
+    max-height:0;
+    transform:translateY(-10px);
+    transition:all 0.6s ease;
+  }
+  .example.show{
+    opacity:1;
+    max-height:3000px;
+    transform:translateY(0);
+  }
+
+  /* Animasi Sel */
+  .cell-box{
+    position:relative;
+    width:220px;height:220px;
+    background:var(--blue);
+    border-radius:50%;
+    margin:20px auto;
+    box-shadow:inset 0 0 20px rgba(0,0,0,0.15);
+    animation:floatCell 4s ease-in-out infinite alternate;
+  }
+  @keyframes floatCell{
+    from{transform:translateY(0)}
+    to{transform:translateY(10px)}
+  }
+  .nucleus{
+    position:absolute;
+    top:60px;left:60px;
+    width:100px;height:100px;
+    background:var(--pink);
+    border-radius:50%;
+    animation:pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.1)}
+  }
+  .mito{
+    position:absolute;
+    width:40px;height:20px;
+    background:var(--yellow);
+    border-radius:12px;
+    top:40px;left:140px;
+    animation:moveMito 4s ease-in-out infinite;
+  }
+  @keyframes moveMito{
+    0%{transform:translateX(0)}
+    50%{transform:translateX(-30px)}
+    100%{transform:translateX(0)}
+  }
+
+  /* Animasi Difusi */
+  .diff-box{
+    position:relative;
+    width:260px;height:120px;
+    background:#E8F5E9;
+    margin:20px auto;
+    border:2px dashed #81C784;
+    overflow:hidden;
+  }
+  .particle{
+    position:absolute;
+    width:16px;height:16px;
+    background:#66BB6A;
+    border-radius:50%;
+    top:50px;left:10px;
+    animation:movePart 5s linear infinite;
+  }
+  @keyframes movePart{
+    0%{left:10px}
+    50%{left:180px}
+    100%{left:10px}
+  }
+
+  /* Animasi Pembelahan Sel */
+  .division-box{
+    position:relative;
+    width:240px;height:120px;
+    margin:20px auto;
+  }
+  .cell1,.cell2{
+    position:absolute;
+    top:20px;
+    width:100px;height:100px;
+    background:#AED581;
+    border-radius:50%;
+    transition:transform 2s ease;
+  }
+  .cell1{left:20px;animation:divideLeft 3s ease-in-out infinite alternate;}
+  .cell2{right:20px;animation:divideRight 3s ease-in-out infinite alternate;}
+  @keyframes divideLeft{from{transform:translateX(0)}to{transform:translateX(-20px)}}
+  @keyframes divideRight{from{transform:translateX(0)}to{transform:translateX(20px)}}
+
+  .formula{
+    font-family:monospace;
+    background:#fff8e1;
+    padding:4px 8px;
+    border-radius:6px;
+  }
+
+  .back{
+    display:inline-block;
+    margin-top:30px;
+    text-decoration:none;
+    background:#2E7D32;
+    color:white;
+    padding:10px 20px;
+    border-radius:10px;
+    transition:background 0.3s;
+  }
+  .back:hover{background:#1B5E20;}
+  .cell-animation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+}
+
+.cell {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle at center, #c8f7c5 50%, #a5d6a7 100%);
+  border: 3px solid #4caf50;
+  border-radius: 50%;
+  animation: pulse 3s ease-in-out infinite;
+  overflow: hidden;
+}
+
+.nucleus {
+  position: absolute;
+  top: 70px;
+  left: 70px;
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle, #fff59d, #fbc02d);
+  border-radius: 50%;
+  animation: nucleusMove 5s ease-in-out infinite;
+}
+
+.mitochondria {
+  position: absolute;
+  top: 30px;
+  left: 130px;
+  width: 40px;
+  height: 20px;
+  background: #ef5350;
+  border-radius: 10px;
+  animation: mitoMove 4s ease-in-out infinite alternate;
+}
+
+.ribosome {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #42a5f5;
+  border-radius: 50%;
+  opacity: 0.9;
+}
+.r1 { top: 50px; left: 40px; animation: riboMove1 6s linear infinite alternate; }
+.r2 { top: 120px; left: 100px; animation: riboMove2 5s linear infinite alternate; }
+.r3 { top: 80px; left: 150px; animation: riboMove3 7s linear infinite alternate; }
+
+.vacuole {
+  position: absolute;
+  bottom: 20px;
+  right: 40px;
+  width: 50px;
+  height: 50px;
+  background: rgba(173, 216, 230, 0.5);
+  border: 2px solid #90caf9;
+  border-radius: 50%;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(76,175,80,0.4); }
+  50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(76,175,80,0.6); }
+}
+
+@keyframes nucleusMove {
+  0%,100% { transform: translate(0, 0); }
+  50% { transform: translate(10px, -8px); }
+}
+
+@keyframes mitoMove {
+  0% { transform: rotate(0deg) translateX(0); }
+  100% { transform: rotate(360deg) translateX(10px); }
+}
+
+@keyframes riboMove1 {
+  0% { transform: translate(0,0); }
+  100% { transform: translate(10px, -10px); }
+}
+@keyframes riboMove2 {
+  0% { transform: translate(0,0); }
+  100% { transform: translate(-10px, 10px); }
+}
+@keyframes riboMove3 {
+  0% { transform: translate(0,0); }
+  100% { transform: translate(8px, 5px); }
+}
+
+</style>
+</head>
+<body>
+
+  <h1>Struktur & Fungsi Sel</h1>
+  <div class="content">
+
+    <h3 onclick="toggle('bab1')">1️⃣ Pengantar Sel</h3>
+    <div id="bab1" class="example">
+      <p><strong>Sel</strong> adalah unit terkecil dari kehidupan yang dapat melakukan semua fungsi kehidupan seperti pertumbuhan, reproduksi, dan metabolisme.</p>
+      <p>Sel dapat dibedakan menjadi:</p>
+      <ul>
+        <li><strong>Sel Prokariotik</strong> → tidak memiliki inti sejati (contoh: bakteri)</li>
+        <li><strong>Sel Eukariotik</strong> → memiliki inti sejati (contoh: hewan, tumbuhan)</li>
+      </ul>
+      <div class="cell-box">
+        <div class="nucleus"></div>
+        <div class="mito"></div>
+      </div>
+      <small>Inti sel (kuning tua) dan mitokondria (kuning) di dalam sel.</small>
+    </div>
+
+<h3 onclick="toggle('bab2')">2️⃣ Struktur Sel</h3>
+<div id="bab2" class="example">
+  <p>Setiap sel memiliki bagian utama yang memiliki fungsi khusus:</p>
+  <ul>
+    <li><strong>Membran sel</strong> — pembatas dan pengatur keluar-masuk zat</li>
+    <li><strong>Sitoplasma</strong> — tempat organel berada</li>
+    <li><strong>Inti sel (nukleus)</strong> — pengatur aktivitas sel</li>
+    <li><strong>Mitokondria</strong> — pusat energi sel</li>
+    <li><strong>Ribosom</strong> — tempat sintesis protein</li>
+    <li><strong>Retikulum endoplasma</strong> — jalur transportasi dalam sel</li>
+    <li><strong>Vakuola</strong> — tempat penyimpanan</li>
+  </ul>
+
+  <div class="cell-animation">
+    <div class="cell">
+      <div class="nucleus"></div>
+      <div class="mitochondria"></div>
+      <div class="ribosome r1"></div>
+      <div class="ribosome r2"></div>
+      <div class="ribosome r3"></div>
+      <div class="vacuole"></div>
+    </div>
+  </div>
+
+  <small>Inti sel (kuning), mitokondria (merah), dan ribosom (biru kecil) yang bergerak di sitoplasma.</small>
+</div>
+
+    <h3 onclick="toggle('bab3')">3️⃣ Fungsi Membran Sel dan Difusi</h3>
+    <div id="bab3" class="example">
+      <p><strong>Membran sel</strong> berfungsi sebagai pelindung dan pengatur keluar-masuk zat. Salah satu proses penting adalah <strong>difusi</strong> — perpindahan molekul dari konsentrasi tinggi ke rendah.</p>
+      <div class="diff-box">
+        <div class="particle"></div>
+      </div>
+      <small>Partikel hijau bergerak dari kiri (konsentrasi tinggi) ke kanan (rendah).</small>
+
+      <h4>Latihan Interaktif Difusi:</h4>
+      <p>Jika konsentrasi awal (C₁) = <input type="number" id="c1" placeholder="contoh: 80">  
+      dan akhir (C₂) = <input type="number" id="c2" placeholder="contoh: 20">,  
+      berapa <strong>ΔC</strong> (perbedaan konsentrasi)?</p>
+      <button onclick="hitungDifusi()">Hitung ΔC</button>
+      <p id="hasilDifusi" class="result"></p>
+    </div>
+
+    <h3 onclick="toggle('bab4')">4️⃣ Pembelahan Sel</h3>
+    <div id="bab4" class="example">
+      <p>Pembelahan sel adalah proses penting untuk pertumbuhan dan regenerasi.  
+      Terdapat dua jenis utama:</p>
+      <ul>
+        <li><strong>Mitosis</strong> — menghasilkan dua sel identik (pertumbuhan)</li>
+        <li><strong>Meiosis</strong> — menghasilkan empat sel dengan kromosom separuh (reproduksi)</li>
+      </ul>
+      <div class="division-box">
+        <div class="cell1"></div>
+        <div class="cell2"></div>
+      </div>
+      <small>Dua sel hijau yang saling menjauh menggambarkan pembelahan mitosis.</small>
+
+      <h4>Latihan Interaktif Pembelahan:</h4>
+      <p>Jika satu sel membelah secara mitosis sebanyak  
+      <input type="number" id="nCell" placeholder="contoh: 3"> kali, berapa total sel yang dihasilkan?</p>
+      <button onclick="hitungSel()">Hitung Jumlah Sel</button>
+      <p id="hasilSel" class="result"></p>
+    </div>
+
+    <a href="biologi.html" class="back">← Kembali ke Menu Sebelumnya</a>
+  </div>
+
+  <script>
+    function toggle(id){
+      document.getElementById(id).classList.toggle('show');
+    }
+
+    function hitungDifusi(){
+      const c1 = parseFloat(document.getElementById('c1').value);
+      const c2 = parseFloat(document.getElementById('c2').value);
+      const out = document.getElementById('hasilDifusi');
+      if(isNaN(c1)||isNaN(c2)) return out.innerText='⚠️ Masukkan nilai C₁ dan C₂!';
+      const dc = Math.abs(c1-c2);
+      out.innerHTML = `Perbedaan konsentrasi ΔC = <strong>${dc}</strong>`;
+    }
+
+    function hitungSel(){
+      const n = parseInt(document.getElementById('nCell').value);
+      const out = document.getElementById('hasilSel');
+      if(isNaN(n)||n<0) return out.innerText='⚠️ Masukkan jumlah pembelahan yang valid!';
+      const total = Math.pow(2,n);
+      out.innerHTML = `Setelah ${n} kali pembelahan → total sel = <strong>${total}</strong>`;
+    }
+  </script>
+
+</body>
+</html>

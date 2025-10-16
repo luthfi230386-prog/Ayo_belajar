@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="theme-color" content="#B5EAD7" />
+  <meta name="description" content="Ayo Belajar Biologi — Belajar dari dasar hingga lanjutan!" />
+  <title>Ayo Belajar — Biologi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg1:#B5EAD7;
+      --bg2:#C7CEEA;
+      --accent:#59C9A5;
+      --shadow: rgba(0,0,0,0.12);
+    }
+
+    * {box-sizing:border-box;margin:0;padding:0}
+    html,body {
+      height:100%;
+      font-family:'Baloo 2',sans-serif;
+      background:linear-gradient(180deg,var(--bg1) 0%,var(--bg2) 80%);
+      display:flex;align-items:center;justify-content:center;
+      padding:28px;
+      min-height:100vh;
+    }
+
+    .stage {
+      width:100%;max-width:720px;
+      background:rgba(255,255,255,0.95);
+      border-radius:20px;
+      box-shadow:0 12px 28px var(--shadow);
+      padding:40px 32px;
+      text-align:center;
+    }
+
+    .title {
+      font-size:42px;
+      color:#333;
+      margin-bottom:10px;
+    }
+
+    .desc {
+      color:#555;
+      margin-bottom:30px;
+      font-size:18px;
+    }
+
+    .btn-column {
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+      align-items:center;
+    }
+
+    .cta {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      justify-content:center;
+      padding:14px 26px;
+      border-radius:12px;
+      background:linear-gradient(90deg,var(--accent),#76D7C4);
+      color:white;
+      font-weight:800;
+      text-decoration:none;
+      font-size:18px;
+      box-shadow:0 8px 20px rgba(89,201,165,0.2);
+      transition:transform .18s ease,box-shadow .18s ease;
+    }
+
+    .cta span.icon {
+      font-size:22px;
+    }
+
+    .cta:hover {
+      transform:translateY(-4px);
+      box-shadow:0 12px 30px rgba(89,201,165,0.28);
+    }
+
+    .footer {
+      margin-top:28px;
+      font-size:13px;
+      color:#616161;
+    }
+
+    .back-btn {
+      background-color:#ddd;
+      background:linear-gradient(90deg,#aaa,#bbb);
+      color:#fff;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="stage" role="main" aria-labelledby="page-title">
+    <h1 id="page-title" class="title">Belajar Biologi</h1>
+    <p class="desc">Pilih topik Biologi yang ingin kamu pelajari:</p>
+
+    <div class="btn-column" role="navigation" aria-label="Pelajaran Biologi">
+      <a class="cta" href="struktur.html" onclick="alert('Mulai belajar Struktur dan Fungsi Sel!')"><span class="icon">🧫</span> STRUKTUR & FUNGSI SEL</a>
+      <a class="cta" href="genetika.html" onclick="alert('Mulai belajar Genetika!')"><span class="icon">🧬</span> GENETIKA</a>
+      <a class="cta" href="ekologi.html" onclick="alert('Mulai belajar Ekologi!')"><span class="icon">🌿</span> EKOLOGI</a>
+      <a class="cta" href="evolusi.html" onclick="alert('Mulai belajar Evolusi!')"><span class="icon">🐒</span> EVOLUSI</a>
+      <a class="cta" href="fisiologi.html" onclick="alert('Mulai belajar Anatomi & Fisiologi!')"><span class="icon">🫀</span> ANATOMI & FISIOLOGI</a>
+
+      <!-- Tombol kembali -->
+      <a class="cta back-btn" href="ipa.html">⬅️ Kembali ke Menu Sebelumnya</a>
+    </div>
+
+    <div class="footer">© 2025</div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="theme-color" content="#A8E6CF" />
+  <meta name="description" content="Ayo Belajar Fisika — Belajar dari dasar hingga lanjutan!" />
+  <title>Ayo Belajar — Fisika</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg1:#A8E6CF;
+      --bg2:#FFD3B6;
+      --accent:#FF6F61;
+      --shadow: rgba(0,0,0,0.12);
+    }
+
+    * {box-sizing:border-box;margin:0;padding:0}
+    html,body {
+      height:100%;
+      font-family:'Baloo 2',sans-serif;
+      background:linear-gradient(180deg,var(--bg1) 0%,var(--bg2) 80%);
+      display:flex;align-items:center;justify-content:center;
+      padding:28px;
+      min-height:100vh;
+    }
+
+    .stage {
+      width:100%;max-width:720px;
+      background:rgba(255,255,255,0.95);
+      border-radius:20px;
+      box-shadow:0 12px 28px var(--shadow);
+      padding:40px 32px;
+      text-align:center;
+    }
+
+    .title {
+      font-size:42px;
+      color:#333;
+      margin-bottom:10px;
+    }
+
+    .desc {
+      color:#555;
+      margin-bottom:30px;
+      font-size:18px;
+    }
+
+    .btn-column {
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+      align-items:center;
+    }
+
+    .cta {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      justify-content:center;
+      padding:14px 26px;
+      border-radius:12px;
+      background:linear-gradient(90deg,var(--accent),#FF9A76);
+      color:white;
+      font-weight:800;
+      text-decoration:none;
+      font-size:18px;
+      box-shadow:0 8px 20px rgba(255,111,97,0.2);
+      transition:transform .18s ease,box-shadow .18s ease;
+    }
+
+    .cta span.icon {
+      font-size:22px;
+    }
+
+    .cta:hover {
+      transform:translateY(-4px);
+      box-shadow:0 12px 30px rgba(255,111,97,0.28);
+    }
+
+    .footer {
+      margin-top:28px;
+      font-size:13px;
+      color:#616161;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="stage" role="main" aria-labelledby="page-title">
+    <h1 id="page-title" class="title">Belajar Fisika</h1>
+    <p class="desc">Pilih topik Fisika yang ingin kamu pelajari:</p>
+
+    <div class="btn-column" role="navigation" aria-label="Pelajaran Fisika">
+      <a class="cta" href="fisika_dasar.html" onclick="alert('Mulai belajar Fisika Dasar!')"><span class="icon">⚙️</span> FISIKA DASAR</a>
+      <a class="cta" href="fisika_listrik.html" onclick="alert('Mulai belajar Fisika Listrik!')"><span class="icon">⚡</span> FISIKA LISTRIK</a>
+      <a class="cta" href="fisika_modern.html" onclick="alert('Mulai belajar Fisika Modern!')"><span class="icon">🌌</span> FISIKA MODERN</a>
+      <a class="cta" href="fisika_kuantum.html" onclick="alert('Mulai belajar Fisika Kuantum!')"><span class="icon">🔬</span> FISIKA KUANTUM</a>  
+        <a class="cta back-btn" href="ipa.html"> ⬅️ Kembali ke Menu Sebelumnya </a>
+    </div>
+
+    <div class="footer">© 2025</div>
+  </main>
+</body>
+</html>

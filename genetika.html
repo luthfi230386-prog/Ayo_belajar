@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Genetika</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg1:#E1F5FE;
+    --bg2:#B3E5FC;
+    --accent:#4FC3F7;
+    --dark:#0277BD;
+    --dna:#0288D1;
+    --mutasi:#FF7043;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Baloo 2', sans-serif;
+    background:linear-gradient(to bottom,var(--bg1),var(--bg2));
+    min-height:100vh;
+    padding:30px;
+    color:#01579B;
+  }
+  h1{text-align:center;font-size:32px;color:var(--dark);margin-bottom:12px;}
+  h3{
+    background:var(--accent);
+    color:white;
+    display:inline-block;
+    padding:8px 16px;
+    border-radius:10px;
+    margin-top:24px;
+    cursor:pointer;
+    font-size:18px;
+    transition:background 0.3s, transform 0.2s;
+  }
+  h3:hover{background:#29B6F6;transform:scale(1.05);}
+  p{margin-top:8px;font-size:16px;line-height:1.5;}
+  ul{margin-top:6px;text-align:left;margin-left:30px;}
+  .content{margin-top:20px;text-align:center;}
+  .example{
+    background:white;
+    border-radius:10px;
+    padding:16px;
+    margin:16px auto;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    max-width:700px;
+    text-align:left;
+    overflow:hidden;
+    opacity:0;
+    max-height:0;
+    transform:translateY(-10px);
+    transition:all 0.6s ease;
+  }
+  .example.show{opacity:1;max-height:3000px;transform:translateY(0);}
+
+/* --- DNA 3D Spiral Animation --- */
+.dna-container {
+  position: relative;
+  width: 220px;
+  height: 280px;
+  margin: 30px auto;
+  perspective: 1000px;
+}
+
+.dna {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform-style: preserve-3d;
+  transform: translateX(-50%) rotateX(0deg) rotateY(0deg);
+  animation: spin 6s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: translateX(-50%) rotateY(0deg); }
+  100% { transform: translateX(-50%) rotateY(360deg); }
+}
+
+.base {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.rung {
+  position: absolute;
+  width: 90px;
+  height: 2px;
+  background: #4FC3F7;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+
+  /* Mendel box */
+  .mendel-box{
+    display:grid;
+    grid-template-columns:repeat(2,70px);
+    grid-gap:8px;
+    justify-content:center;
+    margin:20px auto;
+  }
+  .square{
+    width:70px;height:70px;
+    background:#E3F2FD;
+    border:2px solid #90CAF9;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:bold;
+    border-radius:8px;
+    transition:0.3s;
+  }
+  .square:hover{background:#BBDEFB;transform:scale(1.1);}
+
+  /* Mutasi DNA (warna berubah) */
+  .mutasi-box{
+    text-align:center;margin:20px auto;
+  }
+  .mutasi-dna{
+    width:180px;height:180px;
+    border-radius:50%;
+    margin:20px auto;
+    background:radial-gradient(circle at center,var(--dna),#81D4FA);
+    animation:pulseDNA 3s ease-in-out infinite;
+    box-shadow:0 0 20px rgba(2,136,209,0.5);
+  }
+  @keyframes pulseDNA{
+    0%,100%{transform:scale(1);box-shadow:0 0 20px rgba(2,136,209,0.5);}
+    50%{transform:scale(1.1);box-shadow:0 0 35px rgba(2,136,209,0.8);}
+  }
+
+  .back{
+    display:inline-block;
+    margin-top:30px;
+    text-decoration:none;
+    background:var(--dark);
+    color:white;
+    padding:10px 20px;
+    border-radius:10px;
+    transition:background 0.3s;
+  }
+  .back:hover{background:#01579B;}
+</style>
+</head>
+<body>
+
+  <h1>Genetika</h1>
+  <div class="content">
+
+    <h3 onclick="toggle('bab1')">1️⃣ Pengantar Genetika</h3>
+    <div id="bab1" class="example">
+      <p><strong>Genetika</strong> mempelajari bagaimana sifat makhluk hidup diwariskan dari induk ke keturunannya.  
+      Konsep utama genetika mencakup:</p>
+      <ul>
+        <li><strong>Gen</strong> — unit pewarisan sifat</li>
+        <li><strong>DNA</strong> — molekul penyimpan informasi genetik</li>
+        <li><strong>Kromosom</strong> — struktur yang membawa gen di dalam inti sel</li>
+      </ul>
+<div class="dna-container">
+  <div class="dna" id="dnaHelix"></div>
+</div>
+
+      <small>🧬 Animasi DNA berputar menggambarkan struktur heliks ganda.</small>
+    </div>
+
+    <h3 onclick="toggle('bab2')">2️⃣ Hukum Pewarisan Mendel</h3>
+    <div id="bab2" class="example">
+      <p><strong>Gregor Mendel</strong> menemukan pola pewarisan sifat menggunakan tanaman kacang ercis.  
+      Persilangan sederhana <strong>AA</strong> × <strong>aa</strong> menghasilkan keturunan <strong>Aa</strong> (dominansi penuh).</p>
+
+      <div class="mendel-box">
+        <div class="square">Aa</div>
+        <div class="square">Aa</div>
+        <div class="square">Aa</div>
+        <div class="square">Aa</div>
+      </div>
+
+      <h4>Latihan Interaktif:</h4>
+      <p>Masukkan peluang gen dominan (A): <input type="number" id="pA" placeholder="0.5" step="0.1">  
+      dan gen resesif (a): <input type="number" id="pa" placeholder="0.5" step="0.1">  
+      <button onclick="hitungGen()">Hitung Peluang</button></p>
+      <p id="hasilGen"></p>
+    </div>
+
+    <h3 onclick="toggle('bab3')">3️⃣ Mutasi Gen</h3>
+    <div id="bab3" class="example">
+      <p><strong>Mutasi gen</strong> adalah perubahan pada urutan DNA yang dapat mengubah sifat makhluk hidup.  
+      Mutasi dapat bersifat menguntungkan, netral, atau merugikan tergantung lokasi dan dampaknya.</p>
+
+      <div class="mutasi-box">
+        <div id="mutasiDNA" class="mutasi-dna"></div>
+        <button onclick="ubahMutasi()">🔄 Lakukan Mutasi!</button>
+      </div>
+      <small>Warna DNA berubah saat mutasi terjadi, menunjukkan perubahan struktur genetik.</small>
+    </div>
+
+    <a href="biologi.html" class="back">← Kembali ke Menu Sebelumnya</a>
+  </div>
+
+  <script>
+    function toggle(id){
+      document.getElementById(id).classList.toggle('show');
+    }
+
+    function hitungGen(){
+      const pA = parseFloat(document.getElementById('pA').value);
+      const pa = parseFloat(document.getElementById('pa').value);
+      const out = document.getElementById('hasilGen');
+      if(isNaN(pA)||isNaN(pa)||Math.abs(pA+pa-1)>0.001)
+        return out.innerText='⚠️ Pastikan total peluang A + a = 1!';
+      const AA = pA*pA;
+      const Aa = 2*pA*pa;
+      const aa = pa*pa;
+      out.innerHTML = `
+        📊 Hasil peluang genotipe:<br>
+        🟦 AA = <strong>${(AA*100).toFixed(1)}%</strong><br>
+        🟩 Aa = <strong>${(Aa*100).toFixed(1)}%</strong><br>
+        ⬜ aa = <strong>${(aa*100).toFixed(1)}%</strong>`;
+    }
+
+    function ubahMutasi(){
+      const dna = document.getElementById('mutasiDNA');
+      const warna = ['#FF7043','#AB47BC','#66BB6A','#FFA726','#42A5F5'];
+      const acak = warna[Math.floor(Math.random()*warna.length)];
+      dna.style.background = `radial-gradient(circle at center,${acak},#B3E5FC)`;
+      dna.style.boxShadow = `0 0 25px ${acak}`;
+    }
+    // Membuat spiral DNA secara dinamis
+const dna = document.getElementById("dnaHelix");
+for (let i = 0; i < 40; i++) {
+  const angle = i * 18; // jarak antar putaran
+  const y = i * 6;
+  const leftDot = document.createElement("div");
+  const rightDot = document.createElement("div");
+  const rung = document.createElement("div");
+
+  leftDot.className = "base";
+  rightDot.className = "base";
+  rung.className = "rung";
+
+  const colorL = i % 2 === 0 ? "#0288D1" : "#29B6F6";
+  const colorR = i % 2 === 0 ? "#4FC3F7" : "#81D4FA";
+
+  leftDot.style.background = colorL;
+  rightDot.style.background = colorR;
+
+  // posisi heliks (sinus & cosinus)
+  const x1 = Math.sin(angle * Math.PI / 180) * 40;
+  const z1 = Math.cos(angle * Math.PI / 180) * 40;
+  const x2 = -x1;
+  const z2 = -z1;
+
+  leftDot.style.transform = `translate3d(${x1}px, ${y}px, ${z1}px)`;
+  rightDot.style.transform = `translate3d(${x2}px, ${y}px, ${z2}px)`;
+  rung.style.transform = `translate3d(-50%, ${y}px, 0) rotateY(${angle}deg)`;
+
+  dna.appendChild(leftDot);
+  dna.appendChild(rightDot);
+  dna.appendChild(rung);
+}
+
+  </script>
+
+</body>
+</html>

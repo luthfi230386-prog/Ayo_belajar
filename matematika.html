@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="theme-color" content="#C5CAE9" />
+  <meta name="description" content="Ayo Belajar Matematika — Belajar dengan interaktif dan menyenangkan!" />
+  <title>Ayo Belajar — Matematika</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg1:#BBDEFB;
+      --bg2:#E3F2FD;
+      --accent:#3F51B5;
+      --shadow: rgba(0,0,0,0.12);
+      --line:#5C6BC0;
+      --dot:#7986CB;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{
+      height:100%;
+      font-family:'Baloo 2',system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial,sans-serif;
+      -webkit-font-smoothing:antialiased;
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:linear-gradient(180deg,var(--bg1) 0%,var(--bg2) 80%);
+      display:flex;align-items:center;justify-content:center;
+      padding:28px;
+      min-height:100vh;
+    }
+
+    .stage{
+      width:100%;max-width:880px;
+      background:rgba(255,255,255,0.95);
+      border-radius:20px;
+      box-shadow:0 12px 28px var(--shadow);
+      padding:32px;
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+      transition:all 0.3s ease-in-out;
+    }
+
+    .title{font-size:44px;color:#333;margin-bottom:6px}
+    .subtitle{font-size:18px;color:#666;margin-bottom:20px}
+
+    .logo-letters{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      margin-bottom:18px;
+      flex-wrap:wrap;
+    }
+
+    .letter{
+      width:60px;height:60px;
+      display:flex;align-items:center;justify-content:center;
+      border-radius:14px;
+      color:#fff;
+      font-size:30px;
+      font-weight:800;
+      box-shadow:0 6px 15px rgba(0,0,0,0.08);
+      animation:bounceSmall 1.6s ease-in-out infinite;
+    }
+    .l1{background:#FFB6C1}
+    .l2{background:#9FA8DA;animation-delay:0.1s}
+    .l3{background:#81D4FA;animation-delay:0.2s}
+    .l4{background:#FFF176;animation-delay:0.3s}
+
+    @keyframes bounceSmall{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-8px)}
+    }
+
+    .pill{
+      display:inline-block;
+      background:rgba(255,255,255,0.6);
+      border-radius:50px;
+      padding:6px 14px;
+      font-weight:700;
+      margin-bottom:8px;
+    }
+
+    .desc{color:#444;margin-bottom:18px;font-size:16px;line-height:1.4;}
+
+    .content-row{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:32px;
+      flex-wrap:wrap;
+    }
+
+    /* Animasi Matematika (Grafik Fungsi Sinus) */
+    .math-anim{
+      width:260px;height:180px;
+      position:relative;
+      background:linear-gradient(to top,#E8EAF6,#C5CAE9);
+      border-radius:16px;
+      box-shadow:inset 0 -4px 10px rgba(0,0,0,0.05);
+      overflow:hidden;
+    }
+
+    .axis{
+      position:absolute;
+      background:#303F9F;
+    }
+    .x-axis{bottom:50%;left:0;width:100%;height:2px;}
+    .y-axis{left:50%;top:0;width:2px;height:100%;}
+
+    .dot{
+      width:10px;height:10px;
+      background:var(--dot);
+      border-radius:50%;
+      position:absolute;
+      bottom:90px;
+      left:0;
+      animation:moveDot 4s linear infinite;
+    }
+
+    @keyframes moveDot{
+      0%{left:0;bottom:90px;}
+      25%{left:60px;bottom:130px;}
+      50%{left:130px;bottom:90px;}
+      75%{left:190px;bottom:50px;}
+      100%{left:260px;bottom:90px;}
+    }
+
+    .formula{
+      position:absolute;
+      top:12px;left:12px;
+      color:#3F51B5;
+      font-weight:800;
+      font-size:18px;
+    }
+
+    .btn-column{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      align-items:center;
+    }
+
+    .cta{
+      display:inline-block;
+      padding:14px 26px;
+      border-radius:12px;
+      background:linear-gradient(90deg,var(--accent),#5C6BC0);
+      color:white;
+      font-weight:800;
+      text-decoration:none;
+      font-size:18px;
+      box-shadow:0 8px 20px rgba(63,81,181,0.2);
+      transition:transform .18s ease,box-shadow .18s ease;
+    }
+    .cta:hover{
+      transform:translateY(-4px);
+      box-shadow:0 12px 30px rgba(63,81,181,0.3);
+    }
+
+    .footer{margin-top:28px;font-size:13px;color:#616161;text-align:center;}
+
+  </style>
+</head>
+
+<body>
+  <main class="stage" role="main" aria-labelledby="page-title">
+    <section class="hero">
+      <h1 id="page-title" class="title">Belajar Matematika</h1>
+
+      <div class="logo-letters">
+        <div class="letter l1"><span>H</span></div>
+        <div class="letter l2"><span>A</span></div>
+        <div class="letter l3"><span>L</span></div>
+        <div class="letter l4"><span>O</span></div>
+      </div>
+
+      <p class="desc">Pilih bidang Matematika yang ingin kamu pelajari hari ini:</p>
+
+      <div class="content-row">
+        <div class="math-anim" aria-label="Animasi grafik matematika bergerak">
+          <div class="axis x-axis"></div>
+          <div class="axis y-axis"></div>
+          <div class="dot"></div>
+          <div class="formula">y = sin(x)</div>
+        </div>
+
+        <div class="btn-column" role="navigation" aria-label="Pilihan mata pelajaran Matematika">
+          <a class="cta" href="#" onclick="alert('Mulai belajar Aljabar!')">ALJABAR</a>
+          <a class="cta" href="#" onclick="alert('Mulai belajar Geometri!')">GEOMETRI</a>
+          <a class="cta" href="#" onclick="alert('Mulai belajar Statistika!')">STATISTIKA</a>
+        </div>
+      </div>
+
+      <div class="footer">© 2025 </div>
+    </section>
+  </main>
+</body>
+</html>

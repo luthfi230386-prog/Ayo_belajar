@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fisika Listrik </title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg1:#FFF9C4;
+    --bg2:#FFFDE7;
+    --accent:#FBC02D;
+    --brown:#795548;
+  }
+
+  * { box-sizing:border-box; margin:0; padding:0; }
+
+  body {
+    font-family:'Baloo 2', sans-serif;
+    background:linear-gradient(to bottom,var(--bg1),var(--bg2));
+    min-height:100vh;
+    padding:30px;
+    color:#333;
+  }
+
+  h1 {
+    text-align:center;
+    font-size:36px;
+    color:var(--brown);
+    margin-bottom:20px;
+  }
+
+  h2 {
+    background:var(--accent);
+    color:white;
+    display:inline-block;
+    padding:10px 18px;
+    border-radius:12px;
+    margin-top:24px;
+    cursor:pointer;
+    font-size:20px;
+    transition:background 0.3s, transform 0.2s;
+  }
+
+  h2:hover { background:#FFD54F; transform:scale(1.05); }
+
+  p { margin-top:8px; font-size:16px; line-height:1.6; text-align:justify; }
+  ul { margin-top:6px; text-align:left; margin-left:30px; }
+
+  .content { margin-top:20px; text-align:center; }
+
+  .example {
+    background:white;
+    border-radius:12px;
+    padding:16px;
+    margin:16px auto;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    max-width:720px;
+    text-align:left;
+    overflow:hidden;
+    opacity:0;
+    max-height:0;
+    transform:translateY(-10px);
+    transition:all 0.6s ease;
+  }
+
+  .example.show {
+    opacity:1;
+    max-height:3000px;
+    transform:translateY(0);
+  }
+
+  .formula {
+    font-family:monospace;
+    background:#FFF8E1;
+    padding:4px 8px;
+    border-radius:6px;
+  }
+
+  table {
+    border-collapse:collapse;
+    width:100%;
+    margin-top:10px;
+    text-align:center;
+  }
+  th, td { border:1px solid #ccc; padding:8px; }
+  th { background:var(--accent); color:#fff; }
+
+  .result { margin-top:10px; font-weight:bold; color:#D84315; }
+
+  .circuit {
+    position:relative;
+    width:280px;
+    height:80px;
+    background:#E1F5FE;
+    border-radius:12px;
+    overflow:hidden;
+    margin:20px auto;
+    box-shadow:inset 0 0 8px rgba(0,0,0,0.2);
+  }
+  .electron {
+    position:absolute;
+    top:30px;
+    width:16px;
+    height:16px;
+    background:#1565C0;
+    border-radius:50%;
+    animation:moveElectron 3s linear infinite;
+  }
+  .electron:nth-child(2){ animation-delay:1.5s; }
+  @keyframes moveElectron {
+    0%{ left:-20px; }
+    100%{ left:300px; }
+  }
+
+  .static-container {
+    position:relative;
+    height:100px;
+    margin:20px auto;
+  }
+  .charge {
+    position:absolute;
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    color:#fff;
+    text-align:center;
+    line-height:30px;
+    font-weight:bold;
+  }
+  .positive { background:#E53935; left:40px; animation:repel 2s infinite alternate; }
+  .negative { background:#1E88E5; right:40px; animation:repel 2s infinite alternate-reverse; }
+  @keyframes repel {
+    0%{ transform:translateX(0); }
+    100%{ transform:translateX(20px); }
+  }
+
+  .ohm-lamp {
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    background:#FFEB3B;
+    margin:20px auto;
+    box-shadow:0 0 20px rgba(255,235,59,0.3);
+    transition:opacity 0.5s, box-shadow 0.5s;
+    opacity:0.3;
+  }
+  .ohm-lamp.on {
+    opacity:1;
+    box-shadow:0 0 30px #FFEB3B;
+  }
+
+  /* Animasi rangkaian */
+  .wire {
+    position:relative;
+    width:250px;
+    height:4px;
+    background:#9E9E9E;
+    margin:20px auto;
+  }
+  .flow {
+    position:absolute;
+    top:-4px;
+    left:0;
+    width:20px;
+    height:12px;
+    background:#4CAF50;
+    border-radius:6px;
+    animation:flowMove 2s linear infinite;
+  }
+  @keyframes flowMove {
+    0% { left:0; }
+    100% { left:230px; }
+  }
+
+  /* Animasi daya */
+  .lampu {
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    margin:20px auto;
+    background:#BDBDBD;
+    box-shadow:0 0 5px #999;
+    transition:all 0.5s;
+  }
+  .lampu.on {
+    background:#FFEB3B;
+    box-shadow:0 0 30px #FFEB3B;
+  }
+
+  .back {
+    display:inline-block;
+    margin-top:30px;
+    text-decoration:none;
+    background:var(--brown);
+    color:white;
+    padding:10px 20px;
+    border-radius:10px;
+    transition:background 0.3s;
+  }
+  .back:hover { background:#3E2723; }
+</style>
+</head>
+
+<body>
+  <h1>Fisika Listrik</h1>
+  <div class="content">
+
+    <!-- BAB 1 -->
+    <h2 onclick="toggle('bab1')">1️⃣ Listrik Statis</h2>
+    <div id="bab1" class="example">
+      <p>Listrik statis adalah listrik yang <strong>tidak mengalir</strong> melainkan menumpuk di permukaan benda.
+      Contohnya, penggaris plastik yang digosok rambut dapat menarik kertas kecil.</p>
+
+      <div class="static-container">
+        <div class="charge positive">+</div>
+        <div class="charge negative">−</div>
+      </div>
+
+      <p><strong>Rumus Gaya Coulomb:</strong> <span class="formula">F = k × (q₁ × q₂) / r²</span></p>
+      <ul>
+        <li>F = gaya listrik (Newton)</li>
+        <li>q₁ dan q₂ = muatan listrik (Coulomb)</li>
+        <li>r = jarak antar muatan (meter)</li>
+        <li>k = konstanta (9 × 10⁹ N·m²/C²)</li>
+      </ul>
+
+      <p><strong>💡 Latihan Interaktif:</strong></p>
+      <input type="number" id="q1" placeholder="q₁ (C)">
+      <input type="number" id="q2" placeholder="q₂ (C)">
+      <input type="number" id="r" placeholder="r (m)">
+      <button onclick="hitungCoulomb()">Hitung F</button>
+      <p id="hasilCoulomb" class="result"></p>
+    </div>
+
+    <!-- BAB 2 -->
+    <h2 onclick="toggle('bab2')">2️⃣ Arus Listrik</h2>
+    <div id="bab2" class="example">
+      <p>Arus listrik adalah aliran muatan listrik (elektron) yang bergerak dalam penghantar.</p>
+      <p><strong>Rumus:</strong> <span class="formula">I = Q / t</span></p>
+
+      <div class="circuit">
+        <div class="electron"></div>
+        <div class="electron"></div>
+      </div>
+
+      <p><strong>💡 Latihan Interaktif:</strong></p>
+      <input type="number" id="Q" placeholder="Muatan Q (C)">
+      <input type="number" id="t" placeholder="Waktu t (s)">
+      <button onclick="hitungArus()">Hitung I</button>
+      <p id="hasilArus" class="result"></p>
+    </div>
+
+    <!-- BAB 3 -->
+    <h2 onclick="toggle('bab3')">3️⃣ Hukum Ohm</h2>
+    <div id="bab3" class="example">
+      <p>Hukum Ohm menyatakan bahwa besar arus (I) sebanding dengan tegangan (V) dan berbanding terbalik dengan hambatan (R).</p>
+      <p><strong>Rumus:</strong> <span class="formula">V = I × R</span></p>
+
+      <div class="ohm-lamp" id="lamp"></div>
+
+      <p><strong>💡 Latihan Interaktif:</strong></p>
+      <input type="number" id="volt" placeholder="Tegangan (V)">
+      <input type="number" id="res" placeholder="Hambatan (Ω)">
+      <button onclick="hitungOhm()">Hitung I</button>
+      <p id="hasilOhm" class="result"></p>
+    </div>
+
+    <!-- BAB 4 -->
+    <h2 onclick="toggle('bab4')">4️⃣ Rangkaian Listrik</h2>
+    <div id="bab4" class="example">
+      <p><strong>Rangkaian Seri:</strong> Arus sama pada semua komponen, tegangan terbagi.</p>
+      <p><span class="formula">R_total = R₁ + R₂ + R₃</span></p>
+      <p><strong>Rangkaian Paralel:</strong> Tegangan sama, arus terbagi.</p>
+      <p><span class="formula">1 / R_total = 1 / R₁ + 1 / R₂ + 1 / R₃</span></p>
+
+      <div class="wire">
+        <div class="flow"></div>
+      </div>
+
+      <p><strong>💡 Latihan Interaktif:</strong></p>
+      <input type="number" id="r1" placeholder="R₁ (Ω)">
+      <input type="number" id="r2" placeholder="R₂ (Ω)">
+      <button onclick="hitungSeri()">Hitung Seri</button>
+      <button onclick="hitungParalel()">Hitung Paralel</button>
+      <p id="hasilRangkaian" class="result"></p>
+    </div>
+
+    <!-- BAB 5 -->
+    <h2 onclick="toggle('bab5')">5️⃣ Daya dan Energi Listrik</h2>
+    <div id="bab5" class="example">
+      <p><strong>Daya listrik</strong> menunjukkan energi listrik per satuan waktu.</p>
+      <p><span class="formula">P = V × I</span></p>
+
+      <div class="lampu" id="lampu"></div>
+
+      <p><strong>💡 Latihan Interaktif:</strong></p>
+      <input type="number" id="voltDaya" placeholder="Tegangan (V)">
+      <input type="number" id="arusDaya" placeholder="Arus (A)">
+      <input type="number" id="waktuDaya" placeholder="Waktu (s)">
+      <button onclick="hitungDaya()">Hitung Daya & Energi</button>
+      <p id="hasilDaya" class="result"></p>
+    </div>
+
+    <!-- BAB 6 -->
+    <h2 onclick="toggle('bab6')">6️⃣ Tabel Besaran Listrik</h2>
+    <div id="bab6" class="example">
+      <table>
+        <thead>
+          <tr>
+            <th>Besaran</th>
+            <th>Lambang</th>
+            <th>Satuan</th>
+            <th>Simbol</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Tegangan</td><td>V</td><td>Volt</td><td>V</td></tr>
+          <tr><td>Arus listrik</td><td>I</td><td>Ampere</td><td>A</td></tr>
+          <tr><td>Hambatan</td><td>R</td><td>Ohm</td><td>Ω</td></tr>
+          <tr><td>Daya listrik</td><td>P</td><td>Watt</td><td>W</td></tr>
+          <tr><td>Energi listrik</td><td>E</td><td>Joule</td><td>J</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <a href="ipav1.html" class="back">← Kembali ke Menu Sebelumnya</a>
+  </div>
+
+<script>
+function toggle(id){
+  document.getElementById(id).classList.toggle('show');
+}
+
+function hitungCoulomb(){
+  const q1=parseFloat(document.getElementById('q1').value);
+  const q2=parseFloat(document.getElementById('q2').value);
+  const r=parseFloat(document.getElementById('r').value);
+  const out=document.getElementById('hasilCoulomb');
+  if(isNaN(q1)||isNaN(q2)||isNaN(r)||r===0){ out.textContent='⚠️ Isi semua dengan benar!'; return;}
+  const F=9e9*(q1*q2)/(r*r);
+  out.textContent=`Gaya Coulomb = ${F.toExponential(2)} N`;
+}
+
+function hitungArus(){
+  const Q=parseFloat(document.getElementById('Q').value);
+  const t=parseFloat(document.getElementById('t').value);
+  const out=document.getElementById('hasilArus');
+  if(isNaN(Q)||isNaN(t)||t===0){ out.textContent='⚠️ Isi semua dengan benar!'; return;}
+  const I=Q/t;
+  out.textContent=`Kuat Arus = ${I.toFixed(2)} A`;
+}
+
+function hitungOhm(){
+  const V=parseFloat(document.getElementById('volt').value);
+  const R=parseFloat(document.getElementById('res').value);
+  const out=document.getElementById('hasilOhm');
+  const lamp=document.getElementById('lamp');
+  if(isNaN(V)||isNaN(R)||R===0){ out.textContent='⚠️ Isi semua dengan benar!'; return;}
+  const I=V/R;
+  out.textContent=`Arus (I) = ${I.toFixed(2)} A`;
+  lamp.classList.toggle('on', I>0.5);
+}
+
+function hitungSeri(){
+  const r1=parseFloat(document.getElementById('r1').value);
+  const r2=parseFloat(document.getElementById('r2').value);
+  const out=document.getElementById('hasilRangkaian');
+  if(isNaN(r1)||isNaN(r2)){ out.textContent='⚠️ Isi nilai resistor!'; return;}
+  const Rt=r1+r2;
+  out.textContent=`Hambatan Seri = ${Rt.toFixed(2)} Ω`;
+}
+
+function hitungParalel(){
+  const r1=parseFloat(document.getElementById('r1').value);
+  const r2=parseFloat(document.getElementById('r2').value);
+  const out=document.getElementById('hasilRangkaian');
+  if(isNaN(r1)||isNaN(r2)||r1===0||r2===0){ out.textContent='⚠️ Isi nilai resistor!'; return;}
+  const Rt=1/(1/r1+1/r2);
+  out.textContent=`Hambatan Paralel = ${Rt.toFixed(2)} Ω`;
+}
+
+function hitungDaya(){
+  const V=parseFloat(document.getElementById('voltDaya').value);
+  const I=parseFloat(document.getElementById('arusDaya').value);
+  const t=parseFloat(document.getElementById('waktuDaya').value);
+  const out=document.getElementById('hasilDaya');
+  const lamp=document.getElementById('lampu');
+  if(isNaN(V)||isNaN(I)||isNaN(t)){ out.textContent='⚠️ Isi semua dengan benar!'; return;}
+  const P=V*I;
+  const E=P*t;
+  out.innerHTML=`Daya = ${P.toFixed(2)} W<br>Energi = ${E.toFixed(2)} J`;
+  lamp.classList.toggle('on', P>50);
+}
+</script>
+</body>
+</html>

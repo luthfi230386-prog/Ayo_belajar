@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Biologi Evolusi</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  body {
+    font-family: 'Baloo 2', sans-serif;
+    background: linear-gradient(180deg, #0D47A1, #1A237E);
+    color: #E3F2FD;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    padding: 30px;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 44px;
+    margin-bottom: 10px;
+    color: #82B1FF;
+    text-shadow: 0 0 15px #448AFF;
+  }
+
+  h3 {
+    background: #1565C0;
+    color: white;
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 10px;
+    margin-top: 24px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0 0 10px rgba(130,177,255,0.5);
+  }
+
+  h3:hover {
+    background: #0D47A1;
+    transform: scale(1.05);
+  }
+
+  p {
+    max-width: 700px;
+    font-size: 17px;
+    line-height: 1.6;
+    margin: 10px auto;
+  }
+
+  ul {
+    margin-top: 10px;
+    text-align: left;
+    max-width: 600px;
+  }
+
+  .example {
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    padding: 18px;
+    margin: 16px auto;
+    box-shadow: 0 0 15px rgba(33,150,243,0.3);
+    max-width: 750px;
+    text-align: left;
+    overflow: hidden;
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(-10px);
+    transition: all 0.6s ease;
+  }
+
+  .example.show {
+    opacity: 1;
+    max-height: 3000px;
+    transform: translateY(0);
+  }
+
+  /* 🔵 Animasi DNA */
+  #dnaHelix {
+    position: relative;
+    width: 120px;
+    height: 260px;
+    margin: 30px auto;
+    perspective: 500px;
+    transform-style: preserve-3d;
+    animation: rotateDNA 10s linear infinite;
+  }
+  .base {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+  .rung {
+    position: absolute;
+    width: 60px;
+    height: 3px;
+    background: #64B5F6;
+    left: 50%;
+    transform-origin: center;
+  }
+  @keyframes rotateDNA {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(360deg); }
+  }
+
+  /* Tombol dan hasil */
+  button {
+    margin-top: 10px;
+    background: #1E88E5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-family: 'Baloo 2';
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  button:hover { background: #1565C0; }
+  .result {
+    margin-top: 8px;
+    color: #BBDEFB;
+  }
+
+  /* Tombol kembali */
+  .back {
+    display: inline-block;
+    margin-top: 30px;
+    text-decoration: none;
+    background: #0D47A1;
+    color: white;
+    padding: 10px 22px;
+    border-radius: 10px;
+    transition: background 0.3s;
+    box-shadow: 0 0 10px rgba(33,150,243,0.4);
+  }
+  .back:hover { background: #1565C0; }
+</style>
+</head>
+
+<body>
+  <h1>Biologi Evolusi</h1>
+  <p>
+    🌍 Evolusi adalah proses perubahan makhluk hidup secara bertahap dari generasi ke generasi.  
+    Proses ini menghasilkan keragaman spesies yang kita lihat di bumi saat ini.
+  </p>
+
+  <h3 onclick="toggle('bab1')">1️⃣ Pengantar Evolusi</h3>
+  <div id="bab1" class="example">
+    <p>Evolusi menjelaskan bagaimana makhluk hidup berubah seiring waktu.  
+    Evolusi terjadi karena adanya variasi genetik dan seleksi alam.</p>
+    <div id="dnaHelix"></div>
+    <small>🧬 Model DNA berputar menggambarkan dasar genetik dari evolusi.</small>
+  </div>
+
+  <h3 onclick="toggle('bab2')">2️⃣ Teori Evolusi</h3>
+  <div id="bab2" class="example">
+    <p>Beberapa teori penting dalam evolusi:</p>
+    <ul>
+      <li><strong>Lamarck</strong> — evolusi karena penggunaan dan tidak penggunaan organ.</li>
+      <li><strong>Darwin</strong> — seleksi alam menyebabkan individu yang paling adaptif bertahan.</li>
+      <li><strong>Neo-Darwinisme</strong> — menggabungkan teori Darwin dengan genetika modern.</li>
+    </ul>
+  </div>
+
+  <h3 onclick="toggle('bab3')">3️⃣ Seleksi Alam</h3>
+  <div id="bab3" class="example">
+    <p><strong>Seleksi alam</strong> adalah proses di mana individu dengan sifat terbaik untuk lingkungan bertahan hidup dan berkembang biak.</p>
+    <p>Masukkan jumlah individu awal dan peluang bertahan untuk menghitung populasi berikutnya:</p>
+    <p>
+      Individu awal: <input type="number" id="individu" placeholder="misal: 100">  
+      Peluang bertahan (%): <input type="number" id="survive" placeholder="misal: 70">
+    </p>
+    <button onclick="hitungSeleksi()">Hitung Populasi Bertahan</button>
+    <p id="hasilSeleksi" class="result"></p>
+  </div>
+
+  <h3 onclick="toggle('bab4')">4️⃣ Bukti Evolusi</h3>
+  <div id="bab4" class="example">
+    <p>Bukti-bukti evolusi antara lain:</p>
+    <ul>
+      <li>Fosil menunjukkan perubahan bentuk dari masa ke masa.</li>
+      <li>Kesamaan embrio antar spesies menunjukkan nenek moyang yang sama.</li>
+      <li>Struktur homolog (seperti tangan manusia dan sayap kelelawar).</li>
+      <li>Bukti biokimia melalui DNA dan protein.</li>
+    </ul>
+  </div>
+
+  <a href="biologi.html" class="back">← Kembali ke Menu Sebelumnya</a>
+
+<script>
+  function toggle(id) {
+    document.getElementById(id).classList.toggle("show");
+  }
+
+  function hitungSeleksi(){
+    const n = parseFloat(document.getElementById('individu').value);
+    const s = parseFloat(document.getElementById('survive').value);
+    const out = document.getElementById('hasilSeleksi');
+    if(isNaN(n)||isNaN(s)) return out.innerText='⚠️ Masukkan nilai yang valid!';
+    const hasil = Math.round(n*(s/100));
+    out.innerHTML = `🌱 Populasi yang bertahan: <strong>${hasil}</strong> individu.`;
+  }
+
+  // Membuat animasi DNA spiral
+  const dna = document.getElementById("dnaHelix");
+  for (let i = 0; i < 40; i++) {
+    const angle = i * 18;
+    const y = i * 6;
+    const leftDot = document.createElement("div");
+    const rightDot = document.createElement("div");
+    const rung = document.createElement("div");
+
+    leftDot.className = "base";
+    rightDot.className = "base";
+    rung.className = "rung";
+
+    const colorL = i % 2 === 0 ? "#2196F3" : "#64B5F6";
+    const colorR = i % 2 === 0 ? "#90CAF9" : "#42A5F5";
+
+    leftDot.style.background = colorL;
+    rightDot.style.background = colorR;
+
+    const x1 = Math.sin(angle * Math.PI / 180) * 40;
+    const z1 = Math.cos(angle * Math.PI / 180) * 40;
+    const x2 = -x1;
+    const z2 = -z1;
+
+    leftDot.style.transform = `translate3d(${x1}px, ${y}px, ${z1}px)`;
+    rightDot.style.transform = `translate3d(${x2}px, ${y}px, ${z2}px)`;
+    rung.style.transform = `translate3d(-50%, ${y}px, 0) rotateY(${angle}deg)`;
+
+    dna.appendChild(leftDot);
+    dna.appendChild(rightDot);
+    dna.appendChild(rung);
+  }
+</script>
+</body>
+</html>

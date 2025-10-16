@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="theme-color" content="#B2EBF2" />
+  <meta name="description" content="Ayo Belajar Kimia — Pelajari reaksi, unsur, dan konsep dasar kimia dengan interaktif!" />
+  <title>Ayo Belajar — Kimia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg1:#B2EBF2;
+      --bg2:#E0F7FA;
+      --accent:#00BCD4;
+      --shadow: rgba(0,0,0,0.12);
+    }
+
+    * {box-sizing:border-box;margin:0;padding:0}
+    html,body {
+      height:100%;
+      font-family:'Baloo 2',sans-serif;
+      background:linear-gradient(180deg,var(--bg1) 0%,var(--bg2) 80%);
+      display:flex;align-items:center;justify-content:center;
+      padding:28px;
+      min-height:100vh;
+    }
+
+    .stage {
+      width:100%;max-width:720px;
+      background:rgba(255,255,255,0.96);
+      border-radius:20px;
+      box-shadow:0 12px 28px var(--shadow);
+      padding:40px 32px;
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .stage::before {
+      content:"";
+      position:absolute;
+      top:-40px;right:-40px;
+      width:160px;height:160px;
+      background:radial-gradient(circle at center,rgba(0,188,212,0.25),transparent 70%);
+      border-radius:50%;
+      animation: floatBubble 6s infinite ease-in-out alternate;
+    }
+    .stage::after {
+      content:"";
+      position:absolute;
+      bottom:-60px;left:-60px;
+      width:180px;height:180px;
+      background:radial-gradient(circle at center,rgba(0,150,136,0.2),transparent 70%);
+      border-radius:50%;
+      animation: floatBubble 7s infinite ease-in-out alternate-reverse;
+    }
+
+    @keyframes floatBubble {
+      from{transform:translateY(0);}
+      to{transform:translateY(20px);}
+    }
+
+    .title {
+      font-size:42px;
+      color:#006064;
+      margin-bottom:10px;
+      text-shadow:0 0 8px rgba(0,188,212,0.4);
+    }
+
+    .desc {
+      color:#004D40;
+      margin-bottom:30px;
+      font-size:18px;
+    }
+
+    .btn-column {
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+      align-items:center;
+    }
+
+    .cta {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      justify-content:center;
+      padding:14px 26px;
+      border-radius:12px;
+      background:linear-gradient(90deg,var(--accent),#4DD0E1);
+      color:white;
+      font-weight:800;
+      text-decoration:none;
+      font-size:18px;
+      box-shadow:0 8px 20px rgba(0,188,212,0.25);
+      transition:transform .18s ease,box-shadow .18s ease;
+    }
+
+    .cta span.icon {
+      font-size:22px;
+    }
+
+    .cta:hover {
+      transform:translateY(-4px);
+      box-shadow:0 12px 30px rgba(0,188,212,0.35);
+    }
+
+    .footer {
+      margin-top:28px;
+      font-size:13px;
+      color:#006064;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="stage" role="main" aria-labelledby="page-title">
+    <h1 id="page-title" class="title">Belajar Kimia</h1>
+    <p class="desc">Pilih topik Kimia yang ingin kamu pelajari:</p>
+
+    <div class="btn-column" role="navigation" aria-label="Pelajaran Kimia">
+      <a class="cta" href="kimia_dasar.html" onclick="alert('Mulai belajar Kimia Dasar!')"><span class="icon">⚗️</span> KIMIA DASAR</a>
+      <a class="cta" href="struktur_atom.html" onclick="alert('Pelajari struktur atom!')"><span class="icon">🧬</span> STRUKTUR ATOM</a>
+      <a class="cta" href="ikatan_kimia.html" onclick="alert('Pelajari Ikatan Kimia!')"><span class="icon">🔗</span> IKATAN KIMIA</a>
+      <a class="cta" href="reaksi_kimia.html" onclick="alert('Pelajari Reaksi Kimia!')"><span class="icon">💥</span> REAKSI KIMIA</a>
+      <a class="cta" href="larutan.html" onclick="alert('Pelajari Larutan dan pH!')"><span class="icon">🌊</span> LARUTAN & pH</a>
+      <a class="cta back-btn" href="ipa.html"> ⬅️ Kembali ke Menu Sebelumnya </a>
+    </div>
+
+    <div class="footer">© 2025</div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="theme-color" content="#A8E6CF" />
+  <meta name="description" content="Ayo Belajar IPS — Belajar dengan interaktif dan menyenangkan!" />
+  <title>Ayo Belajar — IPS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg1:#FFD3B6;
+      --bg2:#FFF9C4;
+      --accent:#4CAF50;
+      --shadow: rgba(0,0,0,0.12);
+      --bar:#81C784;
+      --bar2:#66BB6A;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{
+      height:100%;
+      font-family:'Baloo 2',system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial,sans-serif;
+      -webkit-font-smoothing:antialiased;
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:linear-gradient(180deg,var(--bg1) 0%,var(--bg2) 80%);
+      display:flex;align-items:center;justify-content:center;
+      padding:28px;
+      min-height:100vh;
+    }
+
+    .stage{
+      width:100%;max-width:880px;
+      background:rgba(255,255,255,0.95);
+      border-radius:20px;
+      box-shadow:0 12px 28px var(--shadow);
+      padding:32px;
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+      transition:all 0.3s ease-in-out;
+    }
+
+    .title{font-size:44px;color:#333;margin-bottom:6px}
+    .subtitle{font-size:18px;color:#666;margin-bottom:20px}
+
+    .logo-letters{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      margin-bottom:18px;
+      flex-wrap:wrap;
+    }
+
+    .letter{
+      width:60px;height:60px;
+      display:flex;align-items:center;justify-content:center;
+      border-radius:14px;
+      color:#fff;
+      font-size:30px;
+      font-weight:800;
+      box-shadow:0 6px 15px rgba(0,0,0,0.08);
+      animation:bounceSmall 1.6s ease-in-out infinite;
+    }
+    .l1{background:#FFB6C1}
+    .l2{background:#AED581;animation-delay:0.1s}
+    .l3{background:#81D4FA;animation-delay:0.2s}
+    .l4{background:#FFD54F;animation-delay:0.3s}
+
+    @keyframes bounceSmall{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-8px)}
+    }
+
+    .pill{
+      display:inline-block;
+      background:rgba(255,255,255,0.6);
+      border-radius:50px;
+      padding:6px 14px;
+      font-weight:700;
+      margin-bottom:8px;
+    }
+
+    .desc{color:#444;margin-bottom:18px;font-size:16px;line-height:1.4;}
+
+    .content-row{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:32px;
+      flex-wrap:wrap;
+    }
+
+    /* Animasi Ekonomi (Grafik Dagang) */
+    .chart-wrap{
+      width:240px;height:200px;
+      position:relative;
+      background:linear-gradient(to top,#E8F5E9,#F1F8E9);
+      border-radius:16px;
+      box-shadow:inset 0 -4px 10px rgba(0,0,0,0.05);
+      overflow:hidden;
+    }
+
+    .bar{
+      position:absolute;bottom:0;
+      width:40px;border-radius:10px 10px 0 0;
+      background:var(--bar);
+      animation:grow 3s ease-in-out infinite alternate;
+    }
+    .bar:nth-child(1){left:30px;height:60px;animation-delay:0s;}
+    .bar:nth-child(2){left:90px;height:100px;background:var(--bar2);animation-delay:.5s;}
+    .bar:nth-child(3){left:150px;height:140px;animation-delay:1s;}
+
+    .coin{
+      width:40px;height:40px;
+      background:radial-gradient(circle,#FFD700 0%,#FFC107 80%);
+      border-radius:50%;
+      position:absolute;
+      top:-60px;
+      left:100px;
+      box-shadow:0 4px 8px rgba(0,0,0,0.2);
+      animation:dropCoin 3s ease-in-out infinite;
+    }
+
+    @keyframes dropCoin{
+      0%{transform:translateY(-20px) scale(1)}
+      50%{transform:translateY(130px) scale(1.05)}
+      100%{transform:translateY(-20px) scale(1)}
+    }
+
+    @keyframes grow{
+      from{height:60px}
+      to{height:160px}
+    }
+
+    .btn-column{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      align-items:center;
+    }
+
+    .cta{
+      display:inline-block;
+      padding:14px 26px;
+      border-radius:12px;
+      background:linear-gradient(90deg,var(--accent),#66BB6A);
+      color:white;
+      font-weight:800;
+      text-decoration:none;
+      font-size:18px;
+      box-shadow:0 8px 20px rgba(76,175,80,0.2);
+      transition:transform .18s ease,box-shadow .18s ease;
+    }
+    .cta:hover{
+      transform:translateY(-4px);
+      box-shadow:0 12px 30px rgba(76,175,80,0.3);
+    }
+
+    .footer{margin-top:28px;font-size:13px;color:#616161;text-align:center;}
+
+  </style>
+</head>
+
+<body>
+  <main class="stage" role="main" aria-labelledby="page-title">
+    <section class="hero">
+      <h1 id="page-title" class="title">Belajar IPS</h1>
+
+      <div class="logo-letters">
+        <div class="letter l1"><span>H</span></div>
+        <div class="letter l2"><span>A</span></div>
+        <div class="letter l3"><span>L</span></div>
+        <div class="letter l4"><span>O</span></div>
+      </div>
+
+      <p class="desc">Pilih bidang ilmu IPS yang ingin kamu pelajari hari ini:</p>
+
+      <div class="content-row">
+        <div class="chart-wrap" aria-label="Animasi ekonomi berupa grafik dagang">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="coin"></div>
+        </div>
+
+        <div class="btn-column" role="navigation" aria-label="Pilihan mata pelajaran IPS">
+          <a class="cta" href="#" onclick="alert('Mulai belajar Geografi!')">GEOGRAFI</a>
+          <a class="cta" href="#" onclick="alert('Mulai belajar Ekonomi!')">EKONOMI</a>
+          <a class="cta" href="#" onclick="alert('Mulai belajar Sosiologi!')">SOSIOLOGI</a>
+        </div>
+      </div>
+
+      <div class="footer">© 2025 </div>
+    </section>
+  </main>
+</body>
+</html>

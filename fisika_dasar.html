@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fisika Dasar</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg1:#C8F7C5;
+    --bg2:#FDEBD0;
+    --accent:#FF6F61;
+    --blue:#64B5F6;
+    --green:#81C784;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Baloo 2', sans-serif;
+    background:linear-gradient(to bottom,var(--bg1),var(--bg2));
+    min-height:100vh;
+    padding:30px;
+    color:#333;
+  }
+  h1{
+    text-align:center;
+    font-size:32px;
+    color:#333;
+    margin-bottom:12px;
+  }
+  h3{
+    background:var(--accent);
+    color:white;
+    display:inline-block;
+    padding:8px 16px;
+    border-radius:10px;
+    margin-top:24px;
+    cursor:pointer;
+    font-size:18px;
+    transition:background 0.3s, transform 0.2s;
+  }
+  h3:hover{
+    background:#ff8a75;
+    transform:scale(1.05);
+  }
+  p{margin-top:8px;font-size:16px;line-height:1.5;}
+  ul{margin-top:6px;text-align:left;margin-left:30px;}
+  .content{margin-top:20px;text-align:center;}
+  .example{
+    background:white;
+    border-radius:10px;
+    padding:16px;
+    margin:16px auto;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    max-width:700px;
+    text-align:left;
+    overflow:hidden;
+    opacity:0;
+    max-height:0;
+    transform:translateY(-10px);
+    transition:all 0.6s ease;
+  }
+  .example.show{
+    opacity:1;
+    max-height:2000px;
+    transform:translateY(0);
+  }
+
+  /* Animasi bola jatuh */
+  .anim-box{
+    position:relative;
+    width:100px;height:200px;
+    margin:20px auto;
+    border-left:3px dashed #999;
+  }
+  .ball{
+    position:absolute;
+    top:0;left:35px;
+    width:30px;height:30px;
+    background:#FF6F61;
+    border-radius:50%;
+    animation:fall 2s ease-in infinite;
+  }
+  @keyframes fall{
+    0%{top:0}
+    70%{top:170px}
+    100%{top:0}
+  }
+
+  /* Animasi Hukum Newton */
+  .newton-box{
+    position:relative;
+    width:250px;height:100px;
+    margin:20px auto;
+    background:#f3f3f3;
+    border-radius:12px;
+    overflow:hidden;
+  }
+  .box{
+    position:absolute;
+    bottom:10px;left:20px;
+    width:50px;height:50px;
+    background:var(--blue);
+    border-radius:8px;
+    animation:push 3s ease-in-out infinite;
+  }
+  .arrow{
+    position:absolute;
+    bottom:35px;left:80px;
+    width:0;height:0;
+    border-top:6px solid transparent;
+    border-bottom:6px solid transparent;
+    border-left:20px solid red;
+    animation:fadearrow 3s ease-in-out infinite;
+  }
+  @keyframes push{
+    0%{left:20px}
+    50%{left:160px}
+    100%{left:20px}
+  }
+  @keyframes fadearrow{
+    0%,100%{opacity:0}
+    30%,70%{opacity:1}
+  }
+
+  /* Animasi energi kinetik */
+  .energy-box{
+    position:relative;
+    width:250px;height:100px;
+    margin:20px auto;
+    border-bottom:4px solid #444;
+    overflow:hidden;
+  }
+  .ball-energy{
+    position:absolute;
+    bottom:4px;left:0;
+    width:30px;height:30px;
+    background:var(--green);
+    border-radius:50%;
+    animation:roll 3s linear infinite;
+  }
+  @keyframes roll{
+    0%{left:0;transform:rotate(0deg)}
+    50%{left:200px;transform:rotate(180deg)}
+    100%{left:0;transform:rotate(360deg)}
+  }
+
+  .formula{
+    font-family:monospace;
+    background:#fff8e1;
+    padding:4px 8px;
+    border-radius:6px;
+  }
+
+  .back{
+    display:inline-block;
+    margin-top:30px;
+    text-decoration:none;
+    background:#333;
+    color:white;
+    padding:10px 20px;
+    border-radius:10px;
+    transition:background 0.3s;
+  }
+  .back:hover{background:#000;}
+</style>
+</head>
+<body>
+
+  <h1>Fisika Dasar </h1>
+  <div class="content">
+
+    <h3 onclick="toggle('bab1')">1️⃣ Besaran dan Satuan</h3>
+    <div id="bab1" class="example">
+      <p><strong>Besaran</strong> adalah sesuatu yang dapat diukur dan dinyatakan dengan angka. 
+      Setiap besaran memiliki <em>satuan</em>.</p>
+
+      <p><u>Contoh:</u> Panjang meja = 2 meter → Besaran: panjang, Satuan: meter (m)</p>
+
+      <ul>
+        <li>Panjang → meter (m)</li>
+        <li>Massa → kilogram (kg)</li>
+        <li>Waktu → sekon (s)</li>
+        <li>Suhu → kelvin (K)</li>
+      </ul>
+
+      <h4>📘 Tabel Besaran Pokok dan Satuan SI</h4>
+      <table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width:100%; text-align:center; margin-top:10px;">
+        <thead style="background:#007bff; color:white;">
+          <tr>
+            <th>No</th>
+            <th>Nama Besaran Pokok</th>
+            <th>Satuan SI</th>
+            <th>Lambang</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Panjang</td><td>meter</td><td>m</td></tr>
+          <tr><td>2</td><td>Massa</td><td>kilogram</td><td>kg</td></tr>
+          <tr><td>3</td><td>Waktu</td><td>sekon</td><td>s</td></tr>
+          <tr><td>4</td><td>Arus listrik</td><td>ampere</td><td>A</td></tr>
+          <tr><td>5</td><td>Suhu termodinamik</td><td>kelvin</td><td>K</td></tr>
+          <tr><td>6</td><td>Jumlah zat</td><td>mol</td><td>mol</td></tr>
+          <tr><td>7</td><td>Intensitas cahaya</td><td>candela</td><td>cd</td></tr>
+        </tbody>
+      </table>
+
+      <h4 style="margin-top:15px;">📗 Contoh Besaran Turunan</h4>
+      <table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width:100%; text-align:center;">
+        <thead style="background:#28a745; color:white;">
+          <tr>
+            <th>No</th>
+            <th>Nama Besaran Turunan</th>
+            <th>Satuan Turunan</th>
+            <th>Lambang</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Luas</td><td>meter persegi</td><td>m²</td></tr>
+          <tr><td>2</td><td>Volume</td><td>meter kubik</td><td>m³</td></tr>
+          <tr><td>3</td><td>Kecepatan</td><td>meter per sekon</td><td>m/s</td></tr>
+          <tr><td>4</td><td>Percepatan</td><td>meter per sekon kuadrat</td><td>m/s²</td></tr>
+          <tr><td>5</td><td>Gaya</td><td>newton</td><td>N</td></tr>
+          <tr><td>6</td><td>Tekanan</td><td>pascal</td><td>Pa</td></tr>
+          <tr><td>7</td><td>Energi / Usaha</td><td>joule</td><td>J</td></tr>
+          <tr><td>8</td><td>Daya</td><td>watt</td><td>W</td></tr>
+        </tbody>
+      </table>
+
+  <h4 style="margin-top:15px;">📏 Tabel Besaran Pokok Panjang</h4>
+  <table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width:100%; text-align:center;">
+    <thead style="background:#ff9800; color:white;">
+      <tr>
+        <th>No</th>
+        <th>Jenis Satuan</th>
+        <th>Nama Satuan</th>
+        <th>Lambang</th>
+        <th>Alat Ukur</th>
+        <th>Keterangan</th>a
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td><strong>Baku</strong></td><td>meter</td><td>m</td><td>Mistar / Meteran</td><td>Satuan standar SI</td></tr>
+      <tr><td>2</td><td>Baku</td><td>sentimeter</td><td>cm</td><td>Penggaris</td><td>1 cm = 0,01 m</td></tr>
+      <tr><td>3</td><td>Baku</td><td>kilometer</td><td>km</td><td>Odometer / Peta</td><td>1 km = 1000 m</td></tr>
+      <tr><td>4</td><td>Baku</td><td>milimeter</td><td>mm</td><td>Jangka Sorong</td><td>1 mm = 0,001 m</td></tr>
+      <tr><td>5</td><td><strong>Tidak baku</strong></td><td>jangkah</td><td>-</td><td>Kaki / Langkah</td><td>Berbeda tiap orang</td></tr>
+      <tr><td>6</td><td>Tidak baku</td><td>depa</td><td>-</td><td>Rentang tangan</td><td>Tidak konsisten</td></tr>
+      <tr><td>7</td><td>Tidak baku</td><td>hasta</td><td>-</td><td>Ujung jari ke siku</td><td>Nilai berubah-ubah</td></tr>
+    </tbody>
+  </table>
+ <h4 style="margin-top:15px;">⏰ Tabel Besaran Pokok Waktu</h4>
+  <table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width:100%; text-align:center;">
+    <thead style="background:#3f51b5; color:white;">
+      <tr>
+        <th>No</th>
+        <th>Jenis Satuan</th>
+        <th>Nama Satuan</th>
+        <th>Lambang</th>
+        <th>Alat Ukur</th>
+        <th>Keterangan</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td><strong>Baku</strong></td><td>sekon (detik)</td><td>s</td><td>Stopwatch</td><td>Satuan standar SI</td></tr>
+      <tr><td>2</td><td>Baku</td><td>menit</td><td>min</td><td>Jam</td><td>1 menit = 60 sekon</td></tr>
+      <tr><td>3</td><td>Baku</td><td>jam</td><td>h</td><td>Jam dinding</td><td>1 jam = 3600 sekon</td></tr>
+      <tr><td>4</td><td>Baku</td><td>hari</td><td>d</td><td>Kalender</td><td>1 hari = 24 jam</td></tr>
+      <tr><td>5</td><td><strong>Tidak baku</strong></td><td>sekejap</td><td>-</td><td>-</td><td>Waktu sangat singkat</td></tr>
+      <tr><td>6</td><td>Tidak baku</td><td>sebentar</td><td>-</td><td>-</td><td>Tidak terukur pasti</td></tr>
+      <tr><td>7</td><td>Tidak baku</td><td>lama</td><td>-</td><td>-</td><td>Persepsi relatif manusia</td></tr>
+    </tbody>
+  </table>
+
+  <h4 style="margin-top:15px;">⚡ Tabel Besaran Pokok Arus Listrik</h4>
+  <table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width:100%; text-align:center;">
+    <thead style="background:#2196f3; color:white;">
+      <tr>
+        <th>No</th>
+        <th>Jenis Satuan</th>
+        <th>Nama Satuan</th>
+        <th>Lambang</th>
+        <th>Alat Ukur</th>
+        <th>Keterangan</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td><strong>Baku</strong></td><td>ampere</td><td>A</td><td>Ammeter</td><td>Satuan standar arus listrik SI</td></tr>
+      <tr><td>2</td><td>Baku</td><td>milliampere</td><td>mA</td><td>Multimeter</td><td>1 mA = 0,001 A</td></tr>
+      <tr><td>3</td><td>Baku</td><td>microampere</td><td>μA</td><td>Galvanometer</td><td>1 μA = 0,000001 A</td></tr>
+      <tr><td>4</td><td>Baku</td><td>kiloampere</td><td>kA</td><td>Clamp Meter</td><td>1 kA = 1000 A</td></tr>
+      <tr><td>5</td><td><strong>Tidak baku</strong></td><td>tingkat nyala lampu</td><td>-</td><td>Pengamatan visual</td><td>Tidak terukur pasti</td></tr>
+      <tr><td>6</td><td>Tidak baku</td><td>rasa kejutan listrik</td><td>-</td><td>Indra tubuh</td><td>Berbahaya & tidak ilmiah</td></tr>
+    </tbody>
+  </table>
+  <h4 style="margin-top:15px;">🌡️ Tabel Besaran Pokok Suhu Termodinamik</h4>
+<table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width:100%; text-align:center;">
+  <thead style="background:#ff7043; color:white;">
+    <tr>
+      <th>No</th>
+      <th>Jenis Satuan</th>
+      <th>Nama Satuan</th>
+      <th>Lambang</th>
+      <th>Alat Ukur</th>
+      <th>Keterangan</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td><strong>Baku</strong></td><td>kelvin</td><td>K</td><td>Termometer digital / laboratorium</td><td>Satuan standar suhu dalam SI</td></tr>
+    <tr><td>2</td><td>Baku</td><td>celcius</td><td>°C</td><td>Termometer air raksa</td><td>0°C = 273 K</td></tr>
+    <tr><td>3</td><td>Baku</td><td>fahrenheit</td><td>°F</td><td>Termometer klinis</td><td>32°F = 273 K</td></tr>
+    <tr><td>4</td><td>Baku</td><td>reamur</td><td>°R</td><td>Termometer kaca</td><td>0°R = 273 K</td></tr>
+    <tr><td>5</td><td><strong>Tidak baku</strong></td><td>rasa panas/dingin</td><td>-</td><td>Indra peraba</td><td>Tidak terukur secara ilmiah</td></tr>
+  </tbody>
+</table>
+
+
+      <p style="margin-top:15px;">💡 <em>Kesimpulan:</em> Semua besaran fisika memiliki satuan, baik pokok maupun turunan. 
+      Standar satuan internasional disebut <strong>SI (Système International d'Unités)</strong>.</p>
+    
+          <h4>Latihan Interaktif:</h4>
+      <p>Ubah satuan panjang dari meter ke kilometer.</p>
+      <input type="number" id="panjangMeter" placeholder="Masukkan panjang (m)">
+      <button onclick="konversiPanjang()">Konversi</button>
+      <p id="hasilPanjang" class="result"></p>
+    </div>
+
+    <h3 onclick="toggle('bab2')">2️⃣ Gerak dan Kecepatan</h3>
+    <div id="bab2" class="example">
+      <p>Gerak terjadi ketika posisi benda berubah terhadap titik acuan. 
+      Kecepatan menunjukkan seberapa cepat benda berpindah.</p>
+      <p><strong>Rumus:</strong> <span class="formula">v = s / t</span></p>
+      <p><u>Contoh:</u> Sebuah mobil menempuh 120 m dalam 10 s → 
+      v = 120/10 = <strong>12 m/s</strong></p>
+      <div class="anim-box"><div class="ball"></div></div>
+      <small>Bola jatuh menunjukkan gerak akibat gravitasi.</small>
+
+           <p><strong>Latihan Interaktif:</strong></p>
+      <input type="number" id="jarak" placeholder="Jarak (m)">
+      <input type="number" id="waktu" placeholder="Waktu (s)">
+      <button onclick="hitungKecepatan()">Hitung Kecepatan</button>
+      <p id="hasilKecepatan" class="result"></p>
+    </div>
+
+    <h3 onclick="toggle('bab3')">3️⃣ Hukum Newton</h3>
+    <div id="bab3" class="example">
+      <p><strong>Hukum I Newton:</strong> Benda akan tetap diam atau bergerak lurus beraturan jika tidak ada gaya yang bekerja padanya.</p>
+      <p><strong>Hukum II Newton:</strong> Gaya menyebabkan percepatan.</p>
+      <p><span class="formula">F = m × a</span></p>
+      <p><u>Contoh:</u> Benda 2 kg mendapat percepatan 3 m/s² → 
+      F = 2 × 3 = <strong>6 N</strong></p>
+      <div class="newton-box">
+        <div class="box"></div>
+        <div class="arrow"></div>
+      </div>
+      <small>Gaya dorong (panah merah) membuat benda biru bergerak.</small>
+
+           <p><strong>Latihan Interaktif:</strong></p>
+      <input type="number" id="massa" placeholder="Massa (kg)">
+      <input type="number" id="percepatan" placeholder="Percepatan (m/s²)">
+      <button onclick="hitungGaya()">Hitung Gaya</button>
+      <p id="hasilGaya" class="result"></p>
+    </div>
+
+    <h3 onclick="toggle('bab4')">4️⃣ Energi dan Usaha</h3>
+    <div id="bab4" class="example">
+      <p><strong>Energi</strong> adalah kemampuan melakukan usaha.</p>
+      <p><strong>Rumus Energi Kinetik:</strong> <span class="formula">Ek = ½ × m × v²</span></p>
+      <p><strong>Rumus Energi Potensial:</strong> <span class="formula">Ep = m × g × h</span></p>
+      <p><u>Contoh:</u> Bola bermassa 0,5 kg dilempar dengan kecepatan 4 m/s → 
+      Ek = ½ × 0,5 × 4² = <strong>4 Joule</strong></p>
+      <div class="energy-box"><div class="ball-energy"></div></div>
+      <small>Bola hijau menggelinding menunjukkan energi kinetik.</small>
+
+      
+      <p><strong>Latihan Interaktif Energi Kinetik:</strong></p>
+      <input type="number" id="mEnergi" placeholder="Massa (kg)">
+      <input type="number" id="vEnergi" placeholder="Kecepatan (m/s)">
+      <button onclick="hitungEnergi()">Hitung Ek</button>
+      <p id="hasilEnergi" class="result"></p>
+    </div>
+
+    <a href="ipav1.html" class="back">← Kembali ke Menu Sebelumnya</a>
+  </div>
+
+  <script>
+  function toggle(id){
+    const e=document.getElementById(id);
+    e.classList.toggle('show');
+  }
+
+  function konversiPanjang(){
+  const m = parseFloat(document.getElementById("panjangMeter").value);
+  if(isNaN(m)) return alert("Masukkan nilai panjang!");
+  document.getElementById("hasilPanjang").innerText = `${m} meter = ${(m/1000).toFixed(3)} kilometer`;
+}
+function hitungKecepatan(){
+  const s = parseFloat(document.getElementById("jarak").value);
+  const t = parseFloat(document.getElementById("waktu").value);
+  if(isNaN(s)||isNaN(t)||t===0) return alert("Isi jarak dan waktu dengan benar!");
+  const v = s/t;
+  document.getElementById("hasilKecepatan").innerText = `Kecepatan = ${v.toFixed(2)} m/s`;
+}
+
+function hitungGaya(){
+  const m = parseFloat(document.getElementById("massa").value);
+  const a = parseFloat(document.getElementById("percepatan").value);
+  if(isNaN(m)||isNaN(a)) return alert("Isi massa dan percepatan!");
+  const F = m*a;
+  document.getElementById("hasilGaya").innerText = `Gaya = ${F.toFixed(2)} N`;
+}
+
+function hitungEnergi(){
+  const m = parseFloat(document.getElementById("mEnergi").value);
+  const v = parseFloat(document.getElementById("vEnergi").value);
+  if(isNaN(m)||isNaN(v)) return alert("Isi massa dan kecepatan!");
+  const Ek = 0.5*m*v*v;
+  document.getElementById("hasilEnergi").innerText = `Energi Kinetik = ${Ek.toFixed(2)} Joule`;
+}
+  </script>
+</body>
+</html>
