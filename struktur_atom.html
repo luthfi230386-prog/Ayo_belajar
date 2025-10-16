@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Struktur Atom</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg1:#0d1117;
+    --bg2:#1a1f29;
+    --accent:#00bcd4;
+    --accent2:#2196F3;
+    --text:#e0e0e0;
+    --card:#161b22;
+  }
+
+  * { box-sizing:border-box; margin:0; padding:0; }
+
+  body {
+    font-family:'Baloo 2', sans-serif;
+    background:linear-gradient(to bottom,var(--bg1),var(--bg2));
+    min-height:100vh;
+    padding:30px;
+    color:var(--text);
+  }
+
+  h1 {
+    text-align:center;
+    font-size:36px;
+    color:var(--accent);
+    margin-bottom:20px;
+    text-shadow:0 0 10px var(--accent);
+  }
+
+  h2 {
+    background:var(--accent2);
+    color:white;
+    display:inline-block;
+    padding:10px 18px;
+    border-radius:12px;
+    margin-top:24px;
+    cursor:pointer;
+    font-size:20px;
+    transition:background 0.3s, transform 0.2s;
+  }
+
+  h2:hover { background:#42a5f5; transform:scale(1.05); }
+
+  p { margin-top:8px; font-size:16px; line-height:1.6; text-align:justify; }
+  ul { margin-top:6px; text-align:left; margin-left:30px; }
+
+  .content { margin-top:20px; text-align:center; }
+
+  .example {
+    background:var(--card);
+    border-radius:12px;
+    padding:16px;
+    margin:16px auto;
+    box-shadow:0 4px 12px rgba(0,0,0,0.4);
+    max-width:720px;
+    text-align:left;
+    overflow:hidden;
+    opacity:0;
+    max-height:0;
+    transform:translateY(-10px);
+    transition:all 0.6s ease;
+  }
+
+  .example.show {
+    opacity:1;
+    max-height:3000px;
+    transform:translateY(0);
+  }
+
+  .formula {
+    font-family:monospace;
+    background:#263238;
+    color:#80deea;
+    padding:4px 8px;
+    border-radius:6px;
+  }
+
+  input, button {
+    margin-top:6px;
+    padding:8px;
+    border-radius:8px;
+    border:none;
+    outline:none;
+    font-family:'Baloo 2';
+  }
+
+  input {
+    background:#21262d;
+    color:white;
+    width:120px;
+  }
+
+  button {
+    background:var(--accent);
+    color:#fff;
+    cursor:pointer;
+    transition:background 0.3s;
+  }
+
+  button:hover { background:#26c6da; }
+
+  .result { margin-top:10px; font-weight:bold; color:#80deea; }
+
+  /* Atom model */
+  .atom {
+    position:relative;
+    width:180px;
+    height:180px;
+    margin:30px auto;
+    border:2px solid var(--accent);
+    border-radius:50%;
+    animation:spin 10s linear infinite;
+  }
+
+  .nucleus {
+    position:absolute;
+    width:50px;
+    height:50px;
+    background:radial-gradient(circle,#ff4081,#c2185b);
+    border-radius:50%;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    box-shadow:0 0 20px #f06292;
+  }
+
+  .electron {
+    position:absolute;
+    width:16px;
+    height:16px;
+    background:#03a9f4;
+    border-radius:50%;
+    top:0;
+    left:50%;
+    transform:translateX(-50%);
+    animation:orbit 3s linear infinite;
+  }
+
+  @keyframes orbit {
+    0% { transform:rotate(0deg) translateX(80px) rotate(0deg); }
+    100% { transform:rotate(360deg) translateX(80px) rotate(-360deg); }
+  }
+
+  @keyframes spin {
+    from { transform:rotate(0deg); }
+    to { transform:rotate(360deg); }
+  }
+
+  /* Tabel */
+  table {
+    border-collapse:collapse;
+    width:100%;
+    margin-top:10px;
+    text-align:center;
+  }
+  th, td { border:1px solid #333; padding:8px; }
+  th { background:var(--accent2); color:#fff; }
+  td { background:#21262d; }
+
+  /* Back */
+  .back {
+    display:inline-block;
+    margin-top:30px;
+    text-decoration:none;
+    background:var(--accent2);
+    color:white;
+    padding:10px 20px;
+    border-radius:10px;
+    transition:background 0.3s;
+  }
+  .back:hover { background:#42a5f5; }
+</style>
+</head>
+
+<body>
+  <h1>Kimia Dasar - Struktur Atom</h1>
+  <div class="content">
+
+    <!-- BAB 1 -->
+    <h2 onclick="toggle('bab1')">1️⃣ Pengertian Struktur Atom</h2>
+    <div id="bab1" class="example">
+      <p>Atom adalah partikel terkecil dari suatu unsur yang masih memiliki sifat unsur tersebut. 
+      Atom terdiri dari <strong>inti atom (proton dan neutron)</strong> serta <strong>elektron</strong> yang bergerak mengelilinginya.</p>
+
+      <div class="atom">
+        <div class="nucleus"></div>
+        <div class="electron"></div>
+      </div>
+
+      <p>Inti atom bermuatan positif karena adanya proton, sedangkan elektron bermuatan negatif dan berputar pada lintasannya (kulit elektron).</p>
+    </div>
+
+    <!-- BAB 2 -->
+    <h2 onclick="toggle('bab2')">2️⃣ Partikel Penyusun Atom</h2>
+    <div id="bab2" class="example">
+      <p>Atom terdiri dari tiga partikel utama:</p>
+      <ul>
+        <li><strong>Proton (p⁺)</strong> → bermuatan positif, berada di inti atom</li>
+        <li><strong>Neutron (n⁰)</strong> → tidak bermuatan, juga di inti atom</li>
+        <li><strong>Elektron (e⁻)</strong> → bermuatan negatif, mengelilingi inti atom</li>
+      </ul>
+
+      <p>Nomor atom (Z) = jumlah proton = jumlah elektron (untuk atom netral).<br>
+      Nomor massa (A) = jumlah proton + neutron.</p>
+    </div>
+
+    <!-- BAB 3 -->
+    <h2 onclick="toggle('bab3')">3️⃣ Latihan: Menentukan Jumlah Partikel</h2>
+    <div id="bab3" class="example">
+      <p><strong>Rumus:</strong></p>
+      <p><span class="formula">A = p + n</span> dan <span class="formula">Z = p</span></p>
+
+      <p>💡 <strong>Masukkan nilai:</strong></p>
+      <input type="number" id="A" placeholder="Nomor massa (A)">
+      <input type="number" id="Z" placeholder="Nomor atom (Z)">
+      <button onclick="hitungPartikel()">Hitung Partikel</button>
+
+      <p id="hasilPartikel" class="result"></p>
+    </div>
+
+    <!-- BAB 4 -->
+    <h2 onclick="toggle('bab4')">4️⃣ Konfigurasi Elektron</h2>
+    <div id="bab4" class="example">
+      <p>Elektron mengisi kulit atom dengan aturan kapasitas: 
+      <span class="formula">K = 2, L = 8, M = 18, N = 32</span></p>
+
+      <p><strong>💡 Masukkan jumlah elektron:</strong></p>
+      <input type="number" id="elektron" placeholder="Jumlah e⁻">
+      <button onclick="konfigurasiElektron()">Hitung Konfigurasi</button>
+      <p id="hasilKonfigurasi" class="result"></p>
+    </div>
+
+    <!-- BAB 5 -->
+    <h2 onclick="toggle('bab5')">5️⃣ Tabel Partikel Subatom</h2>
+    <div id="bab5" class="example">
+      <table>
+        <thead>
+          <tr>
+            <th>Partikel</th>
+            <th>Muatan</th>
+            <th>Massa (kg)</th>
+            <th>Lokasi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Proton (p⁺)</td><td>+1</td><td>1.67 × 10⁻²⁷</td><td>Inti atom</td></tr>
+          <tr><td>Neutron (n⁰)</td><td>0</td><td>1.67 × 10⁻²⁷</td><td>Inti atom</td></tr>
+          <tr><td>Elektron (e⁻)</td><td>−1</td><td>9.11 × 10⁻³¹</td><td>Lintasan elektron</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <a href="kimia.html" class="back">← Kembali ke Menu Sebelumnya</a>
+  </div>
+
+<script>
+function toggle(id){
+  document.getElementById(id).classList.toggle('show');
+}
+
+function hitungPartikel(){
+  const A=parseFloat(document.getElementById('A').value);
+  const Z=parseFloat(document.getElementById('Z').value);
+  const out=document.getElementById('hasilPartikel');
+  if(isNaN(A)||isNaN(Z)||A<Z){ out.textContent='⚠️ Masukkan nilai A dan Z dengan benar!'; return;}
+  const p=Z;
+  const n=A-Z;
+  const e=Z;
+  out.innerHTML=`Proton = ${p}<br>Neutron = ${n}<br>Elektron = ${e}`;
+}
+
+function konfigurasiElektron(){
+  const e=parseInt(document.getElementById('elektron').value);
+  const out=document.getElementById('hasilKonfigurasi');
+  if(isNaN(e)||e<=0){ out.textContent='⚠️ Masukkan jumlah elektron dengan benar!'; return;}
+  let sisa=e;
+  const kulit=[2,8,18,32];
+  let hasil=[];
+  for(let i=0;i<kulit.length;i++){
+    if(sisa>kulit[i]){
+      hasil.push(kulit[i]);
+      sisa-=kulit[i];
+    } else {
+      hasil.push(sisa);
+      break;
+    }
+  }
+  out.innerHTML=`Konfigurasi Elektron: ${hasil.map((v,i)=>['K','L','M','N'][i]+'='+v).join(', ')}`;
+}
+</script>
+</body>
+</html>

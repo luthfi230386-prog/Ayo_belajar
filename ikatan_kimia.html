@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ikatan Kimia</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg1:#0a0f1f;
+    --bg2:#16213e;
+    --accent:#00e0ff;
+    --accent2:#0077ff;
+    --text:#d0e7ff;
+    --card:#0f1b33;
+  }
+
+  * { box-sizing:border-box; margin:0; padding:0; }
+
+  body {
+    font-family:'Baloo 2', sans-serif;
+    background:linear-gradient(135deg,var(--bg1),var(--bg2));
+    min-height:100vh;
+    padding:30px;
+    color:var(--text);
+  }
+
+  h1 {
+    text-align:center;
+    font-size:38px;
+    color:var(--accent);
+    margin-bottom:25px;
+    text-shadow:0 0 20px var(--accent);
+    letter-spacing:1px;
+  }
+
+  h2 {
+    background:linear-gradient(90deg,var(--accent2),var(--accent));
+    color:white;
+    display:inline-block;
+    padding:10px 20px;
+    border-radius:14px;
+    margin-top:26px;
+    cursor:pointer;
+    font-size:20px;
+    box-shadow:0 0 12px rgba(0,224,255,0.5);
+    transition:all 0.3s ease;
+  }
+
+  h2:hover { transform:scale(1.05); filter:brightness(1.2); }
+
+  p { margin-top:8px; font-size:16px; line-height:1.6; text-align:justify; }
+  ul { margin-top:6px; text-align:left; margin-left:30px; }
+
+  .content { margin-top:20px; text-align:center; }
+
+  .example {
+    background:var(--card);
+    border-radius:14px;
+    padding:18px;
+    margin:18px auto;
+    box-shadow:0 0 25px rgba(0,119,255,0.25);
+    max-width:720px;
+    text-align:left;
+    overflow:hidden;
+    opacity:0;
+    max-height:0;
+    transform:translateY(-10px);
+    transition:all 0.6s ease;
+  }
+
+  .example.show {
+    opacity:1;
+    max-height:3000px;
+    transform:translateY(0);
+  }
+
+  .formula {
+    font-family:monospace;
+    background:#1b2b4a;
+    color:#00e0ff;
+    padding:4px 8px;
+    border-radius:6px;
+  }
+
+  input, button {
+    margin-top:6px;
+    padding:8px;
+    border-radius:8px;
+    border:none;
+    outline:none;
+    font-family:'Baloo 2';
+  }
+
+  input {
+    background:#1b2b4a;
+    color:white;
+    width:120px;
+  }
+
+  button {
+    background:linear-gradient(90deg,var(--accent2),var(--accent));
+    color:#fff;
+    cursor:pointer;
+    box-shadow:0 0 10px rgba(0,224,255,0.5);
+    transition:transform 0.2s;
+  }
+
+  button:hover { transform:scale(1.05); }
+
+  .result { margin-top:10px; font-weight:bold; color:#00e0ff; }
+
+  /* Animasi Ionik */
+  .ionic {
+    position:relative;
+    height:140px;
+    margin:20px auto;
+  }
+
+  .atom {
+    position:absolute;
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    text-align:center;
+    line-height:80px;
+    font-weight:bold;
+    color:white;
+    border:2px solid rgba(0,224,255,0.4);
+  }
+
+  .cation {
+    background:linear-gradient(145deg,#003366,#0055aa);
+    left:40px;
+    box-shadow:0 0 25px #0077ff;
+  }
+
+  .anion {
+    background:linear-gradient(145deg,#004477,#0099ff);
+    right:40px;
+    box-shadow:0 0 25px #00e0ff;
+  }
+
+  .electron-move {
+    position:absolute;
+    width:10px;
+    height:10px;
+    background:#00e0ff;
+    border-radius:50%;
+    left:90px;
+    top:50%;
+    animation:transfer 2s infinite alternate;
+  }
+
+  @keyframes transfer {
+    0% { left:100px; opacity:1; }
+    100% { left:210px; opacity:0.3; }
+  }
+
+  /* Animasi Kovalen */
+  .cov {
+    position:relative;
+    height:120px;
+    margin:30px auto;
+  }
+  .cov-atom {
+    position:absolute;
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    background:linear-gradient(145deg,#1e2a78,#2a3da3);
+    top:20px;
+    box-shadow:0 0 25px rgba(0,224,255,0.5);
+  }
+  .cov-atom.left { left:150px; }
+  .cov-atom.right { right:150px; }
+  .shared {
+    position:absolute;
+    width:14px;
+    height:14px;
+    background:#00e0ff;
+    border-radius:50%;
+    top:50px;
+    left:50%;
+    transform:translateX(-50%);
+    animation:bond 2s infinite ease-in-out;
+  }
+
+  @keyframes bond {
+    0%,100% { transform:translateX(-50%) scale(1); box-shadow:0 0 10px #00e0ff; }
+    50% { transform:translateX(-50%) scale(1.3); box-shadow:0 0 20px #00ffff; }
+  }
+
+  table {
+    border-collapse:collapse;
+    width:100%;
+    margin-top:10px;
+    text-align:center;
+  }
+  th, td { border:1px solid #333; padding:8px; }
+  th { background:var(--accent2); color:#fff; }
+  td { background:#1b2b4a; }
+
+  .back {
+    display:inline-block;
+    margin-top:30px;
+    text-decoration:none;
+    background:linear-gradient(90deg,var(--accent2),var(--accent));
+    color:white;
+    padding:10px 20px;
+    border-radius:10px;
+    box-shadow:0 0 15px rgba(0,224,255,0.4);
+    transition:transform 0.3s;
+  }
+  .back:hover { transform:scale(1.05); filter:brightness(1.2); }
+</style>
+</head>
+
+<body>
+  <h1>Kimia Dasar - Ikatan Kimia</h1>
+  <div class="content">
+
+    <h2 onclick="toggle('bab1')">1️⃣ Pengertian Ikatan Kimia</h2>
+    <div id="bab1" class="example">
+      <p>Ikatan kimia adalah gaya tarik-menarik yang mengikat atom-atom untuk membentuk molekul atau senyawa. 
+      Atom membentuk ikatan untuk mencapai <strong>konfigurasi elektron stabil</strong> seperti gas mulia (oktet).</p>
+    </div>
+
+    <h2 onclick="toggle('bab2')">2️⃣ Jenis-Jenis Ikatan Kimia</h2>
+    <div id="bab2" class="example">
+      <ul>
+        <li><strong>Ikatan Ionik</strong> — terjadi karena perpindahan elektron dari atom logam ke non-logam.</li>
+        <li><strong>Ikatan Kovalen</strong> — terjadi karena pemakaian bersama pasangan elektron.</li>
+        <li><strong>Ikatan Logam</strong> — terjadi antar atom logam dengan lautan elektron bebas.</li>
+      </ul>
+    </div>
+
+    <h2 onclick="toggle('bab3')">3️⃣ Animasi: Ikatan Ionik</h2>
+    <div id="bab3" class="example">
+      <p>Contoh ikatan ionik: <strong>Natrium (Na)</strong> menyerahkan 1 elektron kepada <strong>Klor (Cl)</strong> membentuk <strong>NaCl</strong>.</p>
+      <div class="ionic">
+        <div class="atom cation">Na⁺</div>
+        <div class="electron-move"></div>
+        <div class="atom anion">Cl⁻</div>
+      </div>
+    </div>
+
+    <h2 onclick="toggle('bab4')">4️⃣ Animasi: Ikatan Kovalen</h2>
+    <div id="bab4" class="example">
+      <p>Contoh ikatan kovalen: <strong>H₂</strong> terbentuk karena dua atom Hidrogen saling berbagi elektron.</p>
+      <div class="cov">
+        <div class="cov-atom left">H</div>
+        <div class="shared"></div>
+        <div class="cov-atom right">H</div>
+      </div>
+    </div>
+
+    <h2 onclick="toggle('bab5')">5️⃣ Latihan Interaktif</h2>
+    <div id="bab5" class="example">
+      <p><strong>💡 Tentukan jenis ikatan berdasarkan perbedaan keelektronegatifan!</strong></p>
+      <p><span class="formula">ΔEN = |X₁ - X₂|</span></p>
+      <p>Kriteria:</p>
+      <ul>
+        <li>ΔEN < 0.4 → Kovalen non-polar</li>
+        <li>0.4 ≤ ΔEN ≤ 1.7 → Kovalen polar</li>
+        <li>ΔEN > 1.7 → Ionik</li>
+      </ul>
+
+      <input type="number" step="0.01" id="en1" placeholder="X₁">
+      <input type="number" step="0.01" id="en2" placeholder="X₂">
+      <button onclick="cekIkatan()">Cek Jenis Ikatan</button>
+      <p id="hasilIkatan" class="result"></p>
+    </div>
+
+    <h2 onclick="toggle('bab6')">6️⃣ Tabel Contoh Senyawa</h2>
+    <div id="bab6" class="example">
+      <table>
+        <thead>
+          <tr>
+            <th>Senyawa</th>
+            <th>Jenis Ikatan</th>
+            <th>Keterangan</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>NaCl</td><td>Ionik</td><td>Perpindahan elektron dari Na ke Cl</td></tr>
+          <tr><td>H₂O</td><td>Kovalen polar</td><td>Berbagi elektron tidak seimbang</td></tr>
+          <tr><td>O₂</td><td>Kovalen non-polar</td><td>Berbagi elektron secara seimbang</td></tr>
+          <tr><td>Fe</td><td>Logam</td><td>Lautan elektron bebas</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <a href="kimia.html" class="back">← Kembali ke Menu Sebelumnya</a>
+  </div>
+
+<script>
+function toggle(id){
+  document.getElementById(id).classList.toggle('show');
+}
+
+function cekIkatan(){
+  const X1=parseFloat(document.getElementById('en1').value);
+  const X2=parseFloat(document.getElementById('en2').value);
+  const out=document.getElementById('hasilIkatan');
+  if(isNaN(X1)||isNaN(X2)){ out.textContent='⚠️ Masukkan kedua nilai keelektronegatifan!'; return;}
+  const d=Math.abs(X1-X2);
+  let jenis='';
+  if(d<0.4) jenis='Kovalen non-polar';
+  else if(d<=1.7) jenis='Kovalen polar';
+  else jenis='Ionik';
+  out.innerHTML=`ΔEN = ${d.toFixed(2)} → Jenis Ikatan: <strong>${jenis}</strong>`;
+}
+</script>
+</body>
+</html>

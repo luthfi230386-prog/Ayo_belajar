@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kimia Dasar</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg1:#E3F2FD;
+    --bg2:#E8F5E9;
+    --accent:#29B6F6;
+    --accent2:#66BB6A;
+    --text:#263238;
+  }
+
+  * { box-sizing:border-box; margin:0; padding:0; }
+
+  body {
+    font-family:'Baloo 2', sans-serif;
+    background:linear-gradient(to bottom,var(--bg1),var(--bg2));
+    min-height:100vh;
+    padding:30px;
+    color:var(--text);
+  }
+
+  h1 {
+    text-align:center;
+    font-size:36px;
+    color:var(--accent);
+    margin-bottom:20px;
+  }
+
+  h2 {
+    background:var(--accent2);
+    color:white;
+    display:inline-block;
+    padding:10px 18px;
+    border-radius:12px;
+    margin-top:24px;
+    cursor:pointer;
+    font-size:20px;
+    transition:background 0.3s, transform 0.2s;
+  }
+  h2:hover { background:#81C784; transform:scale(1.05); }
+
+  p { margin-top:8px; font-size:16px; line-height:1.6; text-align:justify; }
+  ul { margin-top:6px; margin-left:30px; text-align:left; }
+
+  .content { margin-top:20px; text-align:center; }
+
+  .example {
+    background:white;
+    border-radius:12px;
+    padding:16px;
+    margin:16px auto;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    max-width:720px;
+    text-align:left;
+    overflow:hidden;
+    opacity:0;
+    max-height:0;
+    transform:translateY(-10px);
+    transition:all 0.6s ease;
+  }
+  .example.show {
+    opacity:1;
+    max-height:3000px;
+    transform:translateY(0);
+  }
+
+  .formula {
+    font-family:monospace;
+    background:#E1F5FE;
+    padding:4px 8px;
+    border-radius:6px;
+  }
+
+  /* Animasi molekul */
+  .molecule {
+    position:relative;
+    width:160px;
+    height:160px;
+    margin:20px auto;
+  }
+  .atom {
+    position:absolute;
+    border-radius:50%;
+    color:white;
+    font-weight:bold;
+    text-align:center;
+    line-height:40px;
+  }
+  .atom.O { width:60px; height:60px; background:#F44336; left:50px; top:50px; }
+  .atom.H1 { width:40px; height:40px; background:#64B5F6; left:0; top:20px; animation:orbit1 3s linear infinite; }
+  .atom.H2 { width:40px; height:40px; background:#64B5F6; right:0; top:90px; animation:orbit2 3s linear infinite; }
+
+  @keyframes orbit1 { 0%{transform:rotate(0deg) translateX(40px);}100%{transform:rotate(360deg) translateX(40px);} }
+  @keyframes orbit2 { 0%{transform:rotate(360deg) translateX(40px);}100%{transform:rotate(0deg) translateX(40px);} }
+
+  /* Titrasi animasi */
+  .beaker {
+    width:120px;
+    height:160px;
+    border:3px solid #90A4AE;
+    border-radius:0 0 60px 60px;
+    margin:20px auto;
+    position:relative;
+    overflow:hidden;
+  }
+  .liquid {
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:40%;
+    background:linear-gradient(to top,#29B6F6,#4FC3F7);
+    animation:wave 2s ease-in-out infinite alternate;
+  }
+  @keyframes wave {
+    0%{height:30%;}
+    100%{height:50%;}
+  }
+
+  .result { margin-top:10px; font-weight:bold; color:#00796B; }
+
+  /* Tombol & input */
+  input, button {
+    margin-top:6px;
+    padding:6px 10px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    font-family:inherit;
+    font-size:15px;
+  }
+  button {
+    background:var(--accent);
+    color:white;
+    font-weight:700;
+    border:none;
+    cursor:pointer;
+    transition:transform 0.2s, background 0.3s;
+  }
+  button:hover { background:#0288D1; transform:scale(1.05); }
+
+  /* Back */
+  .back {
+    display:inline-block;
+    margin-top:30px;
+    text-decoration:none;
+    background:var(--accent2);
+    color:white;
+    padding:10px 20px;
+    border-radius:10px;
+    transition:background 0.3s;
+  }
+  .back:hover { background:#388E3C; }
+
+</style>
+</head>
+
+<body>
+  <h1>Kimia Dasar</h1>
+  <div class="content">
+
+    <!-- BAB 1 -->
+    <h2 onclick="toggle('bab1')">1️⃣ Struktur Atom</h2>
+    <div id="bab1" class="example">
+      <p>Atom terdiri atas <strong>proton</strong>, <strong>neutron</strong>, dan <strong>elektron</strong>. 
+      Elektron bergerak mengelilingi inti atom dalam orbit tertentu.</p>
+
+      <div class="molecule">
+        <div class="atom O">O</div>
+        <div class="atom H1">H</div>
+        <div class="atom H2">H</div>
+      </div>
+
+      <p>Contoh molekul air (<span class="formula">H₂O</span>) terdiri atas dua atom hidrogen dan satu atom oksigen.</p>
+    </div>
+
+    <!-- BAB 2 -->
+    <h2 onclick="toggle('bab2')">2️⃣ Konsep Mol</h2>
+    <div id="bab2" class="example">
+      <p><strong>Mol</strong> menyatakan jumlah partikel (atom, molekul, atau ion) sebanyak <span class="formula">6,022 × 10²³</span>.</p>
+      <p><strong>Rumus:</strong> <span class="formula">n = m / Mr</span></p>
+
+      <p><strong>💡 Latihan Interaktif:</strong></p>
+      <input type="number" id="massaMol" placeholder="Massa (g)">
+      <input type="number" id="mrMol" placeholder="Mr (g/mol)">
+      <button onclick="hitungMol()">Hitung Mol</button>
+      <p id="hasilMol" class="result"></p>
+    </div>
+
+    <!-- BAB 3 -->
+    <h2 onclick="toggle('bab3')">3️⃣ Larutan dan pH</h2>
+    <div id="bab3" class="example">
+      <p>pH adalah ukuran keasaman atau kebasaan suatu larutan. Rumus:</p>
+      <p><span class="formula">pH = −log[H⁺]</span></p>
+
+      <div class="beaker">
+        <div class="liquid"></div>
+      </div>
+
+      <p><strong>💡 Latihan Interaktif:</strong></p>
+      <input type="number" id="hplus" placeholder="[H⁺] (mol/L)" step="any">
+      <button onclick="hitungpH()">Hitung pH</button>
+      <p id="hasilpH" class="result"></p>
+    </div>
+
+    <!-- BAB 4 -->
+    <h2 onclick="toggle('bab4')">4️⃣ Reaksi Kimia</h2>
+    <div id="bab4" class="example">
+      <p>Reaksi kimia menggambarkan perubahan zat menjadi zat baru. Misalnya:</p>
+      <p><span class="formula">2H₂ + O₂ → 2H₂O</span></p>
+
+      <p><strong>💡 Latihan Interaktif (Rasio Reaksi):</strong></p>
+      <input type="number" id="molH2" placeholder="Mol H₂">
+      <input type="number" id="molO2" placeholder="Mol O₂">
+      <button onclick="hitungReaksi()">Cek Zat Pembatas</button>
+      <p id="hasilReaksi" class="result"></p>
+    </div>
+
+    <!-- BAB 5 -->
+    <h2 onclick="toggle('bab5')">5️⃣ Tabel Unsur Kimia (Contoh)</h2>
+    <div id="bab5" class="example">
+      <table border="1" width="100%" cellspacing="0" cellpadding="6">
+        <thead style="background:var(--accent);color:white">
+          <tr><th>Unsur</th><th>Simbol</th><th>Nomor Atom</th><th>Mr</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Hidrogen</td><td>H</td><td>1</td><td>1.01</td></tr>
+          <tr><td>Oksigen</td><td>O</td><td>8</td><td>16.00</td></tr>
+          <tr><td>Karbon</td><td>C</td><td>6</td><td>12.01</td></tr>
+          <tr><td>Natrium</td><td>Na</td><td>11</td><td>22.99</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <a href="kimia.html" class="back">← Kembali ke Menu Sebelumnya</a>
+  </div>
+
+<script>
+function toggle(id){
+  document.getElementById(id).classList.toggle('show');
+}
+
+function hitungMol(){
+  const m=parseFloat(document.getElementById('massaMol').value);
+  const Mr=parseFloat(document.getElementById('mrMol').value);
+  const out=document.getElementById('hasilMol');
+  if(isNaN(m)||isNaN(Mr)||Mr===0){out.textContent='⚠️ Isi data dengan benar!';return;}
+  const n=m/Mr;
+  out.textContent=`Jumlah mol = ${n.toFixed(3)} mol`;
+}
+
+function hitungpH(){
+  const h=parseFloat(document.getElementById('hplus').value);
+  const out=document.getElementById('hasilpH');
+  if(isNaN(h)||h<=0){out.textContent='⚠️ Nilai [H⁺] tidak valid!';return;}
+  const pH= -Math.log10(h);
+  out.textContent=`pH larutan = ${pH.toFixed(2)}`;
+}
+
+function hitungReaksi(){
+  const H2=parseFloat(document.getElementById('molH2').value);
+  const O2=parseFloat(document.getElementById('molO2').value);
+  const out=document.getElementById('hasilReaksi');
+  if(isNaN(H2)||isNaN(O2)){out.textContent='⚠️ Isi semua nilai!';return;}
+  const rasio=H2/(2*O2);
+  if(rasio<1){out.textContent='Hidrogen kurang → Oksigen berlebih';}
+  else if(rasio>1){out.textContent='Oksigen kurang → Hidrogen berlebih';}
+  else{out.textContent='Reaksi seimbang (tidak ada zat pembatas)';}
+}
+</script>
+</body>
+</html>
