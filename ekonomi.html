@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="theme-color" content="#FFE082" />
+  <meta name="description" content="Ayo Belajar Ekonomi — Pahami konsep keuangan, pasar, dan pembangunan ekonomi dengan cara interaktif!" />
+  <title>Ayo Belajar — Ekonomi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg1: #FFE082;
+      --bg2: #FFF8E1;
+      --accent: #FFB300;
+      --shadow: rgba(0, 0, 0, 0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      font-family: 'Baloo 2', sans-serif;
+      background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 80%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
+      min-height: 100vh;
+    }
+
+    .stage {
+      width: 100%;
+      max-width: 720px;
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 20px;
+      box-shadow: 0 12px 28px var(--shadow);
+      padding: 40px 32px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Animasi ekonomi: koin dan grafik */
+    .stage::before {
+      content: "";
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 160px;
+      height: 160px;
+      background: radial-gradient(circle at center, rgba(255, 193, 7, 0.3), transparent 70%);
+      border-radius: 50%;
+      animation: coinSpin 6s infinite ease-in-out alternate;
+    }
+
+    .stage::after {
+      content: "";
+      position: absolute;
+      bottom: -60px;
+      left: -60px;
+      width: 180px;
+      height: 180px;
+      background: linear-gradient(135deg, rgba(255, 179, 0, 0.25), transparent 70%);
+      border-radius: 50%;
+      animation: graphRise 7s infinite ease-in-out alternate-reverse;
+    }
+
+    @keyframes coinSpin {
+      from { transform: rotate(0deg) scale(1); opacity: 0.7; }
+      to { transform: rotate(360deg) scale(1.1); opacity: 1; }
+    }
+
+    @keyframes graphRise {
+      from { transform: translateY(0); opacity: 0.8; }
+      to { transform: translateY(-20px); opacity: 1; }
+    }
+
+    .title {
+      font-size: 42px;
+      color: #E65100;
+      margin-bottom: 10px;
+      text-shadow: 0 0 8px rgba(255, 183, 77, 0.4);
+    }
+
+    .desc {
+      color: #BF360C;
+      margin-bottom: 30px;
+      font-size: 18px;
+    }
+
+    .btn-column {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .cta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+      padding: 14px 26px;
+      border-radius: 12px;
+      background: linear-gradient(90deg, var(--accent), #FFD54F);
+      color: white;
+      font-weight: 800;
+      text-decoration: none;
+      font-size: 18px;
+      box-shadow: 0 8px 20px rgba(255, 179, 0, 0.25);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .cta span.icon {
+      font-size: 22px;
+    }
+
+    .cta:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(255, 179, 0, 0.35);
+    }
+
+    .footer {
+      margin-top: 28px;
+      font-size: 13px;
+      color: #E65100;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="stage" role="main" aria-labelledby="page-title">
+    <h1 id="page-title" class="title">Belajar Ekonomi</h1>
+    <p class="desc">Pilih topik Ekonomi yang ingin kamu pelajari:</p>
+
+    <div class="btn-column" role="navigation" aria-label="Pelajaran Ekonomi">
+      <a class="cta" href="ekonomi_dasar.html" onclick="alert('Mulai belajar Ekonomi Dasar!')"><span class="icon">💰</span> EKONOMI DASAR</a>
+      <a class="cta" href="permintaan_penawaran.html" onclick="alert('Pelajari konsep permintaan dan penawaran!')"><span class="icon">📈</span> PERMINTAAN & PENAWARAN</a>
+      <a class="cta" href="kegiatan_ekonomi.html" onclick="alert('Pelajari kegiatan ekonomi masyarakat!')"><span class="icon">🏭</span> KEGIATAN EKONOMI</a>
+      <a class="cta" href="pembangunan_nasional.html" onclick="alert('Pelajari pembangunan ekonomi nasional!')"><span class="icon">🏗️</span> PEMBANGUNAN NASIONAL</a>
+      <a class="cta" href="perdagangan_internasional.html" onclick="alert('Pelajari perdagangan internasional!')"><span class="icon">🌐</span> PERDAGANGAN INTERNASIONAL</a>
+      <a class="cta back-btn" href="ips.html">⬅️ Menu Sebelumnya</a>
+    </div>
+
+    <div class="footer">© 2025</div>
+  </main>
+</body>
+</html>

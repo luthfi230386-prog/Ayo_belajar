@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Geografi — Lapisan Bumi (Interaktif + Penjelasan)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg1:#B2EBF2;
+      --bg2:#E0F7FA;
+      --accent:#00796B;
+      --accent2:#004D40;
+      --card:#ffffffeb;
+      --text:#00332b;
+    }
+
+    * { box-sizing:border-box; margin:0; padding:0; }
+
+    body {
+      font-family:'Baloo 2', sans-serif;
+      background:linear-gradient(to bottom,var(--bg1),var(--bg2));
+      color:var(--text);
+      min-height:100vh;
+      padding:30px;
+    }
+
+    h1 {
+      text-align:center;
+      font-size:38px;
+      color:var(--accent2);
+      margin-bottom:20px;
+      text-shadow:0 0 10px rgba(0,77,64,0.3);
+    }
+
+    h2 {
+      background:var(--accent);
+      color:white;
+      display:inline-block;
+      padding:10px 18px;
+      border-radius:12px;
+      margin-top:24px;
+      cursor:pointer;
+      font-size:22px;
+      transition:background 0.3s, transform 0.2s;
+    }
+
+    h2:hover { background:#009688; transform:scale(1.05); }
+
+    p { margin-top:8px; font-size:16px; line-height:1.6; text-align:justify; }
+    ul { margin-top:8px; margin-left:25px; text-align:left; }
+
+    .content { text-align:center; margin-top:10px; }
+
+    .example {
+      background:var(--card);
+      border-radius:16px;
+      padding:20px;
+      margin:20px auto;
+      box-shadow:0 4px 12px rgba(0,0,0,0.25);
+      max-width:800px;
+      text-align:left;
+      overflow:hidden;
+      opacity:0;
+      max-height:0;
+      transform:translateY(-10px);
+      transition:all 0.6s ease;
+    }
+
+    .example.show {
+      opacity:1;
+      max-height:3000px;
+      transform:translateY(0);
+    }
+
+    /* Animasi Lapisan Bumi */
+    .earth {
+      position:relative;
+      width:260px;
+      height:260px;
+      margin:30px auto;
+      border-radius:50%;
+      background:radial-gradient(circle at center, #4FC3F7 0%, #0288D1 60%, #01579B 100%);
+      box-shadow:inset 0 0 20px rgba(0,0,0,0.3);
+      overflow:hidden;
+      cursor:pointer;
+    }
+
+    .layer {
+      position:absolute;
+      border-radius:50%;
+      top:50%; left:50%;
+      transform:translate(-50%,-50%);
+      opacity:0.85;
+      transition:transform 0.3s, box-shadow 0.3s, opacity 0.3s;
+    }
+
+    .crust { width:230px; height:230px; background:rgba(205,133,63,0.9); box-shadow:inset 0 0 10px #5D4037; }
+    .mantle { width:180px; height:180px; background:rgba(255,111,0,0.8); box-shadow:inset 0 0 10px #E65100; }
+    .outer-core { width:120px; height:120px; background:rgba(255,204,0,0.85); box-shadow:inset 0 0 10px #F9A825; }
+    .inner-core { width:70px; height:70px; background:radial-gradient(circle,#FFEB3B,#F57F17); box-shadow:0 0 20px #FBC02D; }
+
+    .layer.active {
+      transform:translate(-50%,-50%) scale(1.15);
+      box-shadow:0 0 30px 10px rgba(255,255,255,0.6);
+      opacity:1;
+    }
+
+    @keyframes pulse {
+      from { transform:translate(-50%,-50%) scale(1); opacity:0.85; }
+      to { transform:translate(-50%,-50%) scale(1.05); opacity:1; }
+    }
+
+    /* Popup Info */
+    .info-box {
+      position:fixed;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%) scale(0);
+      background:white;
+      border-radius:16px;
+      box-shadow:0 4px 20px rgba(0,0,0,0.3);
+      padding:20px 30px;
+      width:90%;
+      max-width:400px;
+      text-align:center;
+      transition:transform 0.3s ease;
+      z-index:10;
+    }
+
+    .info-box.show { transform:translate(-50%,-50%) scale(1); }
+    .info-box h3 { color:var(--accent2); margin-bottom:10px; }
+    .info-box p { font-size:16px; line-height:1.5; margin-top:5px; }
+    .close-btn {
+      background:var(--accent);
+      color:white;
+      border:none;
+      padding:8px 14px;
+      border-radius:8px;
+      cursor:pointer;
+      margin-top:15px;
+    }
+    .close-btn:hover { background:#009688; }
+
+    .label { text-align:center; margin-top:8px; font-weight:bold; color:var(--accent2); }
+    .back { display:inline-block; margin-top:30px; text-decoration:none; background:var(--accent); color:white; padding:10px 20px; border-radius:10px; transition:background 0.3s; }
+    .back:hover { background:#009688; }
+  </style>
+</head>
+
+<body>
+  <h1>Geografi — Lapisan Bumi Interaktif & Penjelasan</h1>
+
+  <div class="content">
+
+    <!-- BAB 1 -->
+    <h2 onclick="toggle('bab1')">🌍 Struktur Umum Lapisan Bumi</h2>
+    <div id="bab1" class="example">
+      <p>Bumi tersusun atas beberapa lapisan dari luar ke dalam. Lapisan-lapisan ini terbentuk karena proses diferensiasi akibat suhu tinggi pada masa awal pembentukan bumi. Secara umum, bumi terdiri dari:</p>
+      <ul>
+        <li><b>Kerak Bumi (Crust)</b></li>
+        <li><b>Selubung atau Mantel (Mantle)</b></li>
+        <li><b>Inti Luar (Outer Core)</b></li>
+        <li><b>Inti Dalam (Inner Core)</b></li>
+      </ul>
+
+      <div class="earth">
+        <div class="layer crust" data-info="kerak"></div>
+        <div class="layer mantle" data-info="mantel"></div>
+        <div class="layer outer-core" data-info="intiLuar"></div>
+        <div class="layer inner-core" data-info="intiDalam"></div>
+      </div>
+
+      <p class="label">Klik lapisan untuk melihat informasi lebih lanjut</p>
+    </div>
+
+    <!-- BAB 2 -->
+    <h2 onclick="toggle('bab2')">🪨 Kerak Bumi (Crust)</h2>
+    <div id="bab2" class="example">
+      <p>Kerak bumi merupakan lapisan paling luar dan paling tipis, dengan ketebalan sekitar <b>5–70 km</b>. 
+      Kerak terbagi menjadi dua bagian: kerak samudra (tersusun atas basalt) dan kerak benua (tersusun atas granit). 
+      Suhu di lapisan ini relatif rendah, sehingga menjadi tempat berlangsungnya kehidupan.</p>
+    </div>
+
+    <!-- BAB 3 -->
+    <h2 onclick="toggle('bab3')">🔥 Mantel Bumi (Mantle)</h2>
+    <div id="bab3" class="example">
+      <p>Mantel merupakan lapisan di bawah kerak bumi dengan ketebalan sekitar <b>2.900 km</b>. 
+      Lapisan ini mengandung magma panas yang bergerak perlahan. 
+      Pergerakan mantel inilah yang menyebabkan fenomena <b>tektonik lempeng</b> dan aktivitas vulkanik.</p>
+    </div>
+
+    <!-- BAB 4 -->
+    <h2 onclick="toggle('bab4')">🌡️ Inti Bumi (Core)</h2>
+    <div id="bab4" class="example">
+      <p>Inti bumi terdiri dari dua bagian utama:</p>
+      <ul>
+        <li><b>Inti luar (outer core)</b>: berbentuk cair, tersusun dari besi dan nikel cair, menghasilkan medan magnet bumi.</li>
+        <li><b>Inti dalam (inner core)</b>: padat, karena tekanan sangat besar, dengan suhu mencapai sekitar <b>6.000°C</b>.</li>
+      </ul>
+      <p>Bagian inti inilah yang menjadi sumber energi panas bumi dan mempengaruhi aktivitas geologis.</p>
+    </div>
+
+    <a href="geografi.html" class="back">⬅️ Kembali ke Menu Geografi</a>
+  </div>
+
+  <!-- Popup Info -->
+  <div id="infoBox" class="info-box">
+    <h3 id="infoTitle"></h3>
+    <p id="infoText"></p>
+    <button class="close-btn" onclick="closeInfo()">Tutup</button>
+  </div>
+
+  <script>
+    function toggle(id){
+      document.getElementById(id).classList.toggle('show');
+    }
+
+    const layers=document.querySelectorAll('.layer');
+    const infoBox=document.getElementById('infoBox');
+    const title=document.getElementById('infoTitle');
+    const text=document.getElementById('infoText');
+
+    const infoData={
+      kerak:{
+        title:"Kerak Bumi (Crust)",
+        text:"Lapisan terluar dengan ketebalan 5–70 km. Tersusun dari batuan granit dan basalt. Di sinilah kehidupan dan aktivitas geologi seperti gempa dan gunung api terjadi."
+      },
+      mantel:{
+        title:"Mantel Bumi (Mantle)",
+        text:"Lapisan tebal sekitar 2.900 km. Tersusun dari silikat padat dan magma kental yang bergerak lambat. Pergerakan ini menyebabkan pergeseran lempeng tektonik."
+      },
+      intiLuar:{
+        title:"Inti Luar (Outer Core)",
+        text:"Lapisan cair setebal 2.200 km, tersusun dari besi dan nikel cair. Gerakan logam cair ini menghasilkan medan magnet bumi."
+      },
+      intiDalam:{
+        title:"Inti Dalam (Inner Core)",
+        text:"Lapisan padat di pusat bumi dengan suhu mencapai 6.000°C, tekanan sangat tinggi. Tersusun dari besi dan nikel padat."
+      }
+    };
+
+    layers.forEach(layer=>{
+      layer.addEventListener('click',()=>{
+        layers.forEach(l=>l.classList.remove('active'));
+        layer.classList.add('active');
+        const key=layer.dataset.info;
+        title.textContent=infoData[key].title;
+        text.textContent=infoData[key].text;
+        infoBox.classList.add('show');
+      });
+    });
+
+    function closeInfo(){
+      infoBox.classList.remove('show');
+      layers.forEach(l=>l.classList.remove('active'));
+    }
+  </script>
+</body>
+</html>

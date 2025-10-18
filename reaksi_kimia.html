@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Reaksi Kimia </title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg1:#1a0b0d;
+    --bg2:#2c1215;
+    --accent:#ff6fb3;
+    --accent2:#ec407a;
+    --text:#fce4ec;
+    --card:#311524;
+    --glow:#ff80ab;
+  }
+
+  * { box-sizing:border-box; margin:0; padding:0; }
+
+  body {
+    font-family:'Baloo 2', cursive;
+    background:linear-gradient(180deg,var(--bg1) 0%, var(--bg2) 100%);
+    min-height:100vh;
+    padding:32px;
+    color:var(--text);
+    position:relative;
+    overflow-x:hidden;
+  }
+
+  /* Sparkle background */
+  .sparkles {
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:0;
+    overflow:hidden;
+  }
+  .sparkle {
+    position:absolute;
+    width:6px;
+    height:6px;
+    background:radial-gradient(circle at 30% 30%, #fff, var(--glow));
+    opacity:0.85;
+    border-radius:50%;
+    filter:blur(0.6px);
+    transform:translate3d(0,0,0);
+    animation:float 10s linear infinite;
+    will-change:transform, opacity;
+  }
+  /* create variety */
+  .sparkle.s1{left:5%; top:10%; animation-duration:16s; animation-delay:-2s; opacity:0.9;}
+  .sparkle.s2{left:20%; top:60%; animation-duration:12s; animation-delay:-6s; opacity:0.6;}
+  .sparkle.s3{left:45%; top:20%; animation-duration:18s; animation-delay:-4s; opacity:0.7;}
+  .sparkle.s4{left:70%; top:75%; animation-duration:14s; animation-delay:-3s; opacity:0.5;}
+  .sparkle.s5{left:90%; top:30%; animation-duration:20s; animation-delay:-8s; opacity:0.8;}
+  @keyframes float {
+    0% { transform:translateY(0) scale(1); opacity:0.9; }
+    50% { transform:translateY(-60px) scale(1.6); opacity:0.5; }
+    100% { transform:translateY(0) scale(1); opacity:0.9; }
+  }
+
+  h1 {
+    text-align:center;
+    font-size:36px;
+    color:var(--accent);
+    margin-bottom:18px;
+    text-shadow:0 0 16px var(--glow);
+    z-index:2;
+    position:relative;
+  }
+
+  .content {
+    max-width:900px;
+    margin:0 auto;
+    position:relative;
+    z-index:2;
+  }
+
+  h2 {
+    background:linear-gradient(90deg,var(--accent) 0%, var(--accent2) 100%);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:12px 16px;
+    border-radius:14px;
+    margin-top:20px;
+    cursor:pointer;
+    font-size:18px;
+    box-shadow:0 6px 18px rgba(236,64,122,0.18);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  h2:hover { transform:scale(1.02); box-shadow:0 10px 26px rgba(236,64,122,0.25); }
+
+  .example {
+    background:linear-gradient(180deg,var(--card), #2f0f1a);
+    border-radius:14px;
+    padding:18px;
+    margin-top:12px;
+    box-shadow:0 8px 22px rgba(0,0,0,0.6);
+    color:var(--text);
+    overflow:hidden;
+    opacity:0;
+    max-height:0;
+    transform:translateY(-12px);
+    transition:all .52s cubic-bezier(.2,.9,.2,1);
+  }
+  .example.show{
+    opacity:1;
+    max-height:1200px;
+    transform:translateY(0);
+  }
+
+  .reaction {
+    text-align:center;
+    font-size:20px;
+    margin:10px 0;
+    color:#ffdbe9;
+    letter-spacing:1px;
+    padding:8px 12px;
+    border-radius:10px;
+    background:linear-gradient(90deg, rgba(255,175,200,0.06), rgba(255,175,200,0.02));
+    border:1px solid rgba(255,175,200,0.06);
+    box-shadow:0 6px 12px rgba(255,150,190,0.03);
+  }
+
+  .formula {
+    font-family:monospace;
+    background:rgba(255,255,255,0.02);
+    color:#ffd0e8;
+    padding:6px 8px;
+    border-radius:6px;
+    display:inline-block;
+  }
+
+  p { margin-top:10px; line-height:1.6; font-size:15.5px; text-align:justify; }
+  ul { margin-top:8px; margin-left:20px; line-height:1.6; }
+
+  .subheading {
+    display:block;
+    margin-top:10px;
+    font-weight:700;
+    color:#ffdbe9;
+  }
+
+  .note {
+    margin-top:10px;
+    padding:10px;
+    border-radius:8px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-left:4px solid rgba(255,130,170,0.7);
+    font-size:14px;
+  }
+
+  .back {
+    display:inline-block;
+    margin:28px 0 60px 0;
+    text-decoration:none;
+    background:var(--accent2);
+    color:white;
+    padding:12px 20px;
+    border-radius:12px;
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .back:hover { transform:translateY(-3px); box-shadow:0 10px 20px rgba(236,64,122,0.2); }
+
+  /* responsive */
+  @media (max-width:640px){
+    body{padding:18px;}
+    h1{font-size:28px;}
+    .content{padding:0 6px;}
+  }
+</style>
+</head>
+<body>
+  <div class="sparkles" aria-hidden="true">
+    <div class="sparkle s1"></div>
+    <div class="sparkle s2"></div>
+    <div class="sparkle s3"></div>
+    <div class="sparkle s4"></div>
+    <div class="sparkle s5"></div>
+  </div>
+
+  <h1>Reaksi Kimia</h1>
+  <div class="content">
+
+    <!-- SOAL 1 -->
+    <h2 onclick="toggle('soal1')">
+      <span>🧪 Zn + HCl</span>
+      <span style="font-size:13px;opacity:.95"></span>
+    </h2>
+    <div id="soal1" class="example" role="region" aria-labelledby="soal1">
+      <p class="subheading">Soal:</p>
+      <div class="reaction">Zn + HCl → ZnCl<sub>2</sub> + H<sub>2</sub></div>
+
+      <p class="subheading">Langkah-langkah pembahasan (detil):</p>
+      <ol>
+        <li><strong>Jenis reaksi:</strong> Reaksi substitusi (penggantian tunggal) dan juga reaksi redoks (Zn teroksidasi, H⁺ tereduksi).</li>
+
+        <li><strong>Periksa atom:</strong> Hitung atom di kiri & kanan (sebelum kewajiban koefisien):<br>
+            Kiri: Zn(1), H(1), Cl(1).<br>
+            Kanan: Zn(1), Cl(2), H(2) — terlihat Cl dan H tidak seimbang.</li>
+
+        <li><strong>Menambahkan koefisien:</strong> Agar jumlah Cl = 2 → beri 2 pada HCl:<br>
+            Zn + <span class="formula">2HCl</span> → ZnCl<sub>2</sub> + H<sub>2</sub>.</li>
+
+        <li><strong>Periksa kembali:</strong> Sekarang: Kiri Zn1 H2 Cl2; Kanan Zn1 Cl2 H2 → setara.</li>
+
+        <li><strong>Reaksi ionik & net ionic:</strong><br>
+            Dalam larutan: HCl → H<sup>+</sup> + Cl<sup>−</sup>.<br>
+            Zn(s) + 2H<sup>+</sup>(aq) → Zn<sup>2+</sup>(aq) + H<sub>2</sub>(g).<br>
+            Ini adalah <em>reaksi ionik bersih</em> (Cl<sup>−</sup> bersifat pengamat/ion pengikut).</li>
+
+        <li><strong>Perubahan bilangan oksidasi (redoks):</strong><br>
+            Zn: 0 → +2 (teroksidasi, melepaskan 2 e<sup>−</sup>).<br>
+            H: +1 (sebagai H<sup>+</sup>) → 0 (H<sub>2</sub>) menerima 1 e<sup>−</sup> tiap H; total menerima 2 e<sup>−</sup> → tereduksi.</li>
+
+        <li><strong>Indikator percobaan & observasi:</strong><br>
+            - Terbentuk gelembung gas H<sub>2</sub> (efervescensi).<br>
+            - Perubahan suhu ringan (reaksi melepaskan panas kecil).<br>
+            - Logam Zn lama-kelamaan larut (larutan menjadi mengandung ion Zn<sup>2+</sup> berwarna tidak khas—tergantung larutan).</li>
+
+        <li><strong>Keselamatan:</strong> Jangan hirup gas; lakukan di lemari asam atau ventilasi baik; HCl pekat bersifat korosif.</li>
+      </ol>
+
+      <div class="note"><strong>Ringkasan:</strong> Persamaan setara: <span class="formula">Zn + 2HCl → ZnCl₂ + H₂</span>. Reaksi substitusi + redoks; reaksi ionik bersih: <span class="formula">Zn + 2H⁺ → Zn²⁺ + H₂</span>.</div>
+    </div>
+
+    <!-- SOAL 2 -->
+    <h2 onclick="toggle('soal2')">
+      <span>🔥Pembakaran Metana (CH₄)</span>
+      <span style="font-size:13px;opacity:.95"></span>
+    </h2>
+    <div id="soal2" class="example" role="region">
+      <p class="subheading">Soal:</p>
+      <div class="reaction">CH<sub>4</sub> + O<sub>2</sub> → ?</div>
+
+      <p class="subheading">Pembahasan detil:</p>
+      <ol>
+        <li><strong>Jenis reaksi:</strong> Pembakaran lengkap (combustion) — hidrokarbon + O<sub>2</sub> → CO<sub>2</sub> + H<sub>2</sub>O.</li>
+
+        <li><strong>Menentukan produk:</strong> Produk lengkap: CO<sub>2</sub> dan H<sub>2</sub>O (uap/air).</li>
+
+        <li><strong>Menyeimbangkan atom:</strong><br>
+          Tuliskan kandidat: CH₄ + O₂ → CO₂ + H₂O.<br>
+          Hitung C: kiri 1, kanan 1 → C seimbang.<br>
+          Hitung H: kiri 4, kanan H₂O memiliki 2 per mole → butuh 2 H₂O agar H=4.<br>
+          Sekarang: CH₄ + O₂ → CO₂ + 2 H₂O.<br>
+          Hitung O: kanan = CO₂(2) + 2×H₂O(1×2) → total O = 2 + 2 = 4 → berarti O₂ koefisien = 2.<br>
+          Jadi setara: <span class="formula">CH₄ + 2O₂ → CO₂ + 2H₂O</span>.</li>
+
+        <li><strong>Bilangan oksidasi & energi:</strong><br>
+          C berubah dari −4 (di CH₄) ke +4 (di CO₂): mengalami oksidasi.<br>
+          O dalam O₂ (0) menjadi −2 di CO₂/H₂O: mengalami reduksi.<br>
+          Pembakaran melepaskan energi besar (eksotermik) — alasan sebagai bahan bakar.</li>
+
+        <li><strong>Praktis & indikator:</strong><br>
+          - Nyala biru (jika pembakaran lengkap) dan suhu tinggi.<br>
+          - Jika pembakaran tidak lengkap (oksigen kurang), dapat terbentuk CO dan soot (C).</li>
+
+        <li><strong>Keselamatan:</strong> Pembakaran menghasilkan panas tinggi; CO beracun jika tidak lengkap.</li>
+      </ol>
+
+      <div class="note"><strong>Ringkasan:</strong> Reaksi pembakaran lengkap setara: <span class="formula">CH₄ + 2O₂ → CO₂ + 2H₂O</span>. Energi dilepaskan besar (eksotermik).</div>
+    </div>
+
+    <!-- SOAL 3 -->
+    <h2 onclick="toggle('soal3')">
+      <span>⚗️ Dekomp. Kalsium Karbonat (CaCO₃)</span>
+      <span style="font-size:13px;opacity:.95"></span>
+    </h2>
+    <div id="soal3" class="example" role="region">
+      <p class="subheading">Soal:</p>
+      <div class="reaction">CaCO<sub>3</sub> → CaO + CO<sub>2</sub></div>
+
+      <p class="subheading">Pembahasan detil:</p>
+      <ol>
+        <li><strong>Jenis reaksi:</strong> Dekomposisi termal — satu senyawa terurai menjadi dua atau lebih.</li>
+
+        <li><strong>Periksa atom:</strong><br>
+          Kiri: Ca1 C1 O3. Kanan: Ca1 C1 O(1+2) = O3 → sudah seimbang secara jumlah atom. Maka persamaan: <span class="formula">CaCO₃ → CaO + CO₂</span> sudah setara.</li>
+
+        <li><strong>Kondisi & termodinamika:</strong><br>
+          Reaksi membutuhkan pemanasan (endotermik) — perlu suhu tinggi (pemanggangan batu kapur) sehingga CaCO₃ terurai menjadi kapur tohor (CaO) dan CO₂ gas.<br>
+          Reaksi dasar dalam produksi kapur dan semen.</li>
+
+        <li><strong>Pengamatan percobaan:</strong><br>
+          - Gas CO₂ dapat diuji dengan air kapur (Ca(OH)₂) → menjadi keruh (endapan CaCO₃) menunjukkan adanya CO₂.<br>
+          - Timbul residu padat CaO berwarna putih kekuningan.</li>
+
+        <li><strong>Catatan praktis:</strong><br>
+          Penggunaan industri: CaO diolah lebih lanjut menjadi Ca(OH)₂ (air kapur).</li>
+      </ol>
+
+      <div class="note"><strong>Ringkasan:</strong> Reaksi dekomposisi termal: <span class="formula">CaCO₃ → CaO + CO₂</span>. Reaksi endothermic; CO₂ terbentuk sebagai gas.</div>
+    </div>
+
+    <!-- SOAL 4 -->
+    <h2 onclick="toggle('soal4')">
+      <span>💧 NaOH + HCl (Netralisasi)</span>
+      <span style="font-size:13px;opacity:.95"></span>
+    </h2>
+    <div id="soal4" class="example" role="region">
+      <p class="subheading">Soal:</p>
+      <div class="reaction">NaOH + HCl → NaCl + H<sub>2</sub>O</div>
+
+      <p class="subheading">Pembahasan detil:</p>
+      <ol>
+        <li><strong>Jenis reaksi:</strong> Netralisasi (asam + basa) → garam + air.</li>
+
+        <li><strong>Periksa atom & setara:</strong><br>
+          Kiri: Na1 O1 H1 Cl1 (H di NaOH 1, H di HCl 1 → total H2?) — tetapi perhatikan: penulisan NaOH + HCl → NaCl + H₂O sudah setara bila interpretasi H dalam NaOH dan HCl bergabung membentuk H₂O. Dengan koefisien 1 semuanya seimbang.</li>
+
+        <li><strong>Reaksi ionik & net ionic:</strong><br>
+          Ionisasi: NaOH → Na<sup>+</sup> + OH<sup>−</sup>; HCl → H<sup>+</sup> + Cl<sup>−</sup>.<br>
+          Net ionic (inti proses): <span class="formula">H⁺(aq) + OH⁻(aq) → H₂O(l)</span>.<br>
+          Na<sup>+</sup> dan Cl<sup>−</sup> adalah ion pengikut membentuk NaCl(aq).</li>
+
+        <li><strong>Energi & pengamatan:</strong><br>
+          Reaksi netralisasi biasanya eksotermik — larutan sedikit memanas.<br>
+          Pada titrasi, indikator (fenolftalein) berubah warna pada titik ekivalen.</li>
+
+        <li><strong>Penerapan:</strong> Pengolahan limbah asam/basa, titrasi kuantitatif di laboratorium, pembuatan garam meja pada skala industri.</li>
+
+        <li><strong>Keselamatan:</strong> NaOH bersifat kaustik (membakar kulit), HCl bersifat korosif — gunakan sarung tangan & kacamata pelindung.</li>
+      </ol>
+
+      <div class="note"><strong>Ringkasan:</strong> Persamaan setara: <span class="formula">NaOH + HCl → NaCl + H₂O</span>. Net ionic: <span class="formula">H⁺ + OH⁻ → H₂O</span>.</div>
+    </div>
+
+    <!-- SOAL 5 -->
+    <h2 onclick="toggle('soal5')">
+      <span>🌿2H₂ + O₂ → 2H₂O (Sintesis / Redoks)</span>
+      <span style="font-size:13px;opacity:.95"></span>
+    </h2>
+    <div id="soal5" class="example" role="region">
+      <p class="subheading">Soal:</p>
+      <div class="reaction">2H<sub>2</sub> + O<sub>2</sub> → 2H<sub>2</sub>O</div>
+
+      <p class="subheading">Pembahasan detil:</p>
+      <ol>
+        <li><strong>Jenis reaksi:</strong> Sintesis (gabungan) dan reaksi redoks (H teroksidasi, O tereduksi).</li>
+
+        <li><strong>Balancing:</strong> Sudah setara pada bentuk: <span class="formula">2H₂ + O₂ → 2H₂O</span> (H kiri: 4, H kanan: 4; O kiri:2, kanan:2).</li>
+
+        <li><strong>Half-reactions (separasi redoks):</strong><br>
+          Oksidasi: H₂ → 2H⁺ + 2e⁻ (H melepas elektron).<br>
+          Reduksi: ½ O₂ + 2e⁻ → O²⁻ (atau lebih umum O₂ + 4e⁻ → 2O²⁻) lalu bergabung dengan H⁺ membentuk H₂O.<br>
+          Gabungkan half-reaction → menghasilkan persamaan keseluruhan di atas.</li>
+
+        <li><strong>Energi & kondisi:</strong><br>
+          Reaksi pembentukan air dari H₂ dan O₂ sangat eksotermik (banyak energi dilepas). Pembakaran H₂ memerlukan pemantik/sumber pengapian (energi aktivasi) dan sering menghasilkan nyala biru transparan.</li>
+
+        <li><strong>Keselamatan:</strong> Campuran H₂ dan O₂ mudah meledak apabila ada percikan. Lakukan percobaan di kondisi terkontrol.</li>
+
+        <li><strong>Catatan praktis:</strong> Reaksi ini adalah dasar sel bahan bakar (fuel cells) dan juga penting dalam teknologi propulsi roket (H₂ + O₂ → H₂O + banyak energi).</li>
+      </ol>
+
+      <div class="note"><strong>Ringkasan:</strong> Reaksi sintesis & redoks sangat eksotermik: <span class="formula">2H₂ + O₂ → 2H₂O</span>. Half-reaction menunjukkan transfer elektron nyata antara H dan O.</div>
+    </div>
+
+    <a href="kimia.html" class="back">← Kembali ke Menu Sebelumnya</a>
+
+  </div>
+
+<script>
+  function toggle(id){
+    const el = document.getElementById(id);
+    el.classList.toggle('show');
+    // Scroll into view when opening on mobile for better UX
+    if(el.classList.contains('show')){
+      setTimeout(()=> el.scrollIntoView({behavior:'smooth', block:'center'}), 160);
+    }
+  }
+
+  // create more sparkles dynamically for visual richness (no DOM heavy ops)
+  (function addExtraSparkles(){
+    try{
+      const container = document.querySelector('.sparkles');
+      const colors = ['#ffdbe9','#ffb3d9','#ff80ab','#ffc0d9'];
+      for(let i=0;i<18;i++){
+        const s=document.createElement('div');
+        s.className='sparkle';
+        s.style.left=(Math.random()*100)+'%';
+        s.style.top=(Math.random()*100)+'%';
+        s.style.width=(3+Math.random()*8)+'px';
+        s.style.height=s.style.width;
+        s.style.opacity=(0.4+Math.random()*0.6)+'';
+        s.style.animationDuration=(8+Math.random()*14)+'s';
+        s.style.animationDelay='-'+(Math.random()*8)+'s';
+        s.style.background='radial-gradient(circle at 30% 30%, #fff, '+colors[Math.floor(Math.random()*colors.length)]+')';
+        container.appendChild(s);
+      }
+    }catch(e){}
+  })();
+</script>
+</body>
+</html>

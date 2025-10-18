@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Larutan dan pH</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg1:#0b1f1a;
+  --bg2:#1b2e28;
+  --accent:#00e676;
+  --accent2:#00bfa5;
+  --text:#e0f7fa;
+  --card:#12251f;
+}
+
+* { box-sizing:border-box; margin:0; padding:0; }
+
+body {
+  font-family:'Baloo 2', sans-serif;
+  background:linear-gradient(to bottom,var(--bg1),var(--bg2));
+  min-height:100vh;
+  padding:30px;
+  color:var(--text);
+}
+
+h1 {
+  text-align:center;
+  font-size:38px;
+  color:var(--accent);
+  margin-bottom:20px;
+  text-shadow:0 0 10px var(--accent2);
+}
+
+h2 {
+  background:var(--accent2);
+  color:white;
+  display:inline-block;
+  padding:10px 18px;
+  border-radius:12px;
+  margin-top:24px;
+  cursor:pointer;
+  font-size:20px;
+  transition:background 0.3s, transform 0.2s;
+}
+
+h2:hover { background:#26a69a; transform:scale(1.05); }
+
+p { margin-top:8px; font-size:16px; line-height:1.6; text-align:justify; }
+ul { margin-top:6px; text-align:left; margin-left:30px; }
+
+.content { margin-top:20px; text-align:center; }
+
+.example {
+  background:var(--card);
+  border-radius:12px;
+  padding:16px;
+  margin:16px auto;
+  box-shadow:0 4px 12px rgba(0,0,0,0.5);
+  max-width:720px;
+  text-align:left;
+  overflow:hidden;
+  opacity:0;
+  max-height:0;
+  transform:translateY(-10px);
+  transition:all 0.6s ease;
+}
+
+.example.show {
+  opacity:1;
+  max-height:3000px;
+  transform:translateY(0);
+}
+
+.formula {
+  font-family:monospace;
+  background:#263238;
+  color:#80deea;
+  padding:4px 8px;
+  border-radius:6px;
+}
+
+/* ANIMASI 1 - Gelembung Naik */
+.bubble-container {
+  position:relative;
+  width:180px;
+  height:180px;
+  margin:20px auto;
+  background:radial-gradient(circle at 50% 80%, #004d40, #001a12);
+  border-radius:50%;
+  overflow:hidden;
+}
+.bubble {
+  position:absolute;
+  bottom:-20px;
+  background:#00e676;
+  border-radius:50%;
+  opacity:0.6;
+  animation:rise 6s linear infinite;
+}
+@keyframes rise {
+  0% { transform:translateY(0) scale(1); opacity:0.8; }
+  100% { transform:translateY(-200px) scale(0.5); opacity:0; }
+}
+
+/* ANIMASI 2 - Pusaran Air */
+.swirl {
+  position:relative;
+  width:180px;
+  height:180px;
+  margin:20px auto;
+  border-radius:50%;
+  background:radial-gradient(circle,#004d40 10%,#00251a 80%);
+  overflow:hidden;
+}
+.swirl::before, .swirl::after {
+  content:"";
+  position:absolute;
+  border-radius:50%;
+  border:2px solid var(--accent2);
+  width:160px; height:160px;
+  top:10px; left:10px;
+  animation:spin 8s linear infinite;
+}
+.swirl::after {
+  border-color:rgba(0,255,150,0.3);
+  animation-direction:reverse;
+}
+@keyframes spin {
+  from { transform:rotate(0deg); }
+  to { transform:rotate(360deg); }
+}
+
+/* ANIMASI 3 - Percikan Cahaya */
+.spark {
+  position:relative;
+  width:200px;
+  height:200px;
+  margin:20px auto;
+  background:radial-gradient(circle,#003d2e,#001a12);
+  border-radius:50%;
+  overflow:hidden;
+}
+.spark span {
+  position:absolute;
+  width:4px; height:30px;
+  background:var(--accent);
+  top:50%; left:50%;
+  transform-origin:center bottom;
+  animation:sparkAnim 1.5s infinite ease-in-out;
+}
+@keyframes sparkAnim {
+  0% { transform:rotate(var(--deg)) scaleY(0.5); opacity:0.2; }
+  50% { transform:rotate(var(--deg)) scaleY(1); opacity:1; }
+  100% { transform:rotate(var(--deg)) scaleY(0.3); opacity:0; }
+}
+
+/* ANIMASI 4 - Gelombang Hijau */
+.wave-box {
+  position:relative;
+  width:200px;
+  height:200px;
+  margin:20px auto;
+  background:linear-gradient(to top,#003d2e,#00231b);
+  border-radius:50%;
+  overflow:hidden;
+}
+.wave {
+  position:absolute;
+  width:300px; height:300px;
+  top:100px; left:-50px;
+  background:rgba(0,255,100,0.2);
+  border-radius:43%;
+  animation:waveAnim 6s infinite ease-in-out;
+}
+.wave:nth-child(2) {
+  background:rgba(0,255,180,0.15);
+  animation-delay:3s;
+}
+@keyframes waveAnim {
+  0% { transform:rotate(0deg); }
+  100% { transform:rotate(360deg); }
+}
+
+/* Tombol kembali */
+.back {
+  display:inline-block;
+  margin-top:30px;
+  text-decoration:none;
+  background:var(--accent2);
+  color:white;
+  padding:10px 20px;
+  border-radius:10px;
+  transition:background 0.3s;
+}
+.back:hover { background:#26a69a; }
+
+.result {
+  margin-top:10px;
+  font-weight:bold;
+  color:#a7ffeb;
+}
+</style>
+</head>
+
+<body>
+<h1>Larutan dan pH</h1>
+<div class="content">
+
+  <!-- Soal 1 -->
+  <h2 onclick="toggle('soal1')">🧪Larutan Asam Kuat</h2>
+  <div id="soal1" class="example">
+    <div class="bubble-container" id="bubbles"></div>
+    <p><strong>Soal:</strong> Tentukan pH larutan <span class="formula">HCl</span> dengan konsentrasi <span class="formula">0,01 M</span>.</p>
+    <p><strong>Pembahasan:</strong></p>
+    <p>
+      Karena <span class="formula">HCl</span> merupakan asam kuat, maka ia terion sempurna:
+      <br><span class="formula">HCl → H⁺ + Cl⁻</span><br>
+      Konsentrasi <span class="formula">[H⁺] = 0,01 M</span>.<br><br>
+      Rumus: <span class="formula">pH = -log [H⁺]</span><br>
+      <span class="formula">pH = -log(0,01) = 2</span>
+    </p>
+    <p class="result">✅ Jadi, pH larutan HCl 0,01 M adalah <strong>2</strong>.</p>
+  </div>
+
+  <!-- Soal 2 -->
+  <h2 onclick="toggle('soal2')">🧫Larutan Basa Kuat</h2>
+  <div id="soal2" class="example">
+    <div class="swirl"></div>
+    <p><strong>Soal:</strong> Hitung pH larutan <span class="formula">NaOH</span> dengan konsentrasi <span class="formula">0,001 M</span>.</p>
+    <p><strong>Pembahasan:</strong></p>
+    <p>
+      <span class="formula">NaOH → Na⁺ + OH⁻</span><br>
+      <span class="formula">[OH⁻] = 0,001 M</span><br><br>
+      <span class="formula">pOH = -log[OH⁻] = 3</span><br>
+      <span class="formula">pH = 14 - pOH = 11</span>
+    </p>
+    <p class="result">✅ Jadi, pH larutan NaOH 0,001 M adalah <strong>11</strong>.</p>
+  </div>
+
+  <!-- Soal 3 -->
+  <h2 onclick="toggle('soal3')">⚗️ Reaksi Netralisasi</h2>
+  <div id="soal3" class="example">
+    <div class="spark" id="sparkBox"></div>
+    <p><strong>Soal:</strong> Jika 50 mL HCl 0,1 M bereaksi sempurna dengan 50 mL NaOH 0,1 M, berapakah pH larutan setelah reaksi?</p>
+    <p><strong>Pembahasan:</strong></p>
+    <p>
+      Reaksi: <span class="formula">HCl + NaOH → NaCl + H₂O</span><br>
+      n(HCl) = 0,1 × 0,05 = 0,005 mol<br>
+      n(NaOH) = 0,1 × 0,05 = 0,005 mol<br><br>
+      Keduanya habis bereaksi sempurna → larutan netral.<br>
+      <span class="formula">pH = 7</span>
+    </p>
+    <p class="result">✅ Jadi, pH larutan setelah reaksi adalah <strong>7</strong>.</p>
+  </div>
+
+  <!-- Soal 4 -->
+  <h2 onclick="toggle('soal4')">🌊 Larutan Campuran (Asam Lemah + Garam)</h2>
+  <div id="soal4" class="example">
+    <div class="wave-box">
+      <div class="wave"></div>
+      <div class="wave"></div>
+    </div>
+    <p><strong>Soal:</strong> Tentukan pH larutan yang mengandung <span class="formula">CH₃COOH 0,1 M</span> dan <span class="formula">CH₃COONa 0,1 M</span> (Ka = 1×10⁻⁵).</p>
+    <p><strong>Pembahasan:</strong></p>
+    <p>
+      Ini adalah larutan penyangga (buffer) asam lemah dan garamnya.<br><br>
+      Gunakan rumus:
+      <br><span class="formula">pH = pKa + log([garam]/[asam])</span><br>
+      Karena <span class="formula">[garam] = [asam]</span>, maka:
+      <br><span class="formula">pH = pKa + log(1) = pKa</span><br><br>
+      <span class="formula">pKa = -log(Ka) = -log(1×10⁻⁵) = 5</span>
+    </p>
+    <p class="result">✅ Jadi, pH larutan campuran CH₃COOH dan CH₃COONa adalah <strong>5</strong>.</p>
+  </div>
+
+  <a href="kimia.html" class="back">← Kembali ke Menu Sebelumnya</a>
+</div>
+
+<script>
+function toggle(id){
+  document.getElementById(id).classList.toggle('show');
+}
+
+// Gelembung dinamis
+const container=document.getElementById('bubbles');
+for(let i=0;i<12;i++){
+  const b=document.createElement('div');
+  b.className='bubble';
+  b.style.width=b.style.height=(Math.random()*12+8)+'px';
+  b.style.left=(Math.random()*160)+'px';
+  b.style.animationDuration=(3+Math.random()*3)+'s';
+  b.style.animationDelay=(Math.random()*3)+'s';
+  container.appendChild(b);
+}
+
+// Percikan cahaya
+const sparkBox=document.getElementById('sparkBox');
+for(let i=0;i<20;i++){
+  const s=document.createElement('span');
+  s.style.setProperty('--deg',`${i*18}deg`);
+  s.style.animationDelay=(Math.random()*1.5)+'s';
+  sparkBox.appendChild(s);
+}
+</script>
+</body>
+</html>
