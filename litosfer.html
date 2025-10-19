@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Litosfer</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(to bottom, #d7ccc8, #a1887f);
+      margin: 0;
+      padding: 0;
+      color: #3e2723;
+    }
+
+    header {
+      background: #5d4037;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      font-size: 24px;
+      letter-spacing: 1px;
+    }
+
+    .content {
+      max-width: 850px;
+      margin: 30px auto;
+      padding: 20px;
+      background: #efebe9;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    h2 {
+      cursor: pointer;
+      background: #8d6e63;
+      color: #fff;
+      padding: 12px;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    h2:hover {
+      background: #6d4c41;
+    }
+
+    .example {
+      display: none;
+      padding: 15px;
+      background: #f5f5f5;
+      border-left: 5px solid #8d6e63;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+
+    .mountain {
+      width: 100%;
+      height: 150px;
+      position: relative;
+      background: linear-gradient(to top, #6d4c41, #a1887f);
+      border-radius: 15px;
+      overflow: hidden;
+      margin: 15px 0;
+    }
+
+    .mountain::before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      width: 200%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        to right,
+        #5d4037 0px,
+        #5d4037 50px,
+        #4e342e 50px,
+        #4e342e 100px
+      );
+      animation: movePlates 6s linear infinite;
+    }
+
+    @keyframes movePlates {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .eruption {
+      position: absolute;
+      bottom: 80px;
+      left: 45%;
+      width: 10px;
+      height: 40px;
+      background: orange;
+      border-radius: 50%;
+      animation: erupt 2.5s ease-in-out infinite;
+    }
+
+    @keyframes erupt {
+      0% { transform: translateY(0) scaleY(1); opacity: 0.7; }
+      50% { transform: translateY(-40px) scaleY(0.8); opacity: 1; }
+      100% { transform: translateY(0) scaleY(1); opacity: 0; }
+    }
+
+/* === PETA INDONESIA BERGELOMBANG === */
+.map-container {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  background: linear-gradient(to top, #4e342e, #8d6e63);
+  border-radius: 15px;
+  overflow: hidden;
+  margin-top: 15px;
+  box-shadow: inset 0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* animasi ombak di laut sekitar */
+.wave {
+  position: absolute;
+  width: 200%;
+  height: 60px;
+  bottom: 0;
+  background: rgba(255,255,255,0.2);
+  border-radius: 100%;
+  animation: wave 6s linear infinite;
+}
+
+@keyframes wave {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* === PETA INDONESIA BERGELOMBANG === */
+.map-container {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  background: linear-gradient(to top, #4e342e, #8d6e63);
+  border-radius: 15px;
+  overflow: hidden;
+  margin-top: 15px;
+  box-shadow: inset 0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* animasi ombak di laut sekitar */
+.wave {
+  position: absolute;
+  width: 200%;
+  height: 60px;
+  bottom: 0;
+  background: rgba(255,255,255,0.2);
+  border-radius: 100%;
+  animation: wave 6s linear infinite;
+}
+
+@keyframes wave {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* === GUNUNG (bentuk segitiga) === */
+.volcano {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 18px solid transparent;
+  border-right: 18px solid transparent;
+  border-bottom: 30px solid #3e2723;
+  animation: shake 3s infinite ease-in-out;
+}
+
+/* getaran halus */
+@keyframes shake {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1px); }
+}
+
+/* efek lava meletus */
+.volcano::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -3px;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, orange 30%, red 70%, transparent 100%);
+  border-radius: 50%;
+  animation: erupt 2s ease-in-out infinite;
+}
+
+@keyframes erupt {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  50% { transform: translateY(-15px) scale(0.8); opacity: 0.7; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* === asap vulkanik === */
+.volcano::after {
+  content: "";
+  position: absolute;
+  top: -25px;
+  left: -6px;
+  width: 14px;
+  height: 14px;
+  background: radial-gradient(circle, rgba(200,200,200,0.6) 40%, transparent 100%);
+  border-radius: 50%;
+  animation: smoke 3s ease-in-out infinite;
+}
+
+@keyframes smoke {
+  0% { transform: translateY(0) scale(1); opacity: 0.8; filter: blur(1px); }
+  50% { transform: translateY(-20px) scale(1.3); opacity: 0.5; filter: blur(2px); }
+  100% { transform: translateY(-40px) scale(1.6); opacity: 0; filter: blur(3px); }
+}
+
+/* posisi gunung-gunung */
+.volcano:nth-child(2) { left: 25%; top: 55%; }
+.volcano:nth-child(3) { left: 40%; top: 50%; }
+.volcano:nth-child(4) { left: 55%; top: 60%; }
+.volcano:nth-child(5) { left: 68%; top: 52%; }
+
+
+
+    button {
+      background: #6d4c41;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background: #4e342e;
+    }
+
+    footer {
+      text-align: center;
+      color: #fff;
+      padding: 15px;
+      background: #5d4037;
+      border-top: 3px solid #3e2723;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>🌍 Litosfer</header>
+
+  <div class="content">
+    <h2 onclick="toggle('bab1')">1️⃣ Pengertian Litosfer</h2>
+    <div id="bab1" class="example">
+      <p><strong>Litosfer</strong> adalah lapisan padat terluar bumi yang tersusun atas batuan dan mineral, meliputi kerak bumi dan bagian atas mantel yang keras.</p>
+      <div class="mountain"><div class="eruption"></div></div>
+      <p>Ketebalan litosfer antara <strong>30–100 km</strong> dan menjadi tempat terjadinya berbagai fenomena geologi seperti gempa bumi dan gunung berapi.</p>
+    </div>
+
+    <h2 onclick="toggle('bab2')">2️⃣ Struktur Litosfer</h2>
+    <div id="bab2" class="example">
+      <ul>
+        <li><strong>Kerak bumi:</strong> lapisan luar padat.</li>
+        <li><strong>Mantel atas:</strong> semi-plastis, tempat pergerakan lempeng.</li>
+        <li><strong>Inti bumi:</strong> terdiri dari inti luar (cair) dan inti dalam (padat).</li>
+      </ul>
+    </div>
+
+    <h2 onclick="toggle('bab3')">3️⃣ Pergerakan Lempeng Tektonik</h2>
+    <div id="bab3" class="example">
+      <p>Pergerakan lempeng menyebabkan terbentuknya gunung, palung, dan gempa bumi.</p>
+      <ul>
+        <li><strong>Divergen:</strong> lempeng menjauh → dasar samudra.</li>
+        <li><strong>Konvergen:</strong> lempeng bertumbukan → pegunungan dan gunung api.</li>
+        <li><strong>Transform:</strong> lempeng bergeser → gempa bumi.</li>
+      </ul>
+    </div>
+
+    <h2 onclick="toggle('bab4')">4️⃣ Jenis Batuan Penyusun Litosfer</h2>
+    <div id="bab4" class="example">
+      <ul>
+        <li><strong>Batuan beku:</strong> hasil pembekuan magma.</li>
+        <li><strong>Batuan sedimen:</strong> hasil pengendapan.</li>
+        <li><strong>Batuan metamorf:</strong> hasil perubahan akibat tekanan & suhu tinggi.</li>
+      </ul>
+    </div>
+
+    <h2 onclick="toggle('bab5')">5️⃣ Dampak Aktivitas Litosfer</h2>
+    <div id="bab5" class="example">
+      <ul>
+        <li><strong>Positif:</strong> tanah subur dari letusan gunung api.</li>
+        <li><strong>Negatif:</strong> bencana seperti gempa dan tsunami.</li>
+      </ul>
+    </div>
+
+    <h2 onclick="toggle('bab6')">6️⃣ Gempa Bumi & Gunung Api di Indonesia</h2>
+    <div id="bab6" class="example">
+      <p>Indonesia berada di <strong>zona cincin api dunia (Ring of Fire)</strong>, tempat pertemuan tiga lempeng besar: Eurasia, Indo-Australia, dan Pasifik. Hal ini membuat Indonesia rawan gempa bumi dan memiliki banyak gunung berapi aktif.</p>
+
+      <div class="map-container">
+        <div class="wave"></div>
+        <div class="volcano"></div>
+        <div class="volcano"></div>
+        <div class="volcano"></div>
+        <div class="volcano"></div>
+      </div>
+
+      <ul>
+        <li><strong>Gunung Merapi</strong> (Jawa Tengah) — salah satu yang paling aktif di dunia.</li>
+        <li><strong>Gunung Krakatau</strong> (Selat Sunda) — letusan besar tahun 1883.</li>
+        <li><strong>Gunung Semeru</strong> (Jawa Timur) — tertinggi di Pulau Jawa.</li>
+        <li><strong>Gunung Sinabung</strong> (Sumatera Utara) — sering erupsi sejak 2010.</li>
+      </ul>
+      <p>Gempa bumi terjadi akibat gesekan antar lempeng. Wilayah paling rawan gempa antara lain <strong>Sumatera Barat, Jawa Barat, Nusa Tenggara, dan Maluku</strong>.</p>
+    </div>
+
+    <button onclick="window.history.back()">⬅️ Menu Sebelumnya</button>
+  </div>
+
+  <footer>© 2025 </footer>
+
+  <script>
+    function toggle(id) {
+      var x = document.getElementById(id);
+      x.style.display = x.style.display === "block" ? "none" : "block";
+    }
+  </script>
+</body>
+</html>

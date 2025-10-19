@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Peta & Keruangan — Geografi</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg1:#003f3f;       /* gelap kehijauan */
+    --bg2:#00695c;
+    --accent:#00897b;
+    --accent-2:#00796b;
+    --card:#e0f2f1;
+    --text:#022f2f;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Baloo 2',sans-serif;
+    background:linear-gradient(180deg,var(--bg1),var(--bg2));
+    color:var(--card);
+    min-height:100vh;
+    padding:28px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+
+  h1{font-size:34px;color:var(--card);margin-bottom:8px;text-align:center}
+  .lead{max-width:920px;text-align:center;margin-bottom:14px;font-size:15px;color:rgba(224,242,241,0.95)}
+  .content{width:100%;max-width:920px}
+  h2{
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    color:#fff;display:inline-block;padding:10px 16px;border-radius:10px;
+    margin-top:18px;cursor:pointer;font-size:18px;transition:transform .18s,background .18s;
+  }
+  h2:hover{transform:scale(1.03)}
+  .example{
+    background:rgba(255,255,255,0.98);color:#01332f;border-radius:12px;padding:16px;margin:12px 0 20px;
+    box-shadow:0 8px 24px rgba(0,0,0,0.18);overflow:hidden;opacity:0;max-height:0;transform:translateY(-8px);transition:all .45s ease;
+  }
+  .example.show{opacity:1;max-height:3000px;transform:translateY(0)}
+  p{margin-top:8px;line-height:1.6;color:#01332f}
+  .formula{font-family:monospace;background:#E0F2F1;padding:6px 8px;border-radius:6px;display:inline-block;color:#004d40}
+  input{padding:8px;border-radius:8px;border:1px solid #b2dfdb;margin:6px;width:160px;text-align:center}
+  button{background:var(--accent);color:#fff;border:none;padding:8px 14px;border-radius:8px;cursor:pointer;margin:6px auto;display:block;}
+  button:hover{background:var(--accent-2)}
+  .result{margin-top:8px;font-weight:700;color:#004d40}
+  .back{display:inline-block;margin-top:18px;text-decoration:none;background:#004d40;color:#fff;padding:10px 18px;border-radius:10px}
+  .back:hover{opacity:.95}
+
+  /* ---------- MAP / VISUAL ---------- */
+  .map-frame{
+    margin:14px auto 8px;
+    width:100%;
+    max-width:880px;
+    height:320px;
+    border-radius:14px;
+    background:linear-gradient(180deg,#b2dfdb,#a7ffeb);
+    position:relative;
+    overflow:hidden;
+    box-shadow:inset 0 6px 18px rgba(0,0,0,0.15);
+  }
+
+  /* kompas kanan atas */
+  .compass {
+    position:absolute;
+    top:14px; right:14px;
+    width:68px; height:68px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.9);
+    display:flex;align-items:center;justify-content:center;
+    border:3px solid rgba(0,77,64,0.12);
+    animation:spin 14s linear infinite;
+    color:#004d40;
+    font-weight:700;
+  }
+  .compass .needle{ width:2px; height:28px; background:#c62828; position:relative; transform-origin:bottom center; box-shadow:0 0 6px rgba(198,40,40,0.4)}
+  @keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+
+  /* peta bergelombang */
+  .sea {
+    position:absolute;
+    left:0; right:0; bottom:0; height:140px;
+    background:linear-gradient(180deg, rgba(0,121,107,0.25), rgba(0,77,64,0.35));
+    border-top-left-radius:35% 40%; border-top-right-radius:35% 40%;
+    overflow:hidden;
+  }
+  .sea::before, .sea::after{
+    content:""; position:absolute; left:0; top:-30px; width:200%; height:240px;
+    background:rgba(255,255,255,0.06); border-radius:45%; animation:wave 8s linear infinite;
+  }
+  .sea::after{ top:-50px; opacity:0.04; animation-duration:12s }
+
+  @keyframes wave{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+  /* pulau (clickable) */
+  .island {
+    position:absolute;
+    width:190px; height:90px;
+    background:linear-gradient(180deg,#2e7d32,#1b5e20);
+    border-radius:60% 40% 40% 60% / 60% 60% 40% 40%;
+    box-shadow:0 8px 20px rgba(0,0,0,0.25);
+    transform-origin:center;
+    cursor:pointer;
+    transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .island:hover{ transform:translateY(-6px) scale(1.02); box-shadow:0 12px 28px rgba(0,0,0,0.3) }
+
+  /* pulau kecil */
+  .islet{ position:absolute; width:90px; height:50px; background:linear-gradient(180deg,#2e7d32,#1b5e20);
+    border-radius:50% 40% 40% 50% / 50% 50% 40% 40%; box-shadow:0 6px 12px rgba(0,0,0,0.18); cursor:pointer; transition:transform .25s}
+  .islet:hover{ transform:translateY(-4px) }
+
+  /* posisi pulau contoh */
+  .island.a{ left:18%; top:48% }   /* besar tengah kiri */
+  .island.b{ left:58%; top:40% }   /* besar kanan */
+  .islet.c{ left:75%; top:62% }    /* kecil kanan bawah */
+  .islet.d{ left:32%; top:30% }    /* kecil kiri atas */
+
+  /* pulau label (appears) */
+  .pin {
+    position:absolute;
+    background:rgba(255,255,255,0.95);
+    color:#01332f;
+    border-radius:8px;
+    padding:8px 10px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.18);
+    transform:translate(-50%,-120%); white-space:nowrap;
+    font-size:13px; display:none;
+  }
+
+  /* popup info modal */
+  .info-box{
+    position:fixed; left:50%; top:50%; transform:translate(-50%,-50%) scale(0);
+    width:90%; max-width:420px; background:#ffffff; color:#012e2e; border-radius:12px;
+    box-shadow:0 12px 30px rgba(0,0,0,0.3); padding:18px; z-index:1200; transition:transform .25s ease;
+  }
+  .info-box.show{ transform:translate(-50%,-50%) scale(1) }
+  .info-box h3{ margin-bottom:6px; color:#004d40 }
+  .info-box p{ color:#01332f; font-size:14px }
+  .info-close{ display:inline-block;margin-top:12px;padding:8px 12px;background:#00796b;color:#fff;border-radius:8px;border:none;cursor:pointer }
+
+  /* small utilities */
+  .row{ display:flex; gap:12px; flex-wrap:wrap; align-items:center }
+  .mini{ display:inline-block; background:#e0f2f1;color:#004d40;padding:6px 8px;border-radius:8px;font-weight:700 }
+
+  /* quiz card */
+  .quiz{ background:#e0f7f4;border-radius:10px;padding:12px;margin-top:12px;color:#01332f;border:1px solid rgba(0,77,64,0.08) }
+
+  @media (max-width:720px){
+    .map-frame{ height:260px }
+    .island{ width:150px; height:70px }
+  }
+</style>
+</head>
+<body>
+
+  <h1>Peta & Keruangan</h1>
+  <p class="lead">Pemahaman peta (simbol, skala, orientasi) dan konsep keruangan — dilengkapi peta interaktif sederhana. Klik sub-bab untuk membuka penjelasan.</p>
+
+  <div class="content">
+
+    <!-- MAP VISUAL -->
+    <div class="map-frame" aria-hidden="true">
+      <div class="compass" title="Kompas (berputar)">
+        <div style="position:absolute;top:6px;font-weight:800">N</div>
+        <div class="needle" style="transform:rotate(20deg)"></div>
+      </div>
+
+      <!-- pulau interaktif -->
+      <div class="island a" data-id="A" tabindex="0" role="button" aria-label="Pulau A"></div>
+      <div class="island b" data-id="B" tabindex="0" role="button" aria-label="Pulau B"></div>
+      <div class="islet c" data-id="C" tabindex="0" role="button" aria-label="Pulau kecil C"></div>
+      <div class="islet d" data-id="D" tabindex="0" role="button" aria-label="Pulau kecil D"></div>
+
+      <div class="pin" id="mapPin">Info</div>
+
+      <div class="sea"></div>
+    </div>
+
+    <!-- SUB-BAB: Pengertian -->
+    <h2 onclick="toggle('bab1')">1️⃣ Pengertian Peta</h2>
+    <div id="bab1" class="example">
+      <p><strong>Peta</strong> adalah representasi permukaan bumi yang diperkecil dan diproyeksikan pada bidang datar, menggunakan simbol untuk menunjukkan elemen nyata (relief, badan air, jalan, pemukiman, dsb.).</p>
+      <p>Fungsi peta: navigasi, perencanaan ruang, analisis keruangan, pendidikan, serta studi lingkungan.</p>
+    </div>
+
+    <!-- SUB-BAB: Unsur -->
+    <h2 onclick="toggle('bab2')">2️⃣ Unsur-unsur Peta & Simbol</h2>
+    <div id="bab2" class="example">
+      <p>Unsur peta meliputi:</p>
+      <ul>
+        <li><strong>Judul:</strong> tema peta.</li>
+        <li><strong>Skala:</strong> perbandingan jarak peta dan jarak nyata.</li>
+        <li><strong>Legenda:</strong> keterangan simbol.</li>
+        <li><strong>Orientasi:</strong> arah utara (kompas).</li>
+      </ul>
+
+      <div style="margin-top:12px"><strong>Contoh simbol:</strong>
+        <div style="display:flex;gap:12px;margin-top:8px;flex-wrap:wrap">
+          <div style="background:#e0f2f1;color:#004d40;padding:8px;border-radius:8px">🚗 Jalan</div>
+          <div style="background:#e0f2f1;color:#004d40;padding:8px;border-radius:8px">🏥 Rumah Sakit</div>
+          <div style="background:#e0f2f1;color:#004d40;padding:8px;border-radius:8px">🌲 Hutan</div>
+          <div style="background:#e0f2f1;color:#004d40;padding:8px;border-radius:8px">🔺 Puncak</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUB-BAB: Skala -->
+    <h2 onclick="toggle('bab3')">3️⃣ Skala & Konversi (Latihan Interaktif)</h2>
+    <div id="bab3" class="example">
+      <p>Skala peta ada tiga tipe: numerik (1:50.000), grafik (batang skala), dan verbal (1 cm mewakili 1 km).</p>
+      <p class="formula">Contoh: skala 1 : 250.000 → 1 cm peta = 2.500 m = 2.5 km</p>
+
+      <div style="margin-top:10px">
+        <label>Skala (1 : )</label>
+        <input id="scaleVal" type="number" placeholder="mis: 250000">
+        <label>Jarak pada peta (cm)</label>
+        <input id="mapDist" type="number" placeholder="mis: 4">
+        <button onclick="convertScale()">Hitung Jarak Nyata</button>
+        <p id="scaleResult" class="result"></p>
+      </div>
+
+      <div class="quiz">
+        <strong>Quiz cepat:</strong> Jika skala 1:100.000 dan jarak di peta 3 cm, jawaban berapa km?  
+        <input id="quizAns" placeholder="jawaban (km)" style="width:120px;display:inline-block">
+        <button style="display:inline-block;margin-left:8px" onclick="checkQuiz()">Cek Jawaban</button>
+        <p id="quizRes" style="margin-top:6px"></p>
+      </div>
+    </div>
+
+    <!-- SUB-BAB: Keruangan -->
+    <h2 onclick="toggle('bab4')">4️⃣ Konsep Keruangan & Analisis</h2>
+    <div id="bab4" class="example">
+      <p>Konsep dasar keruangan: <strong>lokasi, jarak, keterjangkauan, pola, dan hubungan fungsional</strong>. Analisis keruangan membantu penataan Ruang dan pengambilan keputusan (mis. zonasi, infrastruktur).</p>
+
+      <h4 style="margin-top:10px">Contoh Analisis Sederhana</h4>
+      <p>Misal: tentukan lokasi ideal fasilitas kesehatan berdasarkan jarak rata-rata ke penduduk (soal sederhana dapat dibuat dengan data titik pada peta).</p>
+      <p style="font-size:13px;color:#004d40">(Untuk demo sederhana, klik sebuah pulau pada peta untuk melihat info lokasi — lalu pikirkan jarak & aksesibilitas.)</p>
+    </div>
+
+    <!-- SUB-BAB: Simbol & Legenda interaktif -->
+    <h2 onclick="toggle('bab5')">5️⃣ Simbol & Legenda Interaktif</h2>
+    <div id="bab5" class="example">
+      <p>Klik ikon berikut untuk melihat arti simbol peta:</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
+        <button onclick="showSym('jalan')">🚗 Jalan</button>
+        <button onclick="showSym('rumah')">🏠 Permukiman</button>
+        <button onclick="showSym('sungai')">🌊 Sungai</button>
+        <button onclick="showSym('gunung')">🔺 Gunung</button>
+      </div>
+      <p id="symDesc" style="margin-top:12px;color:#004d40;font-weight:700"></p>
+    </div>
+
+    <!-- SUB-BAB: Peta interaktif (klik pulau) -->
+    <h2 onclick="toggle('bab6')">6️⃣ Peta Interaktif (Klik Pulau)</h2>
+    <div id="bab6" class="example">
+      <p>Klik pulau pada peta untuk melihat nama, luas perkiraan, dan catatan aksesibilitas.</p>
+      <div style="margin-top:10px">
+        <small style="color:#00695c">Tip: gunakan keyboard (Tab) lalu Enter untuk aksesibilitas.</small>
+      </div>
+
+      <div class="map-mini" style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <div style="width:260px">
+          <div style="height:140px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#a7ffeb,#b2dfdb);position:relative">
+            <!-- duplicate of islands but smaller for this card -->
+            <div class="island a" style="left:10%; top:30%; width:120px; height:60px" data-id="A-small" tabindex="0" role="button"></div>
+            <div class="island b" style="left:60%; top:20%; width:110px; height:55px" data-id="B-small" tabindex="0" role="button"></div>
+            <div class="islet c" style="left:75%; top:62%; width:70px; height:40px" data-id="C-small" tabindex="0" role="button"></div>
+            <div class="islet d" style="left:28%; top:10%; width:70px; height:40px" data-id="D-small" tabindex="0" role="button"></div>
+          </div>
+        </div>
+
+        <div style="flex:1;min-width:240px">
+          <div style="background:#e0f2f1;border-radius:10px;padding:10px;color:#01332f">
+            <strong>Info Terpilih:</strong>
+            <p id="selectedInfo" style="margin-top:8px">Belum ada pilihan. Klik pulau untuk informasi.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <a href="ipsv1.html" class="back" onclick="history.back()">← Menu Sebelumnya</a>
+  </div>
+
+  <!-- POPUP INFO BOX -->
+  <div id="infoBox" class="info-box" role="dialog" aria-hidden="true" aria-labelledby="infotitle">
+    <h3 id="infotitle">Lokasi</h3>
+    <p id="infotext">Detail lokasi...</p>
+    <button class="info-close" onclick="closeInfo()">Tutup</button>
+  </div>
+
+<script>
+  /* Toggle accordion */
+  function toggle(id){ document.getElementById(id).classList.toggle('show'); }
+
+  /* ---------- SKALA: konversi sederhana ---------- */
+  function convertScale(){
+    const s = parseFloat(document.getElementById('scaleVal').value);
+    const d = parseFloat(document.getElementById('mapDist').value);
+    const out = document.getElementById('scaleResult');
+    if(isNaN(s) || s<=0 || isNaN(d) || d<=0){ out.textContent='⚠️ Masukkan skala dan jarak peta yang valid!'; return; }
+    // 1 cm pada peta = s cm di lapangan -> d cm pada peta = d*s cm.
+    const real_cm = d * s;
+    const real_km = real_cm / 100000; // 100000 cm = 1 km
+    out.textContent = `Jarak nyata ≈ ${real_km.toFixed(3)} km (${real_cm.toLocaleString()} cm).`;
+  }
+
+  function checkQuiz(){
+    const ans = parseFloat(document.getElementById('quizAns').value);
+    const res = document.getElementById('quizRes');
+    if(isNaN(ans)){ res.textContent='Isi jawaban (dalam km).'; return; }
+    // quiz: scale 1:100000, map 3 cm -> real = 3*100000 cm = 300000 cm = 3 km
+    const correct = 3.0;
+    if(Math.abs(ans - correct) < 0.001) res.textContent = 'Benar ✅ — jarak nyata = 3 km.';
+    else res.textContent = `Salah — jawaban yang benar: ${correct} km.`;
+  }
+
+  /* ---------- SYMBOLS ---------- */
+  function showSym(key){
+    const el = document.getElementById('symDesc');
+    const dict = {
+      jalan: 'Simbol jalan menunjukkan rute transportasi utama dan sekunder.',
+      rumah: 'Simbol permukiman menunjukkan wilayah penduduk / kota atau desa.',
+      sungai: 'Simbol sungai menunjukkan aliran air permukaan — penting untuk sumber air & topografi.',
+      gunung: 'Simbol gunung menunjukkan puncak / pegunungan — biasanya menunjukkan elevasi tinggi.'
+    };
+    el.textContent = dict[key] || '';
+  }
+
+  /* ---------- PETA: klik pulau -> tampilkan info popup ---------- */
+  const infoBox = document.getElementById('infoBox');
+  const infoTitle = document.getElementById('infotitle');
+  const infoText = document.getElementById('infotext');
+  const selectedInfo = document.getElementById('selectedInfo');
+  const mapPin = document.getElementById('mapPin');
+
+  // data lokasi pulau (contoh)
+  const places = {
+    A: { name:'Pulau Zamrud', area:'~120 km²', note:'Akses melalui pelabuhan kecil; ada dataran tinggi dan hutan bakau.' },
+    B: { name:'Pulau Intan', area:'~80 km²', note:'Lebih urban; pelabuhan utama dan pusat ekonomi lokal.' },
+    C: { name:'Kepulauan Batu', area:'~12 km² (gabungan)', note:'Pulau-pulau kecil, wisata bahari.' },
+    D: { name:'Pulau Rimba', area:'~45 km²', note:'Area konservasi; jalur trekking terbatas.' },
+    'A-small':{ name:'Pulau Zamrud (mini)', area:'~120 km²', note:'Versi mini peta.' },
+    'B-small':{ name:'Pulau Intan (mini)', area:'~80 km²', note:'Versi mini peta.' },
+    'C-small':{ name:'Kepulauan Batu (mini)', area:'~12 km²', note:'Versi mini peta.' },
+    'D-small':{ name:'Pulau Rimba (mini)', area:'~45 km²', note:'Versi mini peta.' }
+  };
+
+  // helper show popup
+  function showInfo(id, clientX, clientY){
+    const data = places[id] || {name:'Tidak diketahui', area:'-', note:'-'};
+    infoTitle.textContent = data.name;
+    infoText.innerHTML = `<strong>Luas:</strong> ${data.area}<br><strong>Catatan:</strong> ${data.note}`;
+    infoBox.classList.add('show');
+    infoBox.setAttribute('aria-hidden','false');
+    // update side info too
+    selectedInfo.textContent = `${data.name} — ${data.area}. ${data.note}`;
+  }
+
+  function closeInfo(){
+    infoBox.classList.remove('show');
+    infoBox.setAttribute('aria-hidden','true');
+  }
+
+  // bind click/keyboard for islands in both map frames
+  document.querySelectorAll('.island, .islet').forEach(el=>{
+    el.addEventListener('click', e=>{
+      const id = el.dataset.id || el.getAttribute('data-id');
+      showInfo(id);
+    });
+    el.addEventListener('keydown', e=>{
+      if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }
+    });
+    // optional: show temporary label near mouse (desktop)
+    el.addEventListener('mouseenter', e=>{
+      const id = el.dataset.id || el.getAttribute('data-id');
+      const data = places[id] || { name:'Lokasi' };
+      mapPin.textContent = data.name;
+      mapPin.style.left = (el.offsetLeft + el.offsetWidth/2) + 'px';
+      mapPin.style.top = (el.offsetTop - 8) + 'px';
+      mapPin.style.display = 'block';
+    });
+    el.addEventListener('mouseleave', ()=>{ mapPin.style.display = 'none'; });
+  });
+
+  // clicking outside popup closes it (for convenience)
+  window.addEventListener('click', (e)=>{
+    if(infoBox.classList.contains('show')){
+      const box = infoBox;
+      if(!box.contains(e.target) && !e.target.closest('.island') && !e.target.closest('.islet')){
+        closeInfo();
+      }
+    }
+  });
+
+  /* Accessibility: close popup with Escape */
+  window.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape'){ closeInfo(); }
+  });
+
+</script>
+</body>
+</html>

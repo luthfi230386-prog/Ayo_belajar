@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Atmosfer dan Iklim </title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --sky1: #A7FFEB;
+      --sky2: #00BCD4;
+      --ocean: #01579B;
+      --sun: #FFD54F;
+      --text: #003344;
+      --card: #ffffffee;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Baloo 2', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(to bottom, var(--sky1), var(--sky2));
+      overflow-x: hidden;
+      color: var(--text);
+      padding: 20px;
+      transition: background 1.5s ease;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 38px;
+      color: var(--ocean);
+      text-shadow: 0 0 8px rgba(0,0,0,0.1);
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 24px;
+      color: var(--ocean);
+      margin-top: 24px;
+      margin-bottom: 8px;
+      text-align: left;
+    }
+
+    p {
+      font-size: 17px;
+      line-height: 1.7;
+      text-align: justify;
+      margin-bottom: 10px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+      padding: 25px;
+      margin: 30px auto;
+      max-width: 800px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ☁️ Awan */
+    .cloud {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      opacity: 0.85;
+      animation: floatCloud linear infinite;
+    }
+
+    .cloud::before, .cloud::after {
+      content: '';
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+    }
+
+    .cloud1 {
+      width: 100px; height: 60px;
+      top: 60px; left: -150px;
+      animation-duration: 60s;
+    }
+    .cloud1::before { width: 60px; height: 60px; top: -20px; left: 20px; }
+    .cloud1::after { width: 80px; height: 50px; top: 10px; left: 50px; }
+
+    .cloud2 {
+      width: 140px; height: 80px;
+      top: 160px; left: -200px;
+      animation-duration: 80s;
+      opacity: 0.7;
+    }
+    .cloud2::before { width: 90px; height: 70px; top: -25px; left: 30px; }
+    .cloud2::after { width: 100px; height: 60px; top: 20px; left: 60px; }
+
+    @keyframes floatCloud {
+      from { transform: translateX(0); }
+      to { transform: translateX(120vw); }
+    }
+
+    /* 🌞 Matahari */
+    .sun {
+      position: absolute;
+      top: 40px;
+      right: 80px;
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle at center, var(--sun), #FFC107);
+      border-radius: 50%;
+      box-shadow: 0 0 40px 10px rgba(255,213,79,0.6);
+      animation: glow 3s infinite alternate;
+      transition: opacity 1.5s, transform 1.5s;
+    }
+
+    @keyframes glow {
+      from { transform: scale(1); opacity: 0.9; }
+      to { transform: scale(1.1); opacity: 1; }
+    }
+
+    /* 🌧️ Hujan */
+    .rain {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      display: none;
+    }
+
+    .drop {
+      position: absolute;
+      width: 2px; height: 15px;
+      background: rgba(255,255,255,0.8);
+      bottom: 100%;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      to { transform: translateY(110vh); }
+    }
+
+    /* Tombol Cuaca */
+    .controls {
+      text-align: center;
+      margin: 20px auto;
+    }
+
+    .controls button {
+      background: var(--ocean);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      margin: 6px;
+      border-radius: 10px;
+      font-family: 'Baloo 2';
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .controls button:hover { background: #0277BD; }
+
+    .back {
+      display: inline-block;
+      text-decoration: none;
+      background: var(--ocean);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+      transition: background 0.3s;
+      margin-top: 25px;
+    }
+
+    .back:hover { background: #0277BD; }
+
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      color: var(--ocean);
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="sun"></div>
+  <div class="cloud cloud1"></div>
+  <div class="cloud cloud2"></div>
+  <div class="rain" id="rain"></div>
+
+  <h1>Atmosfer dan Iklim 🌤️</h1>
+
+  <div class="controls">
+    <button onclick="setWeather('clear')">☀️ Cerah</button>
+    <button onclick="setWeather('rain')">🌧️ Hujan</button>
+    <button onclick="setWeather('windy')">🌪️ Berangin</button>
+  </div>
+
+  <div class="card">
+    <h2>Pengertian Atmosfer</h2>
+    <p>Atmosfer adalah lapisan udara yang menyelimuti bumi, terdiri dari gas-gas seperti nitrogen (78%), oksigen (21%), dan gas lainnya. Lapisan ini berfungsi melindungi bumi dari radiasi dan menjaga keseimbangan suhu.</p>
+
+    <h2>Lapisan Atmosfer</h2>
+    <ul>
+      <li><strong>Troposfer</strong> – tempat terjadinya cuaca.</li>
+      <li><strong>Stratosfer</strong> – terdapat lapisan ozon pelindung bumi.</li>
+      <li><strong>Mesosfer</strong> – membakar meteor sebelum mencapai permukaan bumi.</li>
+      <li><strong>Termosfer</strong> – lapisan ionosfer untuk komunikasi radio.</li>
+      <li><strong>Eksosfer</strong> – batas luar atmosfer menuju angkasa.</li>
+    </ul>
+
+    <h2>Iklim dan Cuaca</h2>
+    <p>Iklim menggambarkan kondisi rata-rata cuaca jangka panjang. Faktor-faktor seperti lintang, ketinggian, arus laut, dan arah angin memengaruhi perbedaan iklim di berbagai wilayah.</p>
+
+    <a href="ipsv1.html" class="back">⬅️ Menu Sebelumnya</a>
+  </div>
+
+  <div class="footer">© 2025</div>
+
+  <script>
+    const rainContainer = document.getElementById('rain');
+    const sun = document.querySelector('.sun');
+    const clouds = document.querySelectorAll('.cloud');
+
+    function createRain() {
+      rainContainer.innerHTML = '';
+      for (let i = 0; i < 60; i++) {
+        const drop = document.createElement('div');
+        drop.classList.add('drop');
+        drop.style.left = Math.random() * 100 + 'vw';
+        drop.style.animationDuration = 0.8 + Math.random() * 0.8 + 's';
+        drop.style.animationDelay = Math.random() * 2 + 's';
+        rainContainer.appendChild(drop);
+      }
+    }
+
+    function setWeather(type) {
+      if (type === 'clear') {
+        document.body.style.background = 'linear-gradient(to bottom, #A7FFEB, #00BCD4)';
+        rainContainer.style.display = 'none';
+        sun.style.opacity = '1';
+        sun.style.transform = 'scale(1)';
+        clouds.forEach(c => c.style.animationDuration = '60s');
+      }
+      else if (type === 'rain') {
+        document.body.style.background = 'linear-gradient(to bottom, #80DEEA, #4DD0E1)';
+        createRain();
+        rainContainer.style.display = 'block';
+        sun.style.opacity = '0.5';
+        clouds.forEach(c => c.style.animationDuration = '90s');
+      }
+      else if (type === 'windy') {
+        document.body.style.background = 'linear-gradient(to bottom, #B3E5FC, #81D4FA)';
+        rainContainer.style.display = 'none';
+        sun.style.opacity = '0.9';
+        clouds.forEach(c => c.style.animationDuration = '25s');
+      }
+    }
+  </script>
+</body>
+</html>

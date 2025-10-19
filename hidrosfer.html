@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hidrosfer </title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg1:#E0F7FA;
+    --bg2:#B2EBF2;
+    --accent:#0288D1;
+    --text:#01579B;
+  }
+
+  * { box-sizing:border-box; margin:0; padding:0; }
+
+  body {
+    font-family:'Baloo 2', sans-serif;
+    background:linear-gradient(to bottom,var(--bg1),var(--bg2));
+    min-height:100vh;
+    padding:30px;
+    color:#333;
+  }
+
+  h1 {
+    text-align:center;
+    font-size:36px;
+    color:var(--text);
+    margin-bottom:20px;
+  }
+
+  h2 {
+    background:var(--accent);
+    color:white;
+    display:inline-block;
+    padding:10px 18px;
+    border-radius:12px;
+    margin-top:24px;
+    cursor:pointer;
+    font-size:20px;
+    transition:background 0.3s, transform 0.2s;
+  }
+
+  h2:hover { background:#4FC3F7; transform:scale(1.05); }
+
+  p { margin-top:8px; font-size:16px; line-height:1.6; text-align:justify; }
+  ul { margin-top:6px; text-align:left; margin-left:30px; }
+
+  .content { margin-top:20px; text-align:center; }
+
+  .example {
+    background:white;
+    border-radius:12px;
+    padding:16px;
+    margin:16px auto;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    max-width:720px;
+    text-align:left;
+    overflow:hidden;
+    opacity:0;
+    max-height:0;
+    transform:translateY(-10px);
+    transition:all 0.6s ease;
+  }
+
+  .example.show {
+    opacity:1;
+    max-height:3000px;
+    transform:translateY(0);
+  }
+
+  .wave {
+    position:relative;
+    width:100%;
+    height:120px;
+    background:linear-gradient(to top,#4FC3F7,#81D4FA);
+    border-radius:0 0 40% 40%;
+    overflow:hidden;
+  }
+
+  .wave::before, .wave::after {
+    content:"";
+    position:absolute;
+    width:200%;
+    height:200%;
+    top:0;
+    left:-50%;
+    background:rgba(255,255,255,0.3);
+    border-radius:45%;
+    animation:waveMove 6s infinite linear;
+  }
+  .wave::after { animation-delay:-3s; opacity:0.6; }
+
+  @keyframes waveMove {
+    0% { transform:translateX(0) rotate(0deg); }
+    100% { transform:translateX(-50%) rotate(360deg); }
+  }
+
+  .water-cycle {
+    width:200px;
+    height:200px;
+    margin:20px auto;
+    position:relative;
+  }
+
+  .cloud {
+    position:absolute;
+    top:10px; left:40px;
+    width:120px; height:60px;
+    background:#fff;
+    border-radius:50%;
+    box-shadow:30px 10px 0 0 #fff, -30px 10px 0 0 #fff;
+    animation:float 3s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%,100%{ transform:translateY(0);}
+    50%{ transform:translateY(-10px);}
+  }
+
+  .rain {
+    position:absolute;
+    top:70px; left:90px;
+    width:6px; height:20px;
+    background:#03A9F4;
+    border-radius:3px;
+    animation:rainDrop 1s infinite linear;
+  }
+  .rain:nth-child(2){ left:110px; animation-delay:0.3s; }
+  .rain:nth-child(3){ left:70px; animation-delay:0.6s; }
+  @keyframes rainDrop {
+    0%{ transform:translateY(0); opacity:1; }
+    100%{ transform:translateY(40px); opacity:0; }
+  }
+
+  .back {
+    display:inline-block;
+    margin-top:30px;
+    text-decoration:none;
+    background:var(--text);
+    color:white;
+    padding:10px 20px;
+    border-radius:10px;
+    transition:background 0.3s;
+  }
+  .back:hover { background:#013A63; }
+
+    /* Animasi Air Tanah dan Akuifer */
+  .aquifer {
+    position:relative;
+    width:100%;
+    height:120px;
+    background:linear-gradient(to top,#4FC3F7 20%,#B2EBF2 60%,#E0F7FA);
+    border-radius:12px;
+    overflow:hidden;
+    margin:20px auto;
+    box-shadow:inset 0 0 10px rgba(0,0,0,0.2);
+  }
+
+  .ground {
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:50px;
+    background:#795548;
+    border-top-left-radius:30px;
+    border-top-right-radius:30px;
+  }
+
+  .flow {
+    position:absolute;
+    top:40px;
+    left:-10%;
+    width:15px;
+    height:6px;
+    background:#03A9F4;
+    border-radius:4px;
+    animation:groundFlow 4s linear infinite;
+    opacity:0.7;
+  }
+  .flow.delay1 { animation-delay:1.5s; top:60px; }
+  .flow.delay2 { animation-delay:3s; top:80px; }
+
+  @keyframes groundFlow {
+    0% { left:-10%; }
+    100% { left:110%; }
+  }
+
+</style>
+</head>
+
+<body>
+  <h1>Hidrosfer</h1>
+  <div class="content">
+
+    <!-- BAB 1 -->
+    <h2 onclick="toggle('bab1')">1️⃣ Pengertian Hidrosfer</h2>
+    <div id="bab1" class="example">
+      <p><strong>Hidrosfer</strong> adalah lapisan air yang menyelimuti permukaan bumi. Hidrosfer meliputi seluruh bentuk air baik dalam wujud cair, padat, maupun gas yang terdapat di laut, sungai, danau, air tanah, uap air di atmosfer, serta gletser di kutub.</p>
+      <div class="wave"></div>
+    </div>
+
+    <!-- BAB 2 -->
+    <h2 onclick="toggle('bab2')">2️⃣ Siklus Hidrologi</h2>
+    <div id="bab2" class="example">
+      <p>Siklus hidrologi adalah proses sirkulasi air dari bumi ke atmosfer dan kembali lagi ke bumi melalui tahapan penguapan, kondensasi, presipitasi, dan infiltrasi.</p>
+      <div class="water-cycle">
+        <div class="cloud"></div>
+        <div class="rain"></div>
+        <div class="rain"></div>
+        <div class="rain"></div>
+      </div>
+      <ul>
+        <li><strong>Evaporasi:</strong> penguapan air dari laut, sungai, dan danau.</li>
+        <li><strong>Kondensasi:</strong> uap air berubah menjadi awan.</li>
+        <li><strong>Presipitasi:</strong> jatuhnya air ke permukaan bumi sebagai hujan, salju, atau es.</li>
+        <li><strong>Infiltrasi:</strong> air meresap ke tanah menjadi air tanah.</li>
+      </ul>
+    </div>
+
+    <!-- BAB 3 -->
+    <h2 onclick="toggle('bab3')">3️⃣ Jenis Perairan di Bumi</h2>
+    <div id="bab3" class="example">
+      <p>Air di bumi terbagi menjadi dua jenis besar:</p>
+      <ul>
+        <li><strong>Air laut:</strong> menutupi sekitar 71% permukaan bumi dan mengandung garam.</li>
+        <li><strong>Air tawar:</strong> terdapat di sungai, danau, waduk, gletser, serta air tanah.</li>
+      </ul>
+      <p>Air laut memiliki salinitas sekitar 3,5%, sedangkan air tawar kurang dari 0,5%.</p>
+    </div>
+
+    <!-- BAB 4 -->
+    <h2 onclick="toggle('bab4')">4️⃣ Manfaat Hidrosfer bagi Kehidupan</h2>
+    <div id="bab4" class="example">
+      <ul>
+        <li>Sumber air untuk minum, pertanian, dan industri.</li>
+        <li>Sarana transportasi dan rekreasi.</li>
+        <li>Mengatur suhu bumi melalui penguapan dan curah hujan.</li>
+        <li>Menjadi habitat berbagai organisme air.</li>
+      </ul>
+    </div>
+
+    <!-- BAB 5 -->
+    <h2 onclick="toggle('bab5')">5️⃣ Pencemaran Air dan Upaya Pelestarian</h2>
+    <div id="bab5" class="example">
+      <p><strong>Pencemaran air</strong> terjadi ketika zat-zat berbahaya masuk ke perairan dan mengubah kualitas air.</p>
+      <ul>
+        <li><strong>Sumber pencemar:</strong> limbah rumah tangga, industri, dan pertanian.</li>
+        <li><strong>Dampak:</strong> menurunnya kualitas air, kematian organisme, dan gangguan kesehatan manusia.</li>
+        <li><strong>Upaya pelestarian:</strong> daur ulang air limbah, reboisasi, dan pengawasan limbah industri.</li>
+      </ul>
+    </div>
+    <!-- BAB 6 -->
+    <h2 onclick="toggle('bab6')">6️⃣ Air Tanah dan Akuifer</h2>
+    <div id="bab6" class="example">
+      <p><strong>Air tanah</strong> adalah air yang tersimpan di dalam pori-pori tanah dan batuan di bawah permukaan bumi. Air ini berasal dari infiltrasi air hujan yang meresap ke bawah melalui lapisan tanah.</p>
+      <p><strong>Akuifer</strong> adalah lapisan batuan yang dapat menyimpan dan mengalirkan air tanah dalam jumlah cukup besar.</p>
+
+      <div class="aquifer">
+        <div class="ground"></div>
+        <div class="flow"></div>
+        <div class="flow delay1"></div>
+        <div class="flow delay2"></div>
+      </div>
+
+      <ul>
+        <li><strong>Lapisan kedap air (impermeabel):</strong> batuan padat yang menahan air tanah.</li>
+        <li><strong>Lapisan akuifer:</strong> batuan berpori seperti pasir dan kerikil yang dapat menyimpan air.</li>
+        <li><strong>Air tanah dangkal:</strong> air yang dekat dengan permukaan, sering dimanfaatkan sumur.</li>
+        <li><strong>Air tanah dalam:</strong> terdapat pada lapisan yang lebih dalam, lebih bersih dan stabil.</li>
+      </ul>
+
+      <p><strong>💡 Fakta:</strong> Sekitar 30% air tawar di bumi tersimpan dalam bentuk air tanah.</p>
+    </div>
+
+    <a href="ipsv1.html" class="back" onclick="history.back()">← Kembali ke Menu Sebelumnya</a>
+  </div>
+
+<script>
+function toggle(id){
+  document.getElementById(id).classList.toggle('show');
+}
+</script>
+</body>
+</html>
