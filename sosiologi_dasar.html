@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sosiologi Dasar</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(to bottom, #c8e6c9, #81c784);
+      margin: 0;
+      padding: 0;
+      color: #1b5e20;
+    }
+
+    header {
+      background: #2e7d32;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      font-size: 24px;
+      letter-spacing: 1px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+    }
+
+    .content {
+      max-width: 850px;
+      margin: 30px auto;
+      padding: 20px;
+      background: #e8f5e9;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      animation: fadeIn 1.5s ease;
+    }
+
+    h2 {
+      cursor: pointer;
+      background: #388e3c;
+      color: #fff;
+      padding: 12px;
+      border-radius: 10px;
+      transition: 0.3s;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    h2:hover {
+      background: #1b5e20;
+      transform: scale(1.03);
+    }
+
+    .example {
+      display: none;
+      padding: 15px;
+      background: #f1f8e9;
+      border-left: 5px solid #4caf50;
+      border-radius: 10px;
+      margin-top: 10px;
+      animation: slideDown 0.7s ease;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    @keyframes slideDown {
+      from {opacity: 0; transform: translateY(-10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    /* Animasi latar orang & masyarakat */
+    .society {
+      width: 100%;
+      height: 150px;
+      position: relative;
+      background: linear-gradient(to top, #66bb6a, #a5d6a7);
+      border-radius: 15px;
+      overflow: hidden;
+      margin: 15px 0;
+      box-shadow: inset 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .person {
+      position: absolute;
+      bottom: 0;
+      width: 20px;
+      height: 40px;
+      background: #1b5e20;
+      border-radius: 5px;
+      animation: movePerson 6s linear infinite;
+    }
+
+    .person::before {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: 5px;
+      width: 10px;
+      height: 10px;
+      background: #a5d6a7;
+      border-radius: 50%;
+    }
+
+    @keyframes movePerson {
+      0% { left: -10%; }
+      50% { left: 50%; transform: scale(1.1); }
+      100% { left: 110%; }
+    }
+
+    button {
+      background: #388e3c;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s;
+      margin-top: 20px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      animation: pulse 2s infinite ease-in-out;
+    }
+
+    button:hover {
+      background: #1b5e20;
+      transform: scale(1.05);
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 10px rgba(56,142,60,0.6); }
+      50% { box-shadow: 0 0 20px rgba(56,142,60,1); }
+    }
+
+    footer {
+      text-align: center;
+      color: #fff;
+      padding: 15px;
+      background: #2e7d32;
+      border-top: 3px solid #1b5e20;
+      margin-top: 30px;
+      animation: fadeIn 2s ease;
+    }
+  </style>
+</head>
+<body>
+
+  <header>🌿 Sosiologi Dasar</header>
+
+  <div class="content">
+    <h2 onclick="toggle('bab1')">1️⃣ Pengertian Sosiologi</h2>
+    <div id="bab1" class="example">
+      <p><strong>Sosiologi</strong> adalah ilmu yang mempelajari tentang masyarakat, hubungan antarindividu, serta perilaku sosial dalam kehidupan bersama.</p>
+      <div class="society">
+        <div class="person" style="animation-delay: 0s;"></div>
+        <div class="person" style="animation-delay: 2s;"></div>
+        <div class="person" style="animation-delay: 4s;"></div>
+      </div>
+      <p>Sosiologi membantu kita memahami dinamika sosial, konflik, nilai, dan norma yang membentuk kehidupan sosial.</p>
+    </div>
+
+    <h2 onclick="toggle('bab2')">2️⃣ Ciri-Ciri Sosiologi</h2>
+    <div id="bab2" class="example">
+      <ul>
+        <li><strong>Empiris:</strong> Berdasarkan fakta nyata di masyarakat.</li>
+        <li><strong>Teoretis:</strong> Menyusun konsep dan teori sosial.</li>
+        <li><strong>Kumulatif:</strong> Teori sosiologi berkembang dari teori sebelumnya.</li>
+        <li><strong>Non-etis:</strong> Tidak menilai baik atau buruk suatu fenomena sosial.</li>
+      </ul>
+    </div>
+
+    <h2 onclick="toggle('bab3')">3️⃣ Objek Kajian Sosiologi</h2>
+    <div id="bab3" class="example">
+      <ul>
+        <li><strong>Objek material:</strong> Masyarakat dan interaksi sosial.</li>
+        <li><strong>Objek formal:</strong> Pola hubungan antarindividu dan kelompok.</li>
+      </ul>
+    </div>
+
+    <h2 onclick="toggle('bab4')">4️⃣ Fungsi Sosiologi dalam Kehidupan</h2>
+    <div id="bab4" class="example">
+      <p>Sosiologi membantu memahami berbagai fenomena sosial seperti kemiskinan, kejahatan, perubahan sosial, dan integrasi masyarakat.</p>
+      <ul>
+        <li>Meningkatkan <strong>kesadaran sosial</strong>.</li>
+        <li>Mendorong <strong>perubahan sosial positif</strong>.</li>
+        <li>Menjadi dasar dalam <strong>pembuatan kebijakan publik</strong>.</li>
+      </ul>
+    </div>
+
+    <h2 onclick="toggle('bab5')">5️⃣ Tokoh-Tokoh Sosiologi</h2>
+    <div id="bab5" class="example">
+      <ul>
+        <li><strong>Auguste Comte:</strong> Bapak Sosiologi, pencetus istilah "sosiologi".</li>
+        <li><strong>Emile Durkheim:</strong> Mengkaji solidaritas sosial dan integrasi.</li>
+        <li><strong>Karl Marx:</strong> Fokus pada konflik sosial dan kelas.</li>
+        <li><strong>Max Weber:</strong> Meneliti makna tindakan sosial.</li>
+      </ul>
+    </div>
+
+    <button onclick="window.history.back()">⬅️ Menu Sebelumnya</button>
+  </div>
+
+  <script>
+    function toggle(id) {
+      var x = document.getElementById(id);
+      x.style.display = x.style.display === "block" ? "none" : "block";
+    }
+  </script>
+</body>
+</html>

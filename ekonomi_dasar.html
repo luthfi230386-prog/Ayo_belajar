@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ekonomi Dasar</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg1:#FFF3E0;
+    --bg2:#E0F7FA;
+    --accent:#FF7043;
+    --blue:#42A5F5;
+    --green:#81C784;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Baloo 2', sans-serif;
+    background:linear-gradient(to bottom,var(--bg1),var(--bg2));
+    min-height:100vh;
+    padding:30px;
+    color:#333;
+  }
+  h1{
+    text-align:center;
+    font-size:32px;
+    color:#333;
+    margin-bottom:12px;
+  }
+  h3{
+    background:var(--accent);
+    color:white;
+    display:inline-block;
+    padding:8px 16px;
+    border-radius:10px;
+    margin-top:24px;
+    cursor:pointer;
+    font-size:18px;
+    transition:background 0.3s, transform 0.2s;
+  }
+  h3:hover{
+    background:#ff8a65;
+    transform:scale(1.05);
+  }
+  p{margin-top:8px;font-size:16px;line-height:1.5;}
+  ul{margin-top:6px;text-align:left;margin-left:30px;}
+  .content{margin-top:20px;text-align:center;}
+  .example{
+    background:white;
+    border-radius:10px;
+    padding:16px;
+    margin:16px auto;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    max-width:700px;
+    text-align:left;
+    overflow:hidden;
+    opacity:0;
+    max-height:0;
+    transform:translateY(-10px);
+    transition:all 0.6s ease;
+  }
+  .example.show{
+    opacity:1;
+    max-height:2000px;
+    transform:translateY(0);
+  }
+
+  /* animasi uang berputar */
+  .money-anim{
+    width:60px;height:30px;
+    margin:10px auto;
+    background:linear-gradient(90deg,#4CAF50,#8BC34A);
+    border-radius:6px;
+    animation:spinMoney 2s linear infinite;
+  }
+  @keyframes spinMoney{
+    0%{transform:rotateY(0deg)}
+    100%{transform:rotateY(360deg)}
+  }
+
+  /* animasi roda ekonomi */
+  .wheel{
+    width:100px;height:100px;
+    margin:15px auto;
+    border:8px solid var(--blue);
+    border-top:8px solid var(--green);
+    border-radius:50%;
+    animation:rotate 3s linear infinite;
+  }
+  @keyframes rotate{
+    0%{transform:rotate(0deg)}
+    100%{transform:rotate(360deg)}
+  }
+
+  /* tombol */
+  button{
+    background:var(--accent);
+    color:white;
+    border:none;
+    border-radius:8px;
+    padding:6px 12px;
+    cursor:pointer;
+    margin-top:6px;
+    transition:background 0.3s;
+  }
+  button:hover{background:#ff8a65;}
+
+  .back{
+    display:inline-block;
+    margin-top:30px;
+    text-decoration:none;
+    background:#333;
+    color:white;
+    padding:10px 20px;
+    border-radius:10px;
+    transition:background 0.3s;
+  }
+  .back:hover{background:#000;}
+
+  .formula{
+    background:#fff8e1;
+    padding:4px 8px;
+    border-radius:6px;
+    font-family:monospace;
+  }
+</style>
+</head>
+<body>
+
+<h1>Ekonomi Dasar</h1>
+<div class="content">
+
+  <h3 onclick="toggle('bab1')">1️⃣ Konsep Dasar Ilmu Ekonomi</h3>
+  <div id="bab1" class="example">
+    <p><strong>Ilmu Ekonomi</strong> adalah ilmu yang mempelajari bagaimana manusia memenuhi kebutuhan yang tidak terbatas dengan sumber daya yang terbatas.</p>
+    <p><em>Masalah utama ekonomi:</em> <strong>kelangkaan</strong> (scarcity).</p>
+    <div class="money-anim"></div>
+    <ul>
+      <li>Kebutuhan manusia → tidak terbatas.</li>
+      <li>Alat pemuas kebutuhan → terbatas (barang dan jasa).</li>
+      <li>Harus ada <strong>pilihan (skala prioritas)</strong>.</li>
+    </ul>
+
+    <p><strong>Contoh:</strong> Dengan uang Rp50.000, kamu harus memilih antara membeli buku atau makan di restoran. Pilihan itu disebut <em>biaya peluang</em> (<span class="formula">opportunity cost</span>).</p>
+
+    <h4>Latihan Interaktif:</h4>
+    <p>Pilih keputusan ekonomi:</p>
+    <select id="pilihan">
+      <option value="">-- pilih --</option>
+      <option value="buku">Membeli buku pelajaran</option>
+      <option value="makan">Makan di restoran</option>
+      <option value="tabung">Menabung di bank</option>
+    </select>
+    <button onclick="pilihKeputusan()">Lihat Hasil</button>
+    <p id="hasilKeputusan"></p>
+  </div>
+
+  <h3 onclick="toggle('bab2')">2️⃣ Kebutuhan dan Kelangkaan</h3>
+  <div id="bab2" class="example">
+    <p><strong>Kebutuhan</strong> adalah segala sesuatu yang harus dipenuhi agar manusia dapat hidup layak.</p>
+    <ul>
+      <li>Kebutuhan primer → sandang, pangan, papan.</li>
+      <li>Kebutuhan sekunder → hiburan, pendidikan, alat komunikasi.</li>
+      <li>Kebutuhan tersier → barang mewah, mobil sport, perhiasan.</li>
+    </ul>
+    <p><strong>Kelangkaan</strong> terjadi ketika sumber daya alam atau alat pemuas kebutuhan tidak mencukupi kebutuhan manusia.</p>
+    <div class="wheel"></div>
+    <small>Roda berputar melambangkan siklus pemenuhan kebutuhan ekonomi.</small>
+  </div>
+
+  <h3 onclick="toggle('bab3')">3️⃣ Kegiatan Ekonomi Masyarakat</h3>
+  <div id="bab3" class="example">
+    <p>Kegiatan ekonomi meliputi tiga hal utama:</p>
+    <ol>
+      <li><strong>Produksi</strong> → menghasilkan barang/jasa.</li>
+      <li><strong>Distribusi</strong> → menyalurkan barang dari produsen ke konsumen.</li>
+      <li><strong>Konsumsi</strong> → menggunakan barang/jasa untuk memenuhi kebutuhan.</li>
+    </ol>
+    <div class="money-anim"></div>
+    <p><em>Roda ekonomi</em> berjalan jika ketiganya saling terhubung.</p>
+    <h4>Latihan Interaktif:</h4>
+    <p>Masukkan harga barang dan jumlah yang dibeli:</p>
+    <input type="number" id="harga" placeholder="Harga per barang (Rp)">
+    <input type="number" id="jumlah" placeholder="Jumlah barang">
+    <button onclick="hitungTotal()">Hitung Total</button>
+    <p id="hasilTotal"></p>
+  </div>
+
+  <h3 onclick="toggle('bab4')">4️⃣ Pasar dan Harga</h3>
+  <div id="bab4" class="example">
+    <p><strong>Pasar</strong> adalah tempat bertemunya penjual dan pembeli untuk melakukan transaksi barang atau jasa.</p>
+    <p>Harga ditentukan oleh <strong>keseimbangan antara permintaan dan penawaran</strong>.</p>
+    <p><span class="formula">Keseimbangan → Permintaan = Penawaran</span></p>
+    <div class="wheel"></div>
+    <p><em>Contoh:</em> Jika harga naik, pembeli berkurang; jika harga turun, penjual menahan barang. Titik tengahnya disebut <strong>harga keseimbangan</strong>.</p>
+
+    <h4>Latihan Interaktif:</h4>
+    <p>Masukkan permintaan dan penawaran (unit barang):</p>
+    <input type="number" id="permintaan" placeholder="Permintaan">
+    <input type="number" id="penawaran" placeholder="Penawaran">
+    <button onclick="cekKeseimbangan()">Cek Keseimbangan</button>
+    <p id="hasilPasar"></p>
+  </div>
+
+  <a href="ekonomi.html" class="back">← Menu Sebelumnya</a>
+</div>
+
+<script>
+function toggle(id){
+  const e=document.getElementById(id);
+  e.classList.toggle('show');
+}
+
+function pilihKeputusan(){
+  const val = document.getElementById("pilihan").value;
+  const out = document.getElementById("hasilKeputusan");
+  if(val==="") return alert("Pilih salah satu keputusan!");
+  let hasil = "";
+  if(val==="buku") hasil = "Kamu berinvestasi pada ilmu. Biaya peluang: tidak jadi makan di restoran.";
+  if(val==="makan") hasil = "Kamu menikmati kepuasan langsung. Biaya peluang: tidak punya buku baru.";
+  if(val==="tabung") hasil = "Kamu menunda konsumsi untuk masa depan. Biaya peluang: tidak menikmati barang saat ini.";
+  out.innerText = hasil;
+}
+
+function hitungTotal(){
+  const h = parseFloat(document.getElementById("harga").value);
+  const j = parseFloat(document.getElementById("jumlah").value);
+  if(isNaN(h)||isNaN(j)) return alert("Isi harga dan jumlah dengan benar!");
+  const total = h*j;
+  document.getElementById("hasilTotal").innerText = `Total pengeluaran = Rp${total.toLocaleString('id-ID')}`;
+}
+
+function cekKeseimbangan(){
+  const d = parseFloat(document.getElementById("permintaan").value);
+  const s = parseFloat(document.getElementById("penawaran").value);
+  const out = document.getElementById("hasilPasar");
+  if(isNaN(d)||isNaN(s)) return alert("Isi nilai permintaan dan penawaran!");
+  if(d===s) out.innerText = "⚖️ Pasar dalam keadaan seimbang (equilibrium).";
+  else if(d>s) out.innerText = "📈 Permintaan lebih tinggi → harga cenderung naik.";
+  else out.innerText = "📉 Penawaran lebih banyak → harga cenderung turun.";
+}
+</script>
+</body>
+</html>

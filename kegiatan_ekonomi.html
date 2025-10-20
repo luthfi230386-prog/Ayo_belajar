@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kegiatan Ekonomi</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg1:#00172D;
+    --bg2:#002D62;
+    --accent:#00B8FF;
+    --secondary:#1976D2;
+    --text:#E3F2FD;
+  }
+
+  * { box-sizing:border-box; margin:0; padding:0; }
+
+  body {
+    font-family:'Baloo 2', sans-serif;
+    background:radial-gradient(circle at top,#00172D,#002D62);
+    min-height:100vh;
+    padding:30px;
+    color:var(--text);
+    overflow-x:hidden;
+    position:relative;
+  }
+
+  /* Partikel Latar */
+  .particle {
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    overflow:hidden;
+    z-index:-1;
+  }
+  .particle span {
+    position:absolute;
+    width:6px; height:6px;
+    background:var(--accent);
+    border-radius:50%;
+    animation:move 12s linear infinite;
+    opacity:0.4;
+  }
+  @keyframes move {
+    0% { transform:translateY(0) scale(0.6); opacity:0.5; }
+    100% { transform:translateY(100vh) scale(1); opacity:0; }
+  }
+
+  /* Header */
+  h1 {
+    text-align:center;
+    font-size:42px;
+    color:var(--accent);
+    margin-bottom:20px;
+    text-shadow:0 0 10px var(--accent), 0 0 25px var(--accent);
+    animation:glowPulse 2.5s infinite alternate;
+  }
+
+  @keyframes glowPulse {
+    from { text-shadow:0 0 15px var(--accent); }
+    to { text-shadow:0 0 30px var(--accent),0 0 50px var(--accent); }
+  }
+
+  h2 {
+    background:var(--secondary);
+    color:white;
+    display:inline-block;
+    padding:12px 20px;
+    border-radius:14px;
+    margin-top:24px;
+    cursor:pointer;
+    font-size:20px;
+    transition:transform 0.3s ease, box-shadow 0.4s;
+    box-shadow:0 0 10px rgba(0,184,255,0.4);
+  }
+
+  h2:hover {
+    transform:scale(1.08) rotate(-1deg);
+    box-shadow:0 0 20px rgba(0,184,255,0.8);
+  }
+
+  p { margin-top:10px; font-size:17px; line-height:1.6; text-align:justify; }
+  ul { margin-top:10px; margin-left:30px; }
+
+  .section {
+    background:rgba(0,0,30,0.6);
+    border:2px solid rgba(0,184,255,0.4);
+    border-radius:16px;
+    padding:20px;
+    margin:20px auto;
+    max-width:900px;
+    box-shadow:0 0 30px rgba(0,184,255,0.2);
+    backdrop-filter:blur(4px);
+    opacity:0;
+    max-height:0;
+    overflow:hidden;
+    transform:translateY(-30px) scale(0.98);
+    transition:all 0.8s ease;
+  }
+  .section.show {
+    opacity:1;
+    max-height:4000px;
+    transform:translateY(0) scale(1);
+  }
+
+  .icon {
+    font-size:60px;
+    text-align:center;
+    color:var(--accent);
+    margin-bottom:10px;
+    animation:float 3s infinite ease-in-out;
+  }
+
+  @keyframes float {
+    0%,100% { transform:translateY(0); }
+    50% { transform:translateY(-10px); }
+  }
+
+  .back {
+    display:block;
+    margin:50px auto 0 auto;
+    text-decoration:none;
+    background:var(--accent);
+    color:#002D62;
+    font-weight:bold;
+    padding:14px 30px;
+    border-radius:10px;
+    font-size:18px;
+    text-align:center;
+    box-shadow:0 0 20px rgba(0,184,255,0.6);
+    transition:all 0.3s;
+    width:fit-content;
+  }
+
+  .back:hover {
+    background:white;
+    color:#00172D;
+    box-shadow:0 0 30px rgba(255,255,255,0.8);
+    transform:scale(1.1);
+  }
+
+  canvas {
+    background:rgba(0,0,50,0.7);
+    border-radius:10px;
+    display:block;
+    margin:20px auto;
+  }
+
+  button {
+    background:var(--accent);
+    border:none;
+    color:#002D62;
+    padding:12px 30px;
+    font-weight:bold;
+    font-size:16px;
+    border-radius:10px;
+    cursor:pointer;
+    box-shadow:0 0 20px rgba(0,184,255,0.7);
+    transition:all 0.3s;
+  }
+  button:hover {
+    transform:scale(1.1);
+    background:white;
+  }
+</style>
+</head>
+
+<body>
+<div class="particle" id="particle"></div>
+
+<h1>Kegiatan Ekonomi</h1>
+
+<div class="content">
+
+  <h2 onclick="toggle('bab1')">1️⃣ Pengertian Kegiatan Ekonomi</h2>
+  <div id="bab1" class="section">
+    <div class="icon">💼</div>
+    <p><strong>Kegiatan ekonomi</strong> adalah seluruh aktivitas manusia untuk memenuhi kebutuhan hidupnya. 
+    Dalam kegiatan ini, manusia berperan sebagai produsen, konsumen, dan distributor.</p>
+    <ul>
+      <li><strong>Produksi</strong> — menghasilkan barang/jasa.</li>
+      <li><strong>Distribusi</strong> — menyalurkan barang/jasa.</li>
+      <li><strong>Konsumsi</strong> — menggunakan barang/jasa untuk kebutuhan.</li>
+    </ul>
+  </div>
+
+  <h2 onclick="toggle('bab2')">2️⃣ Kegiatan Produksi</h2>
+  <div id="bab2" class="section">
+    <div class="icon">🏭</div>
+    <p>Kegiatan produksi menciptakan nilai guna baru. Contohnya:</p>
+    <ul>
+      <li>Petani menanam padi menjadi beras.</li>
+      <li>Pabrik membuat pakaian.</li>
+      <li>Programmer membuat aplikasi digital.</li>
+    </ul>
+  </div>
+
+  <h2 onclick="toggle('bab3')">3️⃣ Kegiatan Distribusi</h2>
+  <div id="bab3" class="section">
+    <div class="icon">🚚</div>
+    <p><strong>Distribusi</strong> menyalurkan hasil produksi dari produsen ke konsumen.</p>
+    <p>Contoh:</p>
+    <ul>
+      <li>Pedagang grosir menjual ke toko.</li>
+      <li>Kurir mengantar barang ke rumah pelanggan.</li>
+    </ul>
+  </div>
+
+  <h2 onclick="toggle('bab4')">4️⃣ Kegiatan Konsumsi</h2>
+  <div id="bab4" class="section">
+    <div class="icon">🛒</div>
+    <p><strong>Konsumsi</strong> adalah menggunakan barang atau jasa untuk memenuhi kebutuhan hidup.</p>
+    <ul>
+      <li>Makan di restoran.</li>
+      <li>Menonton film di bioskop.</li>
+      <li>Menggunakan transportasi online.</li>
+    </ul>
+  </div>
+
+  <h2 onclick="toggle('bab5')">5️⃣ Hubungan Antar Kegiatan Ekonomi</h2>
+  <div id="bab5" class="section">
+    <div class="icon">🔄</div>
+    <p>Produksi, distribusi, dan konsumsi saling terhubung membentuk sistem ekonomi.</p>
+    <canvas id="flowCanvas" width="800" height="350"></canvas>
+    <div style="text-align:center; margin-top:10px;">
+      <button onclick="startFlow()">▶ Jalankan Animasi</button>
+    </div>
+  </div>
+
+  <h2 onclick="toggle('bab6')">6️⃣ Kesimpulan</h2>
+  <div id="bab6" class="section">
+    <div class="icon">📘</div>
+    <ul>
+      <li>Kegiatan ekonomi bertujuan memenuhi kebutuhan hidup.</li>
+      <li>Tiga unsur utama: <strong>produsen, distributor, konsumen</strong>.</li>
+      <li>Keseimbangan di antara ketiganya menciptakan stabilitas ekonomi.</li>
+    </ul>
+  </div>
+
+  <a href="ekonomi.html" class="back">← Menu Sebelumnya</a>
+
+</div>
+
+<script>
+// Toggle Bab
+function toggle(id){
+  document.getElementById(id).classList.toggle('show');
+}
+
+// Partikel latar
+const container = document.getElementById('particle');
+for(let i=0;i<80;i++){
+  const s = document.createElement('span');
+  s.style.left = Math.random()*100 + '%';
+  s.style.animationDelay = (Math.random()*10)+'s';
+  s.style.animationDuration = (8 + Math.random()*6)+'s';
+  container.appendChild(s);
+}
+
+// Animasi aliran ekonomi
+const canvas = document.getElementById('flowCanvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+
+function startFlow(){
+  particles = [];
+  for(let i=0;i<20;i++){
+    particles.push({x:100,y:150,dx:2+Math.random()*2,dy:0,color:`hsl(${200+Math.random()*100},100%,60%)`});
+  }
+  animateFlow();
+}
+
+function drawFlow(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.strokeStyle="#00B8FF";
+  ctx.lineWidth=2;
+  ctx.font="20px Baloo 2";
+  ctx.fillStyle="#E3F2FD";
+  ctx.textAlign="center";
+
+  // kotak
+  ctx.strokeRect(60,120,100,60);
+  ctx.strokeRect(350,120,100,60);
+  ctx.strokeRect(640,120,100,60);
+
+  ctx.fillText("PRODUSEN",110,115);
+  ctx.fillText("DISTRIBUTOR",400,115);
+  ctx.fillText("KONSUMEN",690,115);
+
+  // panah
+  ctx.beginPath();
+  ctx.moveTo(160,150); ctx.lineTo(350,150);
+  ctx.moveTo(450,150); ctx.lineTo(640,150);
+  ctx.stroke();
+
+  // panah balik
+  ctx.beginPath();
+  ctx.moveTo(640,180); ctx.lineTo(450,180);
+  ctx.moveTo(350,180); ctx.lineTo(160,180);
+  ctx.stroke();
+
+  // partikel aliran
+  for(let p of particles){
+    ctx.beginPath();
+    ctx.fillStyle = p.color;
+    ctx.arc(p.x,p.y,5,0,Math.PI*2);
+    ctx.fill();
+  }
+}
+
+function animateFlow(){
+  drawFlow();
+  for(let p of particles){
+    p.x += p.dx;
+    if(p.x>740) p.x = 100;
+  }
+  requestAnimationFrame(animateFlow);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Permintaan dan Penawaran</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg1:#212121;
+    --bg2:#424242;
+    --accent:#00E676;
+    --secondary:#2979FF;
+    --text:#EEE;
+  }
+
+  * { box-sizing:border-box; margin:0; padding:0; }
+
+  body {
+    font-family:'Baloo 2', sans-serif;
+    background:linear-gradient(to bottom,var(--bg1),var(--bg2));
+    min-height:100vh;
+    padding:30px;
+    color:var(--text);
+  }
+
+  h1 {
+    text-align:center;
+    font-size:36px;
+    color:var(--accent);
+    margin-bottom:20px;
+  }
+
+  h2 {
+    background:var(--secondary);
+    color:white;
+    display:inline-block;
+    padding:10px 18px;
+    border-radius:12px;
+    margin-top:24px;
+    cursor:pointer;
+    font-size:20px;
+    transition:background 0.3s, transform 0.2s;
+  }
+  h2:hover { background:#448AFF; transform:scale(1.05); }
+
+  p { margin-top:8px; font-size:16px; line-height:1.6; text-align:justify; }
+  ul { margin-top:6px; text-align:left; margin-left:30px; }
+
+  .content { margin-top:20px; text-align:center; }
+
+  .example {
+    background:#2C2C2C;
+    border-radius:12px;
+    padding:16px;
+    margin:16px auto;
+    box-shadow:0 4px 12px rgba(0,0,0,0.5);
+    max-width:800px;
+    text-align:left;
+    overflow:hidden;
+    opacity:0;
+    max-height:0;
+    transform:translateY(-10px);
+    transition:all 0.6s ease;
+  }
+  .example.show {
+    opacity:1;
+    max-height:3000px;
+    transform:translateY(0);
+  }
+
+  .formula {
+    font-family:monospace;
+    background:#424242;
+    padding:4px 8px;
+    border-radius:6px;
+    color:#00E676;
+  }
+
+  canvas {
+    width:100%;
+    height:400px;
+    background:#1B1B1B;
+    border-radius:12px;
+    margin-top:15px;
+  }
+
+  label { display:block; margin-top:10px; color:#BDBDBD; }
+  input[type=range] {
+    width:100%;
+    accent-color:var(--accent);
+  }
+
+  .result {
+    margin-top:10px;
+    font-weight:bold;
+    color:#FFEB3B;
+  }
+
+  .back {
+    display:inline-block;
+    margin-top:30px;
+    text-decoration:none;
+    background:var(--secondary);
+    color:white;
+    padding:10px 20px;
+    border-radius:10px;
+    transition:background 0.3s;
+  }
+  .back:hover { background:#1E88E5; }
+
+  /* Efek cahaya di header */
+  .glow {
+    text-shadow:0 0 10px #00E676,0 0 20px #00E676,0 0 30px #00E676;
+    animation:glowPulse 2s infinite alternate;
+  }
+  @keyframes glowPulse {
+    from{ text-shadow:0 0 10px #00E676; }
+    to{ text-shadow:0 0 25px #00E676; }
+  }
+</style>
+</head>
+
+<body>
+  <h1 class="glow">Permintaan dan Penawaran</h1>
+  <div class="content">
+
+    <!-- BAB 1 -->
+    <h2 onclick="toggle('bab1')">1️⃣ Konsep Dasar</h2>
+    <div id="bab1" class="example">
+      <p><strong>Permintaan</strong> adalah jumlah barang yang ingin dibeli konsumen pada berbagai tingkat harga.</p>
+      <p><strong>Penawaran</strong> adalah jumlah barang yang ingin dijual produsen pada berbagai tingkat harga.</p>
+      <p>Titik keseimbangan terjadi ketika jumlah yang diminta sama dengan jumlah yang ditawarkan.</p>
+    </div>
+
+    <!-- BAB 2 -->
+    <h2 onclick="toggle('bab2')">2️⃣ Grafik Permintaan dan Penawaran Interaktif</h2>
+    <div id="bab2" class="example">
+      <p>Gunakan slider di bawah untuk melihat bagaimana perubahan permintaan dan penawaran mempengaruhi titik keseimbangan.</p>
+      <canvas id="chart"></canvas>
+      <div style="margin-top:1rem;">
+        <label>Ubah Tingkat Permintaan: <input type="range" id="demand" min="20" max="100" value="60"></label>
+        <label>Ubah Tingkat Penawaran: <input type="range" id="supply" min="20" max="100" value="40"></label>
+      </div>
+      <p id="hasilKeseimbangan" class="result"></p>
+    </div>
+
+    <!-- BAB 3 -->
+    <h2 onclick="toggle('bab3')">3️⃣ Kesimpulan</h2>
+    <div id="bab3" class="example">
+      <ul>
+        <li>Jika permintaan naik sementara penawaran tetap → harga keseimbangan naik.</li>
+        <li>Jika penawaran meningkat sementara permintaan tetap → harga keseimbangan turun.</li>
+        <li>Keseimbangan pasar tercapai saat kurva permintaan dan penawaran berpotongan.</li>
+      </ul>
+    </div>
+
+    <a href="ekonomi.html" class="back">← Menu Sebelumnya</a>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+function toggle(id){
+  document.getElementById(id).classList.toggle('show');
+}
+
+const ctx = document.getElementById('chart').getContext('2d');
+let demandLevel = 60;
+let supplyLevel = 40;
+
+function generateData(demand, supply) {
+  const prices = [];
+  const demandData = [];
+  const supplyData = [];
+  for (let p = 0; p <= 100; p += 5) {
+    prices.push(p);
+    demandData.push(demand - p * 0.5);
+    supplyData.push(p * 0.5 - (50 - supply));
+  }
+  return { prices, demandData, supplyData };
+}
+
+let { prices, demandData, supplyData } = generateData(demandLevel, supplyLevel);
+
+const chart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: prices,
+    datasets: [
+      {
+        label: 'Permintaan',
+        data: demandData,
+        borderColor: '#FF4081',
+        backgroundColor: '#FF408144',
+        tension: 0.3,
+        fill: false
+      },
+      {
+        label: 'Penawaran',
+        data: supplyData,
+        borderColor: '#00E5FF',
+        backgroundColor: '#00E5FF44',
+        tension: 0.3,
+        fill: false
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    scales: {
+      x: {
+        title: { display: true, text: 'Harga (Rp)', color:'#fff' },
+        ticks: { color:'#ccc' }
+      },
+      y: {
+        title: { display: true, text: 'Jumlah Barang', color:'#fff' },
+        ticks: { color:'#ccc' }
+      }
+    },
+    plugins:{
+      legend:{ labels:{ color:'#fff' } }
+    }
+  }
+});
+
+document.getElementById('demand').addEventListener('input', (e) => {
+  demandLevel = e.target.value;
+  updateChart();
+});
+document.getElementById('supply').addEventListener('input', (e) => {
+  supplyLevel = e.target.value;
+  updateChart();
+});
+
+function updateChart() {
+  const { prices, demandData, supplyData } = generateData(demandLevel, supplyLevel);
+  chart.data.datasets[0].data = demandData;
+  chart.data.datasets[1].data = supplyData;
+  chart.update();
+  tampilkanEquilibrium(prices, demandData, supplyData);
+}
+
+function tampilkanEquilibrium(prices, demandData, supplyData){
+  const hasil = document.getElementById('hasilKeseimbangan');
+  let eqPrice = 0, eqQty = 0;
+  for(let i=0;i<prices.length;i++){
+    if(demandData[i] <= supplyData[i]) {
+      eqPrice = prices[i];
+      eqQty = (demandData[i] + supplyData[i]) / 2;
+      break;
+    }
+  }
+  hasil.textContent = `💹 Titik Keseimbangan → Harga ≈ Rp${eqPrice}, Jumlah ≈ ${eqQty.toFixed(1)} unit`;
+}
+
+// inisialisasi awal
+tampilkanEquilibrium(prices, demandData, supplyData);
+</script>
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Perdagangan Internasional</title>
+<style>
+  body {
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(to bottom, #bbdefb, #90caf9);
+    margin: 0;
+    padding: 0;
+    color: #0d47a1;
+  }
+
+  header {
+    background: #1565c0;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    font-size: 26px;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+  }
+
+  .content {
+    max-width: 850px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #e3f2fd;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
+
+  h2 {
+    cursor: pointer;
+    background: #1976d2;
+    color: #fff;
+    padding: 12px;
+    border-radius: 10px;
+    transition: 0.3s;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+
+  h2:hover {
+    background: #0d47a1;
+    transform: scale(1.03);
+  }
+
+  .example {
+    display: none;
+    padding: 15px;
+    background: #f1f8e9;
+    border-left: 6px solid #1976d2;
+    border-radius: 10px;
+    margin-top: 10px;
+    animation: fadeIn 0.6s ease;
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(-10px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+
+  /* === ANIMASI KAPAL === */
+  .ship-container {
+    position: relative;
+    width: 100%;
+    height: 160px;
+    background: linear-gradient(to top, #64b5f6, #bbdefb);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 15px 0;
+  }
+
+  .ship {
+    position: absolute;
+    bottom: 20px;
+    left: -150px;
+    width: 120px;
+    height: 40px;
+    background: #0d47a1;
+    border-radius: 10px 10px 2px 2px;
+    animation: sail 6s linear infinite;
+  }
+
+  .ship::before {
+    content: "";
+    position: absolute;
+    top: -30px;
+    left: 45px;
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 30px solid #fff;
+  }
+
+  @keyframes sail {
+    from { left: -150px; }
+    to { left: 110%; }
+  }
+
+  /* === GELOMBANG AIR === */
+  .wave {
+    position: absolute;
+    bottom: 0;
+    width: 200%;
+    height: 50px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 100%;
+    animation: wave 5s linear infinite;
+  }
+  @keyframes wave {
+    from {transform: translateX(0);}
+    to {transform: translateX(-50%);}
+  }
+
+  /* === ANIMASI GRAFIK EKONOMI === */
+  .chart {
+    width: 100%;
+    height: 150px;
+    background: linear-gradient(to top, #e3f2fd, #bbdefb);
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    margin-top: 15px;
+  }
+
+  .bar {
+    position: absolute;
+    bottom: 0;
+    width: 20px;
+    background: #1976d2;
+    animation: grow 2s ease-in-out infinite alternate;
+  }
+  .bar:nth-child(1) { left: 20%; height: 70px; animation-delay: 0.2s; }
+  .bar:nth-child(2) { left: 30%; height: 110px; animation-delay: 0.4s; }
+  .bar:nth-child(3) { left: 40%; height: 90px; animation-delay: 0.6s; }
+  .bar:nth-child(4) { left: 50%; height: 130px; animation-delay: 0.8s; }
+  .bar:nth-child(5) { left: 60%; height: 80px; animation-delay: 1s; }
+
+  @keyframes grow {
+    from { transform: scaleY(0.5); opacity: 0.7; }
+    to { transform: scaleY(1.1); opacity: 1; }
+  }
+
+  /* === ANIMASI GLOBE BERPUTAR === */
+  .globe {
+    width: 120px;
+    height: 120px;
+    margin: 20px auto;
+    background: radial-gradient(circle at 30% 30%, #2196f3 40%, #1565c0 80%);
+    border-radius: 50%;
+    position: relative;
+    animation: spin 6s linear infinite;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  }
+
+  .globe::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 0;
+    right: 0;
+    bottom: 10px;
+    background: repeating-linear-gradient(90deg, rgba(255,255,255,0.2) 0, rgba(255,255,255,0.2) 2px, transparent 2px, transparent 20px);
+    border-radius: 50%;
+  }
+
+  @keyframes spin {
+    0% {transform: rotate(0deg);}
+    100% {transform: rotate(360deg);}
+  }
+
+  button {
+    background: #0d47a1;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+    display: block;
+    margin: 30px auto 0;
+  }
+
+  button:hover {
+    background: #1976d2;
+    transform: scale(1.05);
+  }
+
+  footer {
+    text-align: center;
+    color: #fff;
+    padding: 15px;
+    background: #1565c0;
+    border-top: 3px solid #0d47a1;
+    margin-top: 30px;
+  }
+</style>
+</head>
+
+<body>
+  <header>🌐 Perdagangan Internasional</header>
+
+  <div class="content">
+    <h2 onclick="toggle('bab1')">1️⃣ Pengertian Perdagangan Internasional</h2>
+    <div id="bab1" class="example">
+      <p><strong>Perdagangan internasional</strong> adalah kegiatan jual beli barang dan jasa antar negara untuk memenuhi kebutuhan yang tidak dapat dipenuhi secara mandiri.</p>
+      <div class="globe"></div>
+      <p>Kegiatan ini mencakup ekspor (menjual ke luar negeri) dan impor (membeli dari luar negeri).</p>
+    </div>
+
+    <h2 onclick="toggle('bab2')">2️⃣ Manfaat Perdagangan Internasional</h2>
+    <div id="bab2" class="example">
+      <ul>
+        <li>Meningkatkan <strong>devisa negara</strong>.</li>
+        <li>Memperluas <strong>lapangan kerja</strong>.</li>
+        <li>Mendorong <strong>pertumbuhan ekonomi</strong>.</li>
+        <li>Memperluas pilihan <strong>barang dan teknologi</strong>.</li>
+      </ul>
+      <div class="chart">
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      </div>
+    </div>
+
+    <h2 onclick="toggle('bab3')">3️⃣ Faktor Pendorong Perdagangan Internasional</h2>
+    <div id="bab3" class="example">
+      <ul>
+        <li>Perbedaan sumber daya alam dan iklim antar negara.</li>
+        <li>Perbedaan kemampuan teknologi dan tenaga kerja.</li>
+        <li>Kebutuhan saling melengkapi antar negara.</li>
+        <li>Kebijakan pemerintah yang mendukung ekspor.</li>
+      </ul>
+      <div class="ship-container">
+        <div class="wave"></div>
+        <div class="ship"></div>
+      </div>
+    </div>
+
+    <h2 onclick="toggle('bab4')">4️⃣ Hambatan Perdagangan Internasional</h2>
+    <div id="bab4" class="example">
+      <ul>
+        <li>Kebijakan proteksi (bea masuk, kuota, larangan impor).</li>
+        <li>Perbedaan mata uang dan kurs yang tidak stabil.</li>
+        <li>Perbedaan budaya, bahasa, dan sistem hukum.</li>
+        <li>Kondisi politik dan keamanan global.</li>
+      </ul>
+    </div>
+
+    <h2 onclick="toggle('bab5')">5️⃣ Lembaga yang Mengatur Perdagangan Dunia</h2>
+    <div id="bab5" class="example">
+      <ul>
+        <li><strong>WTO (World Trade Organization)</strong> – mengatur aturan perdagangan global.</li>
+        <li><strong>IMF (International Monetary Fund)</strong> – menjaga kestabilan keuangan internasional.</li>
+        <li><strong>Bank Dunia</strong> – membantu pembangunan ekonomi negara berkembang.</li>
+        <li><strong>ASEAN & APEC</strong> – kerja sama perdagangan antar negara kawasan.</li>
+      </ul>
+    </div>
+
+    <h2 onclick="toggle('bab6')">6️⃣ Dampak Perdagangan Internasional</h2>
+    <div id="bab6" class="example">
+      <ul>
+        <li><strong>Positif:</strong> pertumbuhan ekonomi cepat, inovasi meningkat, hubungan antar negara membaik.</li>
+        <li><strong>Negatif:</strong> ketergantungan impor, eksploitasi sumber daya, dan ketimpangan ekonomi.</li>
+      </ul>
+    </div>
+
+    <button onclick="window.history.back()">⬅️ Menu Sebelumnya</button>
+  </div>
+
+  <script>
+    function toggle(id) {
+      const x = document.getElementById(id);
+      x.style.display = x.style.display === "block" ? "none" : "block";
+    }
+  </script>
+</body>
+</html>
