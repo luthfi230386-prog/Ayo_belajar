@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lembaga Sosial</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg1: #FFF9C4;
+    --bg2: #FFF59D;
+    --accent: #FBC02D;
+    --dark: #F57F17;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: "Baloo 2", sans-serif;
+    background: linear-gradient(to bottom, var(--bg1), var(--bg2));
+    min-height: 100vh;
+    padding: 30px;
+    color: #333;
+    overflow-x: hidden;
+  }
+
+  header {
+    text-align: center;
+    background: var(--accent);
+    color: white;
+    padding: 20px;
+    font-size: 28px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    animation: fadeDown 1s ease;
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  h2 {
+    background: var(--accent);
+    color: white;
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 12px;
+    margin-top: 24px;
+    cursor: pointer;
+    font-size: 20px;
+    transition: background 0.3s, transform 0.2s;
+  }
+  h2:hover { background: #FFD54F; transform: scale(1.05); }
+
+  p { margin-top: 8px; font-size: 16px; line-height: 1.6; text-align: justify; }
+  ul { margin-top: 6px; margin-left: 30px; }
+
+  .content { margin-top: 20px; text-align: center; }
+
+  .example {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    margin: 16px auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    max-width: 720px;
+    text-align: left;
+    overflow: hidden;
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(-10px);
+    transition: all 0.6s ease;
+  }
+  .example.show {
+    opacity: 1;
+    max-height: 3000px;
+    transform: translateY(0);
+  }
+
+  /* === ANIMASI PER BAB BARU === */
+
+  /* BAB 1: Sinar cahaya berputar */
+  .light-rays {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    margin: 20px auto;
+  }
+  .ray {
+    position: absolute;
+    width: 4px;
+    height: 40px;
+    background: #FBC02D;
+    top: 25px;
+    left: 43px;
+    transform-origin: bottom center;
+    animation: rotateRays 4s linear infinite;
+  }
+  @keyframes rotateRays {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .ray:nth-child(2) { transform: rotate(45deg); }
+  .ray:nth-child(3) { transform: rotate(90deg); }
+  .ray:nth-child(4) { transform: rotate(135deg); }
+
+  /* BAB 2: Partikel norma naik-turun */
+  .float-particles {
+    position: relative;
+    width: 100%;
+    height: 60px;
+    margin-top: 15px;
+  }
+  .particle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #FDD835;
+    border-radius: 50%;
+    bottom: 0;
+    animation: floatUp 3s infinite ease-in-out;
+  }
+  .particle:nth-child(1) { left: 20%; animation-delay: 0s; }
+  .particle:nth-child(2) { left: 40%; animation-delay: 0.5s; }
+  .particle:nth-child(3) { left: 60%; animation-delay: 1s; }
+  .particle:nth-child(4) { left: 80%; animation-delay: 1.5s; }
+  @keyframes floatUp {
+    0% { transform: translateY(0); opacity: 1; }
+    50% { transform: translateY(-30px); opacity: 0.7; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+
+  /* BAB 3: Ikon lembaga bergoyang */
+  .symbol-container {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 15px;
+  }
+  .symbol {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #FFEE58;
+    animation: bounce 2s infinite;
+  }
+  .symbol:nth-child(2) { animation-delay: 0.3s; }
+  .symbol:nth-child(3) { animation-delay: 0.6s; }
+  .symbol:nth-child(4) { animation-delay: 0.9s; }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+  }
+
+  /* BAB 4: Gelombang fungsi bergerak */
+  .wave-box {
+    width: 100%;
+    height: 60px;
+    position: relative;
+    overflow: hidden;
+    margin: 15px 0;
+  }
+  .wave-line {
+    position: absolute;
+    width: 200%;
+    height: 8px;
+    background: linear-gradient(to right, #FFF176, #FBC02D);
+    top: 25px;
+    animation: waveFlow 2.5s linear infinite;
+  }
+  @keyframes waveFlow {
+    from { left: -200px; }
+    to { left: 200px; }
+  }
+
+  /* BAB 5: Simbol perubahan berdenyut + berputar */
+  .pulse-circle {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #FBC02D 40%, #F57F17);
+    margin: 20px auto;
+    animation: pulseSpin 3s infinite ease-in-out;
+  }
+  @keyframes pulseSpin {
+    0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    50% { transform: scale(1.3) rotate(180deg); opacity: 0.7; }
+  }
+
+  /* Tombol kembali */
+  button {
+    background: var(--dark);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+    margin-top: 30px;
+  }
+  button:hover { background: #E65100; }
+
+  footer {
+    text-align: center;
+    color: #fff;
+    padding: 15px;
+    background: var(--dark);
+    border-top: 3px solid #F9A825;
+    margin-top: 30px;
+    border-radius: 12px;
+  }
+</style>
+</head>
+
+<body>
+
+<header>🏛️ Lembaga Sosial</header>
+
+<div class="content">
+
+  <h2 onclick="toggle('bab1')">1️⃣ Pengertian Lembaga Sosial</h2>
+  <div id="bab1" class="example">
+    <p><strong>Lembaga sosial</strong> adalah sistem nilai dan norma yang mengatur hubungan antarindividu dalam masyarakat untuk memenuhi kebutuhan hidupnya secara teratur.</p>
+    <div class="light-rays">
+      <div class="ray"></div>
+      <div class="ray"></div>
+      <div class="ray"></div>
+      <div class="ray"></div>
+    </div>
+  </div>
+
+  <h2 onclick="toggle('bab2')">2️⃣ Ciri-ciri Lembaga Sosial</h2>
+  <div id="bab2" class="example">
+    <ul>
+      <li>Memiliki aturan dan nilai yang mengatur perilaku anggota.</li>
+      <li>Diterima dan dijalankan oleh masyarakat.</li>
+      <li>Berkembang sesuai kebutuhan sosial.</li>
+      <li>Menjaga keteraturan dalam kehidupan sosial.</li>
+    </ul>
+    <div class="float-particles">
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+    </div>
+  </div>
+
+  <h2 onclick="toggle('bab3')">3️⃣ Jenis-jenis Lembaga Sosial</h2>
+  <div id="bab3" class="example">
+    <p>Terdapat berbagai jenis lembaga sosial yang mengatur kehidupan masyarakat:</p>
+    <ul>
+      <li><strong>Keluarga</strong> – membentuk karakter dan nilai moral.</li>
+      <li><strong>Pendidikan</strong> – menyalurkan ilmu pengetahuan.</li>
+      <li><strong>Ekonomi</strong> – mengatur kegiatan produksi dan konsumsi.</li>
+      <li><strong>Politik</strong> – mengatur kekuasaan dan pemerintahan.</li>
+      <li><strong>Agama</strong> – mengatur spiritual dan moral masyarakat.</li>
+    </ul>
+    <div class="symbol-container">
+      <div class="symbol"></div>
+      <div class="symbol"></div>
+      <div class="symbol"></div>
+      <div class="symbol"></div>
+    </div>
+  </div>
+
+  <h2 onclick="toggle('bab4')">4️⃣ Fungsi Lembaga Sosial</h2>
+  <div id="bab4" class="example">
+    <p>Lembaga sosial memiliki peran penting dalam menjaga kestabilan sosial.</p>
+    <ul>
+      <li><strong>Pengatur Sosial:</strong> mengarahkan perilaku masyarakat sesuai norma.</li>
+      <li><strong>Kontrol Sosial:</strong> mengendalikan penyimpangan sosial.</li>
+      <li><strong>Pemenuhan Kebutuhan:</strong> memenuhi kebutuhan dasar manusia.</li>
+    </ul>
+    <div class="wave-box"><div class="wave-line"></div></div>
+  </div>
+
+  <h2 onclick="toggle('bab5')">5️⃣ Perubahan dan Perkembangan Lembaga Sosial</h2>
+  <div id="bab5" class="example">
+    <p>Lembaga sosial selalu beradaptasi terhadap perubahan zaman. Digitalisasi, teknologi, dan globalisasi memunculkan bentuk baru seperti lembaga daring dan komunitas virtual.</p>
+    <div class="pulse-circle"></div>
+  </div>
+
+  <button onclick="window.history.back()">⬅️ Menu Sebelumnya</button>
+</div>
+
+<footer>© 2025 </footer>
+
+<script>
+function toggle(id){
+  document.getElementById(id).classList.toggle('show');
+}
+</script>
+
+</body>
+</html>

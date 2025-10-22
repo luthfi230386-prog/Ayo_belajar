@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kelompok Sosial</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg1:#E3F2FD;
+    --bg2:#BBDEFB;
+    --accent:#42A5F5;
+    --dark:#0D47A1;
+  }
+
+  * { box-sizing:border-box; margin:0; padding:0; }
+
+  body {
+    font-family:'Baloo 2', sans-serif;
+    background:linear-gradient(to bottom,var(--bg1),var(--bg2));
+    min-height:100vh;
+    padding:30px;
+    color:#333;
+    overflow-x:hidden;
+  }
+
+  h1 {
+    text-align:center;
+    font-size:36px;
+    color:var(--dark);
+    margin-bottom:20px;
+    animation:fadeInDown 1s ease;
+  }
+
+  @keyframes fadeInDown {
+    from { opacity:0; transform:translateY(-30px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+
+  h2 {
+    background:var(--accent);
+    color:white;
+    display:inline-block;
+    padding:10px 18px;
+    border-radius:12px;
+    margin-top:24px;
+    cursor:pointer;
+    font-size:20px;
+    transition:background 0.3s, transform 0.2s;
+  }
+  h2:hover { background:#64B5F6; transform:scale(1.05); }
+
+  p { margin-top:8px; font-size:16px; line-height:1.6; text-align:justify; }
+  ul { margin-top:6px; margin-left:30px; text-align:left; }
+
+  .content { margin-top:20px; text-align:center; }
+
+  .example {
+    background:white;
+    border-radius:12px;
+    padding:16px;
+    margin:16px auto;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    max-width:720px;
+    text-align:left;
+    overflow:hidden;
+    opacity:0;
+    max-height:0;
+    transform:translateY(-10px);
+    transition:all 0.6s ease;
+  }
+  .example.show {
+    opacity:1;
+    max-height:3000px;
+    transform:translateY(0);
+  }
+
+  /* --- ANIMASI VISUAL PER BAB --- */
+
+  /* BAB 1: Lingkaran sosial */
+  .social-circles {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:20px;
+    margin-top:20px;
+  }
+  .member {
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    background:#90CAF9;
+    animation:pulse 2s infinite ease-in-out;
+  }
+  @keyframes pulse {
+    0%,100% { transform:scale(1); opacity:0.9; }
+    50% { transform:scale(1.3); opacity:1; }
+  }
+
+  /* BAB 2: Ciri - Hubungan menghubungkan */
+  .connect-line {
+    width:200px;
+    height:3px;
+    background:#2196F3;
+    margin:10px auto;
+    position:relative;
+    overflow:hidden;
+  }
+  .connect-line::before {
+    content:'';
+    position:absolute;
+    width:60px;
+    height:3px;
+    background:white;
+    animation:moveLine 2s linear infinite;
+  }
+  @keyframes moveLine {
+    from { left:-60px; }
+    to { left:200px; }
+  }
+
+  /* BAB 3: Kartu bergoyang */
+  .group-box {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+    margin-top:15px;
+  }
+  .card {
+    background:#E3F2FD;
+    border-radius:12px;
+    padding:12px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    transition:transform 0.4s ease, box-shadow 0.3s;
+  }
+  .card:hover {
+    transform:rotate3d(1,1,0,8deg);
+    box-shadow:0 10px 20px rgba(0,0,0,0.2);
+  }
+
+  /* BAB 4: ikon muncul bergiliran */
+  .icon-row {
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    margin:20px auto;
+  }
+  .icon {
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:#42A5F5;
+    opacity:0;
+    transform:scale(0);
+    animation:popIn 1s forwards;
+  }
+  @keyframes popIn {
+    to { opacity:1; transform:scale(1); }
+  }
+
+  /* BAB 5: Orbit */
+  .orbit-container {
+    position:relative;
+    width:200px;
+    height:200px;
+    margin:30px auto;
+    border-radius:50%;
+    border:2px dashed #2196F3;
+    animation:spin 12s linear infinite;
+  }
+  .planet {
+    width:30px;
+    height:30px;
+    background:#0D47A1;
+    border-radius:50%;
+    position:absolute;
+    top:0;
+    left:50%;
+    transform:translateX(-50%);
+  }
+  @keyframes spin {
+    0% { transform:rotate(0deg); }
+    100% { transform:rotate(360deg); }
+  }
+
+  /* Tombol kembali */
+  .back {
+    display:inline-block;
+    margin-top:30px;
+    text-decoration:none;
+    background:var(--dark);
+    color:white;
+    padding:10px 20px;
+    border-radius:10px;
+    transition:background 0.3s;
+  }
+  .back:hover { background:#002171; }
+
+</style>
+</head>
+
+<body>
+  <h1>Kelompok Sosial</h1>
+  <div class="content">
+
+    <!-- BAB 1 -->
+    <h2 onclick="toggle('bab1')">1️⃣ Pengertian Kelompok Sosial</h2>
+    <div id="bab1" class="example">
+      <p><strong>Kelompok sosial</strong> adalah sekumpulan individu yang saling berinteraksi secara teratur, memiliki tujuan bersama, serta memiliki rasa kebersamaan dan identitas kelompok.</p>
+      <p>Contoh kelompok sosial di masyarakat antara lain: keluarga, teman sebaya, organisasi sekolah, dan komunitas hobi.</p>
+
+      <div class="social-circles">
+        <div class="member"></div>
+        <div class="member"></div>
+        <div class="member"></div>
+        <div class="member"></div>
+      </div>
+    </div>
+
+    <!-- BAB 2 -->
+    <h2 onclick="toggle('bab2')">2️⃣ Ciri-ciri Kelompok Sosial</h2>
+    <div id="bab2" class="example">
+      <ul>
+        <li>Adanya kesadaran akan keanggotaan kelompok.</li>
+        <li>Adanya interaksi sosial antara anggota.</li>
+        <li>Adanya tujuan bersama.</li>
+        <li>Adanya norma yang mengatur perilaku anggota.</li>
+      </ul>
+      <div class="connect-line"></div>
+    </div>
+
+    <!-- BAB 3 -->
+    <h2 onclick="toggle('bab3')">3️⃣ Jenis-jenis Kelompok Sosial</h2>
+    <div id="bab3" class="example">
+      <div class="group-box">
+        <div class="card">
+          <h3>Kelompok Primer</h3>
+          <p>Hubungan antar anggotanya bersifat erat dan personal, seperti keluarga dan sahabat.</p>
+        </div>
+        <div class="card">
+          <h3>Kelompok Sekunder</h3>
+          <p>Bersifat formal dan berorientasi pada tujuan, misalnya organisasi sekolah atau perusahaan.</p>
+        </div>
+        <div class="card">
+          <h3>Kelompok Formal</h3>
+          <p>Memiliki struktur dan aturan resmi, seperti pemerintah dan lembaga pendidikan.</p>
+        </div>
+        <div class="card">
+          <h3>Kelompok Informal</h3>
+          <p>Terbentuk secara spontan tanpa aturan formal, misalnya kelompok bermain.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- BAB 4 -->
+    <h2 onclick="toggle('bab4')">4️⃣ Fungsi Kelompok Sosial</h2>
+    <div id="bab4" class="example">
+      <ul>
+        <li>Tempat bersosialisasi dan membentuk kepribadian.</li>
+        <li>Menjadi sarana kerja sama dan gotong royong.</li>
+        <li>Membentuk identitas sosial individu.</li>
+        <li>Mendukung terciptanya ketertiban sosial.</li>
+      </ul>
+      <div class="icon-row">
+        <div class="icon" style="animation-delay:0.2s"></div>
+        <div class="icon" style="animation-delay:0.5s"></div>
+        <div class="icon" style="animation-delay:0.8s"></div>
+        <div class="icon" style="animation-delay:1.1s"></div>
+      </div>
+    </div>
+
+    <!-- BAB 5 -->
+    <h2 onclick="toggle('bab5')">5️⃣ Dinamika dan Perubahan Kelompok</h2>
+    <div id="bab5" class="example">
+      <p>Dinamika kelompok terjadi karena perubahan sosial, teknologi, nilai-nilai, dan budaya masyarakat.</p>
+      <p>Misalnya, munculnya <strong>komunitas digital</strong> di media sosial yang mengubah cara manusia berinteraksi dan berorganisasi.</p>
+
+      <div class="orbit-container">
+        <div class="planet"></div>
+      </div>
+    </div>
+
+    <a href="sosiologi.html" class="back">← Menu Sebelumnya</a>
+  </div>
+
+<script>
+function toggle(id){
+  document.getElementById(id).classList.toggle('show');
+}
+</script>
+</body>
+</html>

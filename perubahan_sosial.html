@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Perubahan Sosial</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg1:#0a0a0a;
+  --bg2:#1c1c1c;
+  --accent:#f4b400;
+  --text:#f0f0f0;
+  --card:#242424;
+}
+
+* {box-sizing:border-box;margin:0;padding:0;}
+
+body {
+  font-family:'Baloo 2',sans-serif;
+  background:linear-gradient(to bottom,var(--bg1),var(--bg2));
+  color:var(--text);
+  padding:30px;
+  min-height:100vh;
+}
+
+h1 {
+  text-align:center;
+  color:var(--accent);
+  font-size:36px;
+  margin-bottom:20px;
+  text-shadow:0 0 10px var(--accent);
+}
+
+.container {
+  max-width:900px;
+  margin:auto;
+  text-align:center;
+}
+
+h2 {
+  background:var(--accent);
+  color:#000;
+  display:inline-block;
+  padding:10px 22px;
+  border-radius:12px;
+  margin-top:24px;
+  cursor:pointer;
+  font-size:20px;
+  transition:transform 0.3s, box-shadow 0.3s;
+}
+h2:hover {
+  transform:scale(1.08);
+  box-shadow:0 0 18px var(--accent);
+}
+
+p,ul {
+  font-size:16px;
+  line-height:1.6;
+  text-align:justify;
+  margin-top:10px;
+}
+ul {margin-left:30px;}
+
+.example {
+  background:var(--card);
+  border-radius:14px;
+  padding:16px;
+  margin:16px auto;
+  box-shadow:0 4px 16px rgba(0,0,0,0.4);
+  max-width:720px;
+  text-align:left;
+  overflow:hidden;
+  opacity:0;
+  max-height:0;
+  transform:translateY(-10px);
+  transition:all 0.7s ease;
+}
+.example.show {
+  opacity:1;
+  max-height:3000px;
+  transform:translateY(0);
+}
+
+/* ===== Animasi baru tiap bab ===== */
+
+/* Bab 1 - Gelombang Cahaya */
+.waveLight {
+  height:8px;
+  width:100%;
+  background:linear-gradient(90deg,#fff,var(--accent),#fff);
+  background-size:200%;
+  border-radius:4px;
+  animation:waveLightMove 2.5s linear infinite;
+}
+@keyframes waveLightMove {
+  0% {background-position:200% 0;}
+  100% {background-position:-200% 0;}
+}
+
+/* Bab 2 - Lingkaran Berdenyut */
+.pulseRing {
+  width:60px; height:60px;
+  border-radius:50%;
+  border:3px solid var(--accent);
+  margin:20px auto;
+  animation:pulseRing 1.5s infinite ease-in-out;
+}
+@keyframes pulseRing {
+  0% {transform:scale(1); opacity:0.4;}
+  50% {transform:scale(1.3); opacity:1;}
+  100% {transform:scale(1); opacity:0.4;}
+}
+
+/* Bab 3 - Titik Bergerak */
+.movingDots {
+  display:flex; justify-content:center; gap:8px; margin:20px auto;
+}
+.movingDots div {
+  width:12px; height:12px; border-radius:50%;
+  background:var(--accent);
+  animation:moveDots 1.8s infinite ease-in-out;
+}
+.movingDots div:nth-child(2){animation-delay:0.3s;}
+.movingDots div:nth-child(3){animation-delay:0.6s;}
+@keyframes moveDots {
+  0%,100% {transform:translateY(0);}
+  50% {transform:translateY(-12px);}
+}
+
+/* Bab 4 - Garis Berputar */
+.rotateLine {
+  width:70px; height:70px;
+  border:4px solid var(--accent);
+  border-top:4px solid transparent;
+  border-radius:50%;
+  margin:20px auto;
+  animation:spin 2s linear infinite;
+}
+@keyframes spin {
+  from{transform:rotate(0);}
+  to{transform:rotate(360deg);}
+}
+
+/* Bab 5 - Efek Cahaya Muncul */
+.lightBurst {
+  width:40px; height:40px;
+  border-radius:50%;
+  background:radial-gradient(circle,var(--accent),#000);
+  margin:20px auto;
+  animation:burst 1.2s infinite ease-in-out;
+}
+@keyframes burst {
+  0% {transform:scale(0.8); opacity:0.5;}
+  50% {transform:scale(1.4); opacity:1;}
+  100% {transform:scale(0.8); opacity:0.5;}
+}
+
+/* Tombol kembali di tengah */
+.back {
+  display:block;
+  margin:40px auto 0 auto;
+  text-decoration:none;
+  background:var(--accent);
+  color:#000;
+  padding:12px 30px;
+  font-size:18px;
+  border-radius:10px;
+  font-weight:bold;
+  box-shadow:0 0 15px var(--accent);
+  transition:transform 0.3s, box-shadow 0.3s;
+  text-align:center;
+  width:fit-content;
+}
+.back:hover {
+  transform:scale(1.1);
+  box-shadow:0 0 25px var(--accent);
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+  <h1>Perubahan Sosial</h1>
+
+  <h2 onclick="toggle('bab1')">1️⃣ Pengertian Perubahan Sosial</h2>
+  <div id="bab1" class="example">
+    <p>Perubahan sosial adalah proses bergesernya struktur sosial, nilai, dan pola kehidupan masyarakat dari waktu ke waktu. Perubahan ini bersifat alami dan tidak dapat dihindari karena masyarakat selalu berkembang mengikuti kebutuhan dan zaman.</p>
+    <div class="waveLight"></div>
+  </div>
+
+  <h2 onclick="toggle('bab2')">2️⃣ Faktor Penyebab Perubahan Sosial</h2>
+  <div id="bab2" class="example">
+    <p>Faktor yang mempengaruhi perubahan sosial dapat berasal dari dalam maupun luar masyarakat, antara lain:</p>
+    <ul>
+      <li>Penemuan baru dan inovasi teknologi</li>
+      <li>Kontak budaya antarbangsa</li>
+      <li>Perubahan lingkungan dan demografi</li>
+      <li>Konflik sosial dan dinamika politik</li>
+    </ul>
+    <div class="pulseRing"></div>
+  </div>
+
+  <h2 onclick="toggle('bab3')">3️⃣ Bentuk-Bentuk Perubahan Sosial</h2>
+  <div id="bab3" class="example">
+    <p><strong>a. Evolusi Sosial</strong> — perubahan bertahap dan lambat seperti perkembangan sistem pendidikan.</p>
+    <p><strong>b. Revolusi Sosial</strong> — perubahan cepat dan mendasar seperti revolusi industri dan digital.</p>
+    <div class="movingDots"><div></div><div></div><div></div></div>
+  </div>
+
+  <h2 onclick="toggle('bab4')">4️⃣ Dampak Perubahan Sosial</h2>
+  <div id="bab4" class="example">
+    <p>Dampak positifnya mencakup kemajuan teknologi dan efisiensi hidup, sedangkan dampak negatif dapat berupa kesenjangan sosial, disintegrasi budaya, dan perubahan nilai moral.</p>
+    <div class="rotateLine"></div>
+  </div>
+
+  <h2 onclick="toggle('bab5')">5️⃣ Menghadapi Perubahan Sosial</h2>
+  <div id="bab5" class="example">
+    <p>Masyarakat perlu bersikap adaptif dengan memperkuat pendidikan, nilai moral, serta menjaga identitas budaya agar tidak kehilangan arah di tengah perubahan yang cepat.</p>
+    <div class="lightBurst"></div>
+  </div>
+
+  <a href="sosiologi.html" class="back">← Menu Sebelumnya</a>
+</div>
+
+<script>
+function toggle(id){
+  document.getElementById(id).classList.toggle('show');
+}
+</script>
+</body>
+</html>
